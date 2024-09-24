@@ -7,9 +7,7 @@
     <cargoProject FILE="$PROJECT_DIR$/group29_backup/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="Commit di fra iniziale">
-      <change beforePath="$PROJECT_DIR$/group29_backup/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/Cargo.toml" afterDir="false" />
-    </list>
+    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="Commit di fra iniziale" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,6 +37,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
     "org.rust.first.attach.projects": "true",
     "org.rust.hideNoCargoProjectNotificationsC:/Users/frank/OneDrive/Desktop/Progetto Rust/Progetto/group29_backup/Cargo.toml": "true"
   }
