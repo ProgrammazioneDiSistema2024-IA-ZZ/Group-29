@@ -3,9 +3,6 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="ALL" />
   </component>
-  <component name="CargoProjects">
-    <cargoProject FILE="$PROJECT_DIR$/group29_backup/Cargo.toml" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="Commit di fra iniziale" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +49,7 @@
       <option name="presentableId" value="Default" />
       <updated>1727184795719</updated>
       <workItem from="1727184796801" duration="923000" />
-      <workItem from="1727185760285" duration="2181000" />
+      <workItem from="1727185760285" duration="1677000" />
     </task>
     <task id="LOCAL-00001" summary="Commit di fra iniziale">
       <option name="closed" value="true" />
