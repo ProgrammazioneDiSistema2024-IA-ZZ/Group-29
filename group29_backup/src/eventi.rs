@@ -1,4 +1,4 @@
-use rdev::{listen, Event};
+use rdev::{listen, Event, EventType};
 
 // Funzione per gestire gli eventi del mouse
 pub fn handle_mouse_events() {
@@ -9,14 +9,14 @@ pub fn handle_mouse_events() {
 
 // Funzione di callback per gestire diversi tipi di eventi
 fn callback(event: Event) {
-    match event {
-        Event::MouseMove { x, y } => {
+    match event.event_type {
+        EventType::MouseMove { x, y } => {
             println!("Mouse moved to: ({}, {})", x, y);
         }
-        Event::ButtonPress(button) => {
+        EventType::ButtonPress(button) => {
             println!("Mouse button pressed: {:?}", button);
         }
-        Event::ButtonRelease(button) => {
+        EventType::ButtonRelease(button) => {
             println!("Mouse button released: {:?}", button);
         }
         _ => (),
