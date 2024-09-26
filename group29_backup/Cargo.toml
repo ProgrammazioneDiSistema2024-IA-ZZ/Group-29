@@ -6,5 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rdev = "0.5"
-winit = "0.30.5"
+rdev = "0.5" # Libreria per tracciare gli eventi del mouse
+winit = "0.30.5" # Libreria per ottenere le dimensioni dello schermo
+rodio = "0.14"      # Libreria per la riproduzione di suoni
+
+
