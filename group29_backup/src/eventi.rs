@@ -23,6 +23,14 @@ fn callback(event: Event) {
     }
 }
 /* Versione senza premere il mouse
+   Check versione ->  controlla solo se tocca la parte superiore,inferiore e laterale e non la forma del tracciato
+                      -> Necessario controllare i valori del vettore in maniera sequenziale e vedere se:
+                      -> Caso superiore: Y: invariata(0) , X: 0->Max width
+                      -> Caso inferiore: Y: invariata(max height) , X-> 0->Max Width
+                      -> Caso laterale sinisto: Y: 0-> max height , X -> invariata(0)
+                      -> Caso laterale destro: Y: 0-> max height , X-> invariata(max width)
+                      In successione partendo dalla coordinata iniziale
+
 
     use rdev::{listen, Event, EventType};
     use winit::platform::windows::EventLoopExtWindows;

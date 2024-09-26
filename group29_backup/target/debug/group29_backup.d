@@ -1,0 +1,1 @@
+C:\Users\frank\OneDrive\Desktop\Progetto\ Rust\Progetto\group29_backup\target\debug\group29_backup.exe: C:\Users\frank\OneDrive\Desktop\Progetto\ Rust\Progetto\group29_backup\src\backup.rs C:\Users\frank\OneDrive\Desktop\Progetto\ Rust\Progetto\group29_backup\src\eventi.rs C:\Users\frank\OneDrive\Desktop\Progetto\ Rust\Progetto\group29_backup\src\main.rs
