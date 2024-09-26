@@ -7,10 +7,7 @@
     <cargoProject FILE="$PROJECT_DIR$/group29_backup/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="Commit di fra iniziale">
-      <change beforePath="$PROJECT_DIR$/group29_backup/src/eventi.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/eventi.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" afterDir="false" />
-    </list>
+    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="Dependencies aggiornate" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,21 +27,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.rust.reset.selective.auto.import&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/frank/OneDrive/Desktop/Progetto Rust/Progetto&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
-    &quot;org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon&quot;: &quot;&quot;,
-    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
-    &quot;org.rust.hideNoCargoProjectNotificationsC:/Users/frank/OneDrive/Desktop/Progetto Rust/Progetto/group29_backup/Cargo.toml&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.rust.reset.selective.auto.import": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Fabiano Vaglio/RustroverProjects/Group-29",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
+    "org.rust.first.attach.projects": "true",
+    "org.rust.hideNoCargoProjectNotificationsC:/Users/frank/OneDrive/Desktop/Progetto Rust/Progetto/group29_backup/Cargo.toml": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
   </component>
@@ -59,6 +59,7 @@
       <workItem from="1727184796801" duration="923000" />
       <workItem from="1727185760285" duration="1677000" />
       <workItem from="1727338593844" duration="785000" />
+      <workItem from="1727341741859" duration="843000" />
     </task>
     <task id="LOCAL-00001" summary="Commit di fra iniziale">
       <option name="closed" value="true" />
@@ -68,7 +69,23 @@
       <option name="project" value="LOCAL" />
       <updated>1727185957389</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Dependencies aggiornate">
+      <option name="closed" value="true" />
+      <created>1727341810432</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1727341810432</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Dependencies aggiornate">
+      <option name="closed" value="true" />
+      <created>1727341982358</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1727341982358</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -87,6 +104,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Commit di fra iniziale" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit di fra iniziale" />
+    <MESSAGE value="Dependencies aggiornate" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dependencies aggiornate" />
   </component>
 </project>

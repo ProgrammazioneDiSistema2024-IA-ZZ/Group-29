@@ -22,6 +22,7 @@ fn callback(event: Event) {
         _ => (),
     }
 }
+
 /* Versione senza premere il mouse
    Check versione ->  controlla solo se tocca la parte superiore,inferiore e laterale e non la forma del tracciato
                       -> Necessario controllare i valori del vettore in maniera sequenziale e vedere se:
