@@ -9,6 +9,7 @@ edition = "2021"
 [dependencies]
 rdev = "0.5"        # Libreria per la gestione dei dispositivi di input
 winit = "0.28"              # Libreria per ottenere le dimensioni dello schermo
-rodio = "0.14"      # Libreria per la riproduzione di suoni
-
-
+rodio = "0.14"
+serde = { version = "1.0.210", features = ["derive"] }
+toml = "0.8.19"      # Libreria per la riproduzione di suoni
+rfd = "0.10" 
