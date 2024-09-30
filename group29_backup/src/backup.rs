@@ -2,9 +2,10 @@ use serde::{Deserialize};
 use std::fs;
 use std::process::Command;
 use std::path::PathBuf;
-use native_dialog::MessageDialog;
+use rfd::MessageDialog;
 use std::ffi::OsStr;
 use crate::suoni::play_sound_backup_ok;
+use std::thread;
 
 // Struttura per la configurazione del backup
 #[derive(Debug, Deserialize)]
@@ -74,7 +75,6 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
 
             let entries: Vec<_> = fs::read_dir(&src_path)?.collect();
 
-
             for entry in entries {
                 let entry = entry?;
                 let path = entry.path();
@@ -107,12 +107,19 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
         },
     }
 
+    // Crea un nuovo thread per riprodurre il suono
+    let sound_thread = thread::spawn(|| {
+        play_sound_backup_ok();
+    });
+
+    // Mostra il messaggio
     MessageDialog::new()
         .set_title("Backup Completato")
-        .set_text("Il backup è stato completato con successo.")
-        .show_alert()
-        .unwrap();
+        .set_description("Il backup è stato completato con successo.")
+        .show();
 
+    // Aspetta che il thread del suono finisca
+    sound_thread.join().unwrap();
 
     Ok(())
 }

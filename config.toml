@@ -1,2 +1,2 @@
-source_path = "C:/Users/Fabiano Vaglio/RustroverProjects/Group-29/group29_backup"
-backup_type = { FileType = "txt" }
+source_path = "C:/Users/sagli/Desktop/uni/PROGRAMMAZIONE DI SISTEMA/SECONDA PARTE/Group-29/group29_backup"
+backup_type = { FileType = ".txt" }

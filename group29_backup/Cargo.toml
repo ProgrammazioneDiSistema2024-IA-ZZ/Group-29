@@ -12,5 +12,5 @@ winit = "0.28"              # Libreria per ottenere le dimensioni dello schermo
 rodio = "0.14"
 serde = { version = "1.0.210", features = ["derive"] }
 toml = "0.8.19"      # Libreria per la riproduzione di suoni
-native-dialog = "0.5"
-
+#native-dialog = "0.5"
+rfd = "0.12.0"
