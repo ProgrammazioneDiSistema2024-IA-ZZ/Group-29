@@ -50,6 +50,18 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
         play_sound_backup_error()?; // Riproduci il suono di errore
         return Err("Il percorso sorgente non è una directory".into());
     }
+    if !dest_path.exists() {
+        println!("Il percorso destinazione non esiste!");
+        play_sound_backup_error()?; // Riproduci il suono di errore
+        return Err("Percorso destinazione non esiste".into());
+    }
+
+    // Controllo se è una directory
+    if !dest_path.is_dir() {
+        println!("Il percorso destinazione non è una directory!");
+        play_sound_backup_error()?; // Riproduci il suono di errore
+        return Err("Il percorso destinazione non è una directory".into());
+    }
 
     // Crea la directory di destinazione se non esiste
     fs::create_dir_all(&dest_path)?;
