@@ -7,20 +7,20 @@ use std::ffi::OsStr;
 
 // Struttura per la configurazione del backup
 #[derive(Debug, Deserialize)]
-struct BackupConfig {
+pub struct BackupConfig {
     source_path: String,          // Percorso sorgente del backup
     backup_type: BackupType,      // Tipo di backup
 }
 
 #[derive(Debug, Deserialize)]
-enum BackupType {
+pub enum BackupType {
     FullFolder,                   // Backup completo della cartella
     FileType(String),              // Backup di un determinato tipo di file (es. ".txt")
 }
 
 impl BackupConfig {
     // Carica la configurazione da un file TOML
-    fn load_from_file(config_path: &str) -> Result<Self, Box<dyn std::error::Error>> {
+    pub fn load_from_file(config_path: &str) -> Result<Self, Box<dyn std::error::Error>> {
         let config_content = fs::read_to_string(config_path)?;
         let config: BackupConfig = toml::from_str(&config_content)?;
         Ok(config)
