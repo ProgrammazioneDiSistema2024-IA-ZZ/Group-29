@@ -3,7 +3,7 @@ use std::io::Cursor;
 use rodio::{Decoder, OutputStream, Sink};
 
 pub fn play_sound_backup_ok() -> Result<(), Box<dyn std::error::Error>> {
-    let file_path = "C:/Users/sagli/Desktop/uni/PROGRAMMAZIONE DI SISTEMA/SECONDA PARTE/Group-29/group29_backup/Suoni/successoBackup.wav";
+    let file_path = "Suoni/successoBackup.wav";
     // Inizializza il flusso di output
     let (_stream, stream_handle) = OutputStream::try_default()?;
 

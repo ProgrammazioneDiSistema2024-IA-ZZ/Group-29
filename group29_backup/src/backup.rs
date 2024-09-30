@@ -4,7 +4,7 @@ use std::process::Command;
 use std::path::PathBuf;
 use rfd::MessageDialog;
 use std::ffi::OsStr;
-use crate::suoni::play_sound_backup_ok;
+use crate::suoni::{play_sound_backup_ok, play_sound_backup_error};
 use std::thread;
 
 // Struttura per la configurazione del backup
@@ -40,12 +40,14 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
 
     if !src_path.exists() {
         println!("Il percorso sorgente non esiste!");
+        play_sound_backup_error()?; // Riproduci il suono di errore
         return Err("Percorso sorgente non esiste".into());
     }
 
     // Controllo se è una directory
     if !src_path.is_dir() {
         println!("Il percorso sorgente non è una directory!");
+        play_sound_backup_error()?; // Riproduci il suono di errore
         return Err("Il percorso sorgente non è una directory".into());
     }
 
@@ -65,6 +67,7 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
 
             if !output.status.success() {
                 println!("Errore durante la copia della cartella: {:?}", output);
+                play_sound_backup_error()?; // Riproduci il suono di errore
                 return Err("Errore durante il backup della cartella completa".into());
             }
 
@@ -93,6 +96,7 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
                         // Esegui la copia
                         if let Err(e) = fs::copy(&path, &dest_file) {
                             println!("Errore durante la copia del file {:?}: {:?}", path, e);
+                            play_sound_backup_error()?; // Riproduci il suono di errore
                             return Err("Errore durante la copia del file".into());
                         } else {
                             // Stampa un messaggio di conferma per la copia riuscita
@@ -107,9 +111,9 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
         },
     }
 
-    // Crea un nuovo thread per riprodurre il suono
+    // Crea un nuovo thread per riprodurre il suono di successo
     let sound_thread = thread::spawn(|| {
-        play_sound_backup_ok();
+        play_sound_backup_ok().unwrap(); // Gestisci eventuali errori di riproduzione
     });
 
     // Mostra il messaggio
