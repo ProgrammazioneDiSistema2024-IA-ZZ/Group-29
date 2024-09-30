@@ -9,20 +9,11 @@
     <cargoProject FILE="$PROJECT_DIR$/config/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="Dependencies aggiornate">
+    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="1st step backup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/src/backup.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/backup.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup.json" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.d" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.d" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.exe" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.pdb" afterDir="false" />
     </list>
@@ -98,7 +89,7 @@
       <workItem from="1727338593844" duration="785000" />
       <workItem from="1727341741859" duration="843000" />
       <workItem from="1727449843930" duration="2224000" />
-      <workItem from="1727681713247" duration="2218000" />
+      <workItem from="1727681713247" duration="4661000" />
     </task>
     <task id="LOCAL-00001" summary="Commit di fra iniziale">
       <option name="closed" value="true" />
@@ -124,7 +115,23 @@
       <option name="project" value="LOCAL" />
       <updated>1727341982358</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="1st step backup">
+      <option name="closed" value="true" />
+      <created>1727684054344</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1727684054344</updated>
+    </task>
+    <task id="LOCAL-00005" summary="1st step backup">
+      <option name="closed" value="true" />
+      <created>1727685034820</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1727685034820</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,6 +151,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Commit di fra iniziale" />
     <MESSAGE value="Dependencies aggiornate" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dependencies aggiornate" />
+    <MESSAGE value="1st step backup" />
+    <option name="LAST_COMMIT_MESSAGE" value="1st step backup" />
   </component>
 </project>
