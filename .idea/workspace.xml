@@ -9,11 +9,18 @@
     <cargoProject FILE="$PROJECT_DIR$/config/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="1st step backup">
+    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="2st step backup success. &#10;Controlli sulla directory&#10;Messaggi sui tipi di file e le loro estensioni">
+      <change afterPath="$PROJECT_DIR$/group29_backup/src/suoni.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/src/backup.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/backup.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/dep-bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/dep-bin-group29_backup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.d" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.d" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.exe" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.pdb" afterDir="false" />
     </list>
@@ -23,6 +30,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:dev" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Rust File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <favorite-branches>
       <branch-storage>
@@ -89,7 +103,7 @@
       <workItem from="1727338593844" duration="785000" />
       <workItem from="1727341741859" duration="843000" />
       <workItem from="1727449843930" duration="2224000" />
-      <workItem from="1727681713247" duration="4661000" />
+      <workItem from="1727681713247" duration="6504000" />
     </task>
     <task id="LOCAL-00001" summary="Commit di fra iniziale">
       <option name="closed" value="true" />
@@ -131,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727685034820</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="2st step backup success. &#10;Controlli sulla directory&#10;Messaggi sui tipi di file e le loro estensioni">
+      <option name="closed" value="true" />
+      <created>1727687851752</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1727687851752</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,6 +174,7 @@
     <MESSAGE value="Commit di fra iniziale" />
     <MESSAGE value="Dependencies aggiornate" />
     <MESSAGE value="1st step backup" />
-    <option name="LAST_COMMIT_MESSAGE" value="1st step backup" />
+    <MESSAGE value="2st step backup success. &#10;Controlli sulla directory&#10;Messaggi sui tipi di file e le loro estensioni" />
+    <option name="LAST_COMMIT_MESSAGE" value="2st step backup success. &#10;Controlli sulla directory&#10;Messaggi sui tipi di file e le loro estensioni" />
   </component>
 </project>
