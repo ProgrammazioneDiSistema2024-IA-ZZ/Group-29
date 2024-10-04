@@ -1,3 +1,4 @@
+use std::thread;
 use crate::eventi::check_movement;
 
 mod eventi;
@@ -12,6 +13,12 @@ fn main() {
 
     println!("Screen size: {}x{}", screen_width, screen_height);
 
-    // Inizia il monitoraggio del movimento del mouse
-    check_movement(screen_width, screen_height);
+    thread::spawn(move|| {
+        check_movement(screen_width,screen_height);
+    });
+
+    event_loop.run(move |_event, _, control_flow| {
+        *control_flow = winit::event_loop::ControlFlow::Wait; // Aspetta gli eventi
+    });
+
 }
