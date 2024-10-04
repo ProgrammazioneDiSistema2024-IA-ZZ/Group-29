@@ -346,6 +346,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                     }
                     Border::Left => {
                         if (x.abs() < tolerance) && prev_y >= y && y > 0.0 {
+                            println!("x:{},y:{},initialx:{},initialy:{}",x,y,initial_x,initial_y);
                             if (x == initial_x) && (y == initial_y) {
                                 println!("Rectangle completed!");
                             }else {
