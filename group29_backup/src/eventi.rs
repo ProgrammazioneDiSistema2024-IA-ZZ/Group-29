@@ -239,7 +239,7 @@ fn is_in_corner(x: f64, y: f64, screen_width: u32, screen_height: u32) -> bool {
 
 // Funzione principale per monitorare il movimento del mouse
 pub fn check_movement(screen_width: u32, screen_height: u32) {
-    let tolerance = 20.0; // Tolleranza di 5 pixel
+    let tolerance = 50.0; // Tolleranza di 5 pixel
     let mut is_rectangle = false;
     let mut prev_x = 0.0;
     let mut prev_y = 0.0;
@@ -347,7 +347,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                     Border::Left => {
                         if (x.abs() < tolerance) && prev_y >= y && y > 0.0 {
                             println!("x:{},y:{},initialx:{},initialy:{}",x,y,initial_x,initial_y);
-                            if (x == initial_x) && (y == initial_y) {
+                            if (x>= initial_x - tolerance && x <= initial_x+tolerance) && (y>= initial_y - tolerance && y <= initial_y+tolerance) {
                                 println!("Rectangle completed!");
                             }else {
                                 println!("Left border match!");
