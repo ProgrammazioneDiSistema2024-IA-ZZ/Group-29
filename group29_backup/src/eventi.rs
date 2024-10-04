@@ -24,7 +24,7 @@
 
  */
 
-use std::cmp::PartialEq;
+/*use std::cmp::PartialEq;
 use winit::{
     event::{Event, WindowEvent},
     event_loop::ControlFlow,
@@ -57,7 +57,7 @@ fn is_in_corner(x: f64, y: f64, screen_width: u32, screen_height: u32) -> bool {
 
 
 
-fn check_movement(){
+pub fn check_movement(){
     let mut event_loop = winit::event_loop::EventLoop::new();
     let window = winit::window::WindowBuilder::new().build(&event_loop).unwrap();
 
@@ -207,4 +207,172 @@ fn check_movement(){
             _ => (),
         }
     });
+}*/
+
+use rdev::{listen, Event};  // Importa rdev per ascoltare gli eventi globali del mouse
+use std::sync::{Arc, Mutex};
+
+use winit::event_loop::EventLoop;
+
+enum Border {
+    None,
+    Top,
+    Right,
+    Bottom,
+    Left,
 }
+
+#[derive(PartialEq)]
+enum Direction {
+    Unknown,
+    Clockwise,       // Movimento in senso orario
+    CounterClockwise, // Movimento in senso antiorario
+}
+
+// Funzione per verificare se il mouse è in un angolo dello schermo
+fn is_in_corner(x: f64, y: f64, screen_width: u32, screen_height: u32) -> bool {
+    let tolerance = 5.0; // Tolleranza di 5 pixel
+    (x.abs() < tolerance && y.abs() < tolerance) ||                               // Top-left corner
+        ((x - screen_width as f64).abs() < tolerance && y.abs() < tolerance) ||   // Top-right corner
+        (x.abs() < tolerance && (y - screen_height as f64).abs() < tolerance) ||  // Bottom-left corner
+        ((x - screen_width as f64).abs() < tolerance && (y - screen_height as f64).abs() < tolerance)  // Bottom-right corner
+}
+
+// Funzione principale per monitorare il movimento del mouse
+pub fn check_movement(screen_width: u32, screen_height: u32) {
+    let is_rectangle = Arc::new(Mutex::new(false));
+    let prev_x = Arc::new(Mutex::new(0.0));
+    let prev_y = Arc::new(Mutex::new(0.0));
+    let current_border = Arc::new(Mutex::new(Border::None));
+    let direction = Arc::new(Mutex::new(Direction::Unknown));
+    let corner_reached = Arc::new(Mutex::new(false));
+
+    let is_rectangle_clone = Arc::clone(&is_rectangle);
+    let prev_x_clone = Arc::clone(&prev_x);
+    let prev_y_clone = Arc::clone(&prev_y);
+    let current_border_clone = Arc::clone(&current_border);
+    let direction_clone = Arc::clone(&direction);
+    let corner_reached_clone = Arc::clone(&corner_reached);
+
+    // Ascolta eventi del mouse con rdev
+    listen(move |event: Event| {
+        match event {
+            Event::MouseMove { x, y } => {
+                let mut is_rectangle = is_rectangle_clone.lock().unwrap();
+                let mut prev_x = prev_x_clone.lock().unwrap();
+                let mut prev_y = prev_y_clone.lock().unwrap();
+                let mut current_border = current_border_clone.lock().unwrap();
+                let mut direction = direction_clone.lock().unwrap();
+                let mut corner_reached = corner_reached_clone.lock().unwrap();
+
+                if is_in_corner(x, y, screen_width, screen_height) {
+                    if !*corner_reached {
+                        // Primo movimento in un angolo
+                        *is_rectangle = true;
+                        *prev_x = x;
+                        *prev_y = y;
+                        *corner_reached = true;
+                        println!("Mouse in corner, waiting for direction");
+
+                    } else if *corner_reached && *direction == Direction::Unknown {
+                        // Secondo movimento: determinare la direzione
+                        if x != *prev_x && y == *prev_y {
+                            // Movimento lungo l'asse x (bordo superiore)
+                            *direction = Direction::Clockwise;
+                            *current_border = Border::Top;
+                            println!("Clockwise -> Moving to Top Border");
+                        } else if y != *prev_y && x == *prev_x {
+                            // Movimento lungo l'asse y (bordo sinistro)
+                            *direction = Direction::CounterClockwise;
+                            *current_border = Border::Left;
+                            println!("CounterClockwise -> Moving to Left Border");
+                        }
+
+                        *prev_x = x;
+                        *prev_y = y;
+                    }
+                } else if *is_rectangle && *direction != Direction::Unknown {
+                    // Movimento lungo i bordi, controlla i bordi in base alla direzione
+
+                    match *current_border {
+                        Border::Top => {
+                            if y == 0.0 && *prev_x < x && x < screen_width as f64 {
+                                println!("Top border match!");
+                                *prev_x = x;
+                            } else {
+                                *is_rectangle = false;
+                                println!("Failed top border check, stopping...");
+                            }
+
+                            if x == screen_width as f64 && y == 0.0 {
+                                *current_border = if let Direction::Clockwise = *direction {
+                                    Border::Right
+                                } else {
+                                    Border::Left
+                                };
+                                println!("Switching to Right Border");
+                            }
+                        }
+                        Border::Right => {
+                            if x == screen_width as f64 && *prev_y < y && y < screen_height as f64 {
+                                println!("Right border match!");
+                                *prev_y = y;
+                            } else {
+                                *is_rectangle = false;
+                                println!("Failed right border check, stopping...");
+                            }
+
+                            if y == screen_height as f64 && x == screen_width as f64 {
+                                *current_border = if let Direction::Clockwise = *direction {
+                                    Border::Bottom
+                                } else {
+                                    Border::Top
+                                };
+                                println!("Switching to Bottom Border");
+                            }
+                        }
+                        Border::Bottom => {
+                            if y == screen_height as f64 && *prev_x > x && x > 0.0 {
+                                println!("Bottom border match!");
+                                *prev_x = x;
+                            } else {
+                                *is_rectangle = false;
+                                println!("Failed bottom border check, stopping...");
+                            }
+
+                            if x == 0.0 && y == screen_height as f64 {
+                                *current_border = if let Direction::Clockwise = *direction {
+                                    Border::Left
+                                } else {
+                                    Border::Right
+                                };
+                                println!("Switching to Left Border");
+                            }
+                        }
+                        Border::Left => {
+                            if x == 0.0 && *prev_y > y && y > 0.0 {
+                                println!("Left border match!");
+                                *prev_y = y;
+                            } else {
+                                *is_rectangle = false;
+                                println!("Failed left border check, stopping...");
+                            }
+
+                            if x == 0.0 && y == 0.0 {
+                                println!("Rectangle completed!");
+                            }
+                        }
+                        Border::None => {
+                            println!("Not on a valid border");
+                        }
+                    }
+                } else {
+                    println!("Mouse moved, but not in a corner or direction not set.");
+                }
+            }
+            _ => (),
+        }
+    })
+        .unwrap();
+}
+

@@ -7,7 +7,7 @@ edition = "2021"
 
 
 [dependencies]
-rdev = "0.5"        # Libreria per la gestione dei dispositivi di input
+rdev = "0.5.3"        # Libreria per la gestione dei dispositivi di input
 winit = "0.28"              # Libreria per ottenere le dimensioni dello schermo
 rodio = "0.14"      # Libreria per la riproduzione di suoni
 
