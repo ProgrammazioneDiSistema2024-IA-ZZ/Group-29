@@ -230,7 +230,7 @@ enum Direction {
 
 // Funzione per verificare se il mouse è in un angolo dello schermo
 fn is_in_corner(x: f64, y: f64, screen_width: u32, screen_height: u32) -> bool {
-    let tolerance = 5.0; // Tolleranza di 5 pixel
+    let tolerance = 20.0; // Tolleranza di 5 pixel
     (x.abs() < tolerance && y.abs() < tolerance) ||                               // Top-left corner
         ((x - screen_width as f64).abs() < tolerance && y.abs() < tolerance) ||   // Top-right corner
         (x.abs() < tolerance && (y - screen_height as f64).abs() < tolerance) ||  // Bottom-left corner
@@ -239,12 +239,15 @@ fn is_in_corner(x: f64, y: f64, screen_width: u32, screen_height: u32) -> bool {
 
 // Funzione principale per monitorare il movimento del mouse
 pub fn check_movement(screen_width: u32, screen_height: u32) {
+    let tolerance = 20.0; // Tolleranza di 5 pixel
     let mut is_rectangle = false;
     let mut prev_x = 0.0;
     let mut prev_y = 0.0;
     let mut current_border = Border::None;
     let mut direction = Direction::Unknown;
     let mut corner_reached = false;
+    let mut initial_x=0.0;;
+    let mut initial_y=0.0;
 
     // Ascolta eventi del mouse con rdev
     if let Err(err) = listen(move |event: Event| {
@@ -253,6 +256,8 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                 if !corner_reached {
                     // Primo movimento in un angolo
                     is_rectangle = true;
+                    initial_x = x;
+                    initial_y = y;
                     prev_x = x;
                     prev_y = y;
                     corner_reached = true;
@@ -279,78 +284,91 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
 
                 match current_border {
                     Border::Top => {
-                        if y == 0.0 && prev_x < x && x < screen_width as f64 {
-                            println!("Top border match!");
+                        if (y.abs() < tolerance)  && (prev_x <= x && x < (screen_width as f64)) {
+                            println!("Previous x is:{}",prev_x);
+                            println!("Top border match!({}),({})", x, y);
                             prev_x = x;
                         } else {
-                            is_rectangle = false;
-                            println!("Failed top border check, stopping...");
+                            if (x - screen_width as f64).abs() < tolerance && (y.abs() <= tolerance) {
+                                current_border = if let Direction::Clockwise = direction {
+                                    Border::Right
+                                } else {
+                                    Border::Left
+                                };
+                                println!("Switching to Right Border");
+                            }else {
+                                is_rectangle = false;
+                                println!("Failed top border check ({}),({}), stopping...", x, y);
+                            }
                         }
 
-                        if x == screen_width as f64 && y == 0.0 {
-                            current_border = if let Direction::Clockwise = direction {
-                                Border::Right
-                            } else {
-                                Border::Left
-                            };
-                            println!("Switching to Right Border");
-                        }
+
                     }
                     Border::Right => {
-                        if x == screen_width as f64 && prev_y < y && y < screen_height as f64 {
+                        if (x - screen_width as f64).abs() < tolerance && prev_y <= y && y < (screen_height as f64) {
                             println!("Right border match!");
                             prev_y = y;
                         } else {
-                            is_rectangle = false;
-                            println!("Failed right border check, stopping...");
+                            if (y - screen_height as f64).abs() < tolerance && (x - screen_width as f64).abs() <= tolerance {
+                                current_border = if let Direction::Clockwise = direction {
+                                    Border::Bottom
+                                } else {
+                                    Border::Top
+                                };
+                                println!("Switching to Bottom Border");
+                            }else {
+                                is_rectangle = false;
+                                println!("Failed right border check, stopping...");
+                            }
                         }
 
-                        if y == screen_height as f64 && x == screen_width as f64 {
-                            current_border = if let Direction::Clockwise = direction {
-                                Border::Bottom
-                            } else {
-                                Border::Top
-                            };
-                            println!("Switching to Bottom Border");
-                        }
+
                     }
                     Border::Bottom => {
-                        if y == screen_height as f64 && prev_x > x && x > 0.0 {
+                        if (y - screen_height as f64).abs() < tolerance && prev_x >= x && x > 0.0 {
                             println!("Bottom border match!");
                             prev_x = x;
                         } else {
-                            is_rectangle = false;
-                            println!("Failed bottom border check, stopping...");
+                            if (x.abs() < tolerance) && (y - screen_height as f64).abs() <= tolerance {
+                                current_border = if let Direction::Clockwise = direction {
+                                    Border::Left
+                                } else {
+                                    Border::Right
+                                };
+                                println!("Switching to Left Border");
+                            }else {
+                                is_rectangle = false;
+                                println!("Failed bottom border check, stopping...");
+                            }
                         }
 
-                        if x == 0.0 && y == screen_height as f64 {
-                            current_border = if let Direction::Clockwise = direction {
-                                Border::Left
-                            } else {
-                                Border::Right
-                            };
-                            println!("Switching to Left Border");
-                        }
+
                     }
                     Border::Left => {
-                        if x == 0.0 && prev_y > y && y > 0.0 {
-                            println!("Left border match!");
-                            prev_y = y;
+                        if (x.abs() < tolerance) && prev_y >= y && y > 0.0 {
+                            if (x == initial_x) && (y == initial_y) {
+                                println!("Rectangle completed!");
+                            }else {
+                                println!("Left border match!");
+                                prev_y = y;
+                            }
                         } else {
                             is_rectangle = false;
                             println!("Failed left border check, stopping...");
+
                         }
 
-                        if x == 0.0 && y == 0.0 {
-                            println!("Rectangle completed!");
-                        }
+
                     }
                     Border::None => {
                         println!("Not on a valid border");
                     }
                 }
             } else {
-                println!("Mouse moved, but not in a corner or direction not set.");
+                direction = Direction::Unknown;
+                current_border = Border::None;
+                corner_reached = false;
+                println!("Mouse moved ({}),({}), but not in a corner or direction not set.", x, y);
             }
         }
     }) {
