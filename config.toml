@@ -1,3 +1,3 @@
 #source_path = "C:/Users/Fabiano Vaglio/RustroverProjects/Group-29/group29_backup"
-#backup_type = { FileType = "txt" }
-backup_type = { FullFolder = true }
+backup_type = { FileType = "txt" }
+#backup_type = { FullFolder = true }

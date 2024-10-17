@@ -189,23 +189,33 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
 
 // Funzione ricorsiva per copiare una directory in modo parallelo con controllo del numero di thread
 fn copy_directory_parallel(src: &PathBuf, dst: &PathBuf) -> io::Result<()> {
+    // Crea la directory di destinazione se non esiste
     if !dst.exists() {
         fs::create_dir_all(dst)?;
     }
 
+    // Leggi tutte le voci nella directory sorgente
     let entries: Vec<_> = fs::read_dir(src)?
         .map(|entry| entry.unwrap())
         .collect();
 
+    // Usa rayon per parallelizzare la copia dei file
     entries.par_iter().for_each(|entry| {
         let src_path = entry.path();
         let dst_path = dst.join(entry.file_name());
 
         if src_path.is_dir() {
+            // Se l'elemento è una directory, copia ricorsivamente
             copy_directory_parallel(&src_path, &dst_path).unwrap();
         } else {
-            fs::copy(&src_path, &dst_path).unwrap();
-            println!("Copia del file: {:?} in {:?}", src_path, dst_path);
+            // Se l'elemento è un file, controlla se esiste già nella destinazione
+            if dst_path.exists() {
+                println!("Il file esiste già: {:?}, ignorato.", dst_path);
+            } else {
+                // Se non esiste, copia il file
+                fs::copy(&src_path, &dst_path).unwrap();
+                println!("Copia del file: {:?} in {:?}", src_path, dst_path);
+            }
         }
     });
 
