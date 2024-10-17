@@ -309,15 +309,15 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                 } else if (x != prev_x && y ==prev_y&& (corner == Corner::TopRight || corner == Corner::BottomLeft)) ||
                     (x == prev_x && y != prev_y && (corner == Corner::TopLeft || corner == Corner::BottomRight)){
 
-                    direction = Direction::CounterClockwise;
-                    match initial_corner{
-                        Corner::TopLeft => current_border = Border::Left,
-                        Corner::TopRight =>  current_border = Border::Top,
-                        Corner::BottomLeft => current_border = Border::Bottom,
-                        Corner::BottomRight => current_border = Border::Right,
-                        Corner::None => println!("No corner detected yet"),
-                    }
-                    println!("CounterClockwise -> Moving to {:?}", current_border);
+                        direction = Direction::CounterClockwise;
+                        match initial_corner{
+                            Corner::TopLeft => current_border = Border::Left,
+                            Corner::TopRight =>  current_border = Border::Top,
+                            Corner::BottomLeft => current_border = Border::Bottom,
+                            Corner::BottomRight => current_border = Border::Right,
+                            Corner::None => println!("No corner detected yet"),
+                        }
+                        println!("CounterClockwise -> Moving to {:?}", current_border);
                 }
 
                 prev_x = x;
@@ -403,7 +403,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                                 }
                             }
                             Direction::CounterClockwise => {
-                                if (x - screen_width as f64).abs() < tolerance && prev_y >= y && y > (screen_height as f64){
+                                if (x - screen_width as f64).abs() < tolerance && prev_y >= y && y > (0f64){
                                     println!("Right border match!");
                                     prev_y = y;
                                 }else{
@@ -452,7 +452,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                             }
                             Direction::CounterClockwise => {
 
-                                if (y - screen_height as f64).abs() < tolerance && prev_x <= x && x < 0.0 {
+                                if (y - screen_height as f64).abs() < tolerance && prev_x <= x && x < screen_width as f64 {
                                     println!("Bottom border match!");
                                     prev_x = x;
                                 } else {
@@ -505,7 +505,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                                 }
                             }
                             Direction::CounterClockwise => {
-                                if (x.abs() < tolerance) && prev_y <= y && y > 0.0 {
+                                if (x.abs() < tolerance) && prev_y <= y && y < screen_height as f64 {
                                     println!("Left border match!");
                                     prev_y = y;
                                 } else {
