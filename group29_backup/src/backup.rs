@@ -21,8 +21,8 @@ pub struct BackupConfig {
 
 #[derive(Debug, Deserialize)]
 pub enum BackupType {
-    FullFolder,                   // Backup completo della cartella
-    FileType(String),              // Backup di un determinato tipo di file (es. ".txt")
+    FullFolder(bool),             // Backup completo della cartella
+    FileType(String),             // Backup di un determinato tipo di file (es. ".txt")
 }
 
 impl BackupConfig {
@@ -59,7 +59,7 @@ fn log_backup_info(total_size: u64, cpu_usage: f32) -> Result<(), Box<dyn std::e
 
     writeln!(
         file,
-        "Backup completato:\nDimensione totale dei file: {} bytes\nTempo CPU utilizzato: {:.2}%",
+        "Backup completato:\nDimensione totale dei file: {} bytes\nUtilizzo medio della CPU: {:.2}%",
         total_size, cpu_usage
     )?;
 
@@ -86,6 +86,7 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
         play_sound_backup_error()?; // Riproduci il suono di errore
         return Err("Il percorso sorgente non è una directory".into());
     }
+
     if !dest_path.exists() {
         println!("Il percorso destinazione non esiste!");
         play_sound_backup_error()?; // Riproduci il suono di errore
@@ -109,31 +110,17 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
 
     println!("Inizio il processo di backup...");
 
-    match config.backup_type {
-        BackupType::FullFolder => {
+    match &config.backup_type {
+        BackupType::FullFolder(true) => {
             println!("Eseguendo un backup completo della cartella...");
-            let output = Command::new("cp")
-                .arg("-r")
-                .arg(&src_path)
-                .arg(&dest_path)
-                .output()?;
-
-            if !output.status.success() {
-                println!("Errore durante la copia della cartella: {:?}", output);
-                play_sound_backup_error()?; // Riproduci il suono di errore
-                return Err("Errore durante il backup della cartella completa".into());
-            }
+            copy_directory(&src_path, &dest_path)?;
 
             total_size = calculate_total_size(&src_path); // Calcola la dimensione dei file
-
-            println!("Backup della cartella completato: {:?}", output);
         },
-        BackupType::FileType(ref ext) => {
+        BackupType::FileType(ext) => {
             println!("Eseguendo backup solo per file di tipo: {}", ext);
 
-            let entries: Vec<_> = fs::read_dir(&src_path)?.collect();
-
-            for entry in entries {
+            for entry in fs::read_dir(&src_path)? {
                 let entry = entry?;
                 let path = entry.path();
 
@@ -159,9 +146,8 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
                     }
                 }
             }
-            println!("Backup per file {} completato", ext);
+            println!("Backup per file di tipo {} completato", ext);
         },
-        // Caso di fallback, se FullFolder è false non fa nulla
         _ => {
             println!("Nessun backup eseguito. Configurazione errata.");
             play_sound_backup_error()?; // Riproduci il suono di errore
@@ -198,23 +184,24 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
 
 // Funzione ricorsiva per copiare una directory
 fn copy_directory(src: &PathBuf, dst: &PathBuf) -> io::Result<()> {
-// Crea la directory di destinazione se non esiste
+    // Crea la directory di destinazione se non esiste
     if !dst.exists() {
-    fs::create_dir_all(dst)?;
+        fs::create_dir_all(dst)?;
     }
+
     // Leggi tutte le voci nella directory sorgente
     for entry in fs::read_dir(src)? {
-    let entry = entry?;
-    let src_path = entry.path();
-    let dst_path = dst.join(entry.file_name());
-    if src_path.is_dir() {
-    // Se l'elemento è una directory, copia ricorsivamente
-    copy_directory(&src_path, &dst_path)?;
+        let entry = entry?;
+        let src_path = entry.path();
+        let dst_path = dst.join(entry.file_name());
+        if src_path.is_dir() {
+            // Se l'elemento è una directory, copia ricorsivamente
+            copy_directory(&src_path, &dst_path)?;
+        } else {
+            // Se l'elemento è un file, copialo
+            fs::copy(&src_path, &dst_path)?;
+            println!("Copia del file: {:?} in {:?}", src_path, dst_path);
+        }
     }
-    else {            // Se l'elemento è un file, copialo
-    fs::copy(&src_path, &dst_path)?;
-    println!("Copia del file: {:?} in {:?}", src_path, dst_path);
-    }
-    }
-Ok(())
+    Ok(())
 }
