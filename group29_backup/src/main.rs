@@ -1,6 +1,7 @@
 mod eventi;
 mod backup;
 mod suoni;
+mod gui_backup;
 
 use std::env;
 use std::path::{PathBuf, Path};

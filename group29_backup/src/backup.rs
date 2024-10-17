@@ -131,6 +131,7 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
             total_size = calculate_total_size(&src_path); // Calcola la dimensione dei file
         },
         BackupType::FileType(ext) => {
+
             println!("Eseguendo backup solo per file di tipo: {}", ext);
 
             for entry in fs::read_dir(&src_path)? {
