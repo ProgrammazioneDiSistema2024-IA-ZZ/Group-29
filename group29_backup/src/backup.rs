@@ -9,7 +9,7 @@ use std::thread;
 use sysinfo::{System, SystemExt, CpuExt}; // Per raccogliere informazioni sul sistema e CPU
 use std::time::Instant;
 use std::fs::OpenOptions;
-use std::io::Write;
+use std::io;
 
 // Struttura per la configurazione del backup
 #[derive(Debug, Deserialize)]
@@ -160,6 +160,12 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
             }
             println!("Backup per file {} completato", ext);
         },
+        // Caso di fallback, se FullFolder è false non fa nulla
+        _ => {
+            println!("Nessun backup eseguito. Configurazione errata.");
+            play_sound_backup_error()?; // Riproduci il suono di errore
+            return Err("Configurazione backup errata".into());
+        }
     }
 
     // Calcola il tempo CPU e totale impiegato
@@ -187,4 +193,27 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
     sound_thread.join().unwrap();
 
     Ok(())
+}
+
+// Funzione ricorsiva per copiare una directory
+fn copy_directory(src: &PathBuf, dst: &PathBuf) -> io::Result<()> {
+// Crea la directory di destinazione se non esiste
+    if !dst.exists() {
+    fs::create_dir_all(dst)?;
+    }
+    // Leggi tutte le voci nella directory sorgente
+    for entry in fs::read_dir(src)? {
+    let entry = entry?;
+    let src_path = entry.path();
+    let dst_path = dst.join(entry.file_name());
+    if src_path.is_dir() {
+    // Se l'elemento è una directory, copia ricorsivamente
+    copy_directory(&src_path, &dst_path)?;
+    }
+    else {            // Se l'elemento è un file, copialo
+    fs::copy(&src_path, &dst_path)?;
+    println!("Copia del file: {:?} in {:?}", src_path, dst_path);
+    }
+    }
+Ok(())
 }
