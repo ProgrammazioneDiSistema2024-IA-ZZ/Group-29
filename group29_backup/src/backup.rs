@@ -6,6 +6,10 @@ use rfd::MessageDialog;
 use std::ffi::OsStr;
 use crate::suoni::{play_sound_backup_ok, play_sound_backup_error};
 use std::thread;
+use sysinfo::{System, SystemExt, CpuExt}; // Per raccogliere informazioni sul sistema e CPU
+use std::time::Instant;
+use std::fs::OpenOptions;
+use std::io::Write;
 
 // Struttura per la configurazione del backup
 #[derive(Debug, Deserialize)]
@@ -29,6 +33,38 @@ impl BackupConfig {
     }
 }
 
+// Funzione per calcolare la dimensione totale dei file in un percorso
+fn calculate_total_size(path: &PathBuf) -> u64 {
+    let mut total_size = 0;
+
+    // Itera sui file per calcolare la dimensione totale
+    if path.is_dir() {
+        for entry in fs::read_dir(path).unwrap() {
+            let entry = entry.unwrap();
+            let metadata = entry.metadata().unwrap();
+            total_size += metadata.len();
+        }
+    }
+    total_size
+}
+
+// Funzione per loggare dimensione totale e tempo CPU su un file di log
+fn log_backup_info(total_size: u64, cpu_usage: f32) -> Result<(), Box<dyn std::error::Error>> {
+    let log_path = "backup_log.txt";
+    let mut file = OpenOptions::new()
+        .append(true)
+        .create(true)
+        .open(log_path)?;
+
+    writeln!(
+        file,
+        "Backup completato:\nDimensione totale dei file: {} bytes\nTempo CPU utilizzato: {:.2}%",
+        total_size, cpu_usage
+    )?;
+
+    Ok(())
+}
+
 // Funzione per eseguire il backup
 pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Box<dyn std::error::Error>> {
     let src_path = PathBuf::from(&config.source_path);
@@ -44,7 +80,6 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
         return Err("Percorso sorgente non esiste".into());
     }
 
-    // Controllo se è una directory
     if !src_path.is_dir() {
         println!("Il percorso sorgente non è una directory!");
         play_sound_backup_error()?; // Riproduci il suono di errore
@@ -56,15 +91,20 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
         return Err("Percorso destinazione non esiste".into());
     }
 
-    // Controllo se è una directory
     if !dest_path.is_dir() {
         println!("Il percorso destinazione non è una directory!");
         play_sound_backup_error()?; // Riproduci il suono di errore
         return Err("Il percorso destinazione non è una directory".into());
     }
 
+    // Inizia a misurare il tempo CPU
+    let mut system = System::new_all();
+    let start = Instant::now(); // Misura il tempo di inizio
+
     // Crea la directory di destinazione se non esiste
     fs::create_dir_all(&dest_path)?;
+
+    let mut total_size = 0; // Variabile per tracciare la dimensione totale dei file copiati
 
     println!("Inizio il processo di backup...");
 
@@ -83,6 +123,8 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
                 return Err("Errore durante il backup della cartella completa".into());
             }
 
+            total_size = calculate_total_size(&src_path); // Calcola la dimensione dei file
+
             println!("Backup della cartella completato: {:?}", output);
         },
         BackupType::FileType(ref ext) => {
@@ -97,10 +139,6 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
                 if let Some(file_ext) = path.extension() {
                     let file_ext_str = file_ext.to_str().unwrap_or("");
 
-                    // Stampa il nome e l'estensione del file
-                    println!("File trovato: {:?}", path.file_name());
-                    println!("Estensione file: {:?}", file_ext_str);
-
                     if file_ext_str == ext {
                         let dest_file = dest_path.join(entry.file_name());
                         println!("Copia del file: {:?} in {:?}", path, dest_file);
@@ -111,7 +149,8 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
                             play_sound_backup_error()?; // Riproduci il suono di errore
                             return Err("Errore durante la copia del file".into());
                         } else {
-                            // Stampa un messaggio di conferma per la copia riuscita
+                            // Calcola la dimensione del file copiato
+                            total_size += entry.metadata()?.len();
                             println!("Copia riuscita di: {:?} in {:?}", path, dest_file);
                         }
                     } else {
@@ -123,12 +162,22 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
         },
     }
 
+    // Calcola il tempo CPU e totale impiegato
+    system.refresh_cpu();
+    let cpu_usage = system.global_cpu_info().cpu_usage(); // Ottieni il consumo globale di CPU
+    let duration = start.elapsed(); // Ottieni il tempo totale impiegato
+
+    println!("Backup completato in: {:?}", duration);
+
+    // Crea il log con le informazioni del backup
+    log_backup_info(total_size, cpu_usage)?;
+
     // Crea un nuovo thread per riprodurre il suono di successo
     let sound_thread = thread::spawn(|| {
         play_sound_backup_ok().unwrap(); // Gestisci eventuali errori di riproduzione
     });
 
-    // Mostra il messaggio
+    // Mostra il messaggio di completamento
     MessageDialog::new()
         .set_title("Backup Completato")
         .set_description("Il backup è stato completato con successo.")
