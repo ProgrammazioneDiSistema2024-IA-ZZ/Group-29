@@ -1,20 +1,19 @@
 use serde::{Deserialize};
-use std::fs;
-use std::path::PathBuf;
+use std::{env, fs};
+use std::path::{PathBuf, Path};
 use rfd::MessageDialog;
 use crate::suoni::{play_sound_backup_ok, play_sound_backup_error};
 use std::thread;
-use sysinfo::{System, SystemExt, CpuExt}; // Per raccogliere informazioni sul sistema e CPU
+use sysinfo::{System, SystemExt, CpuExt};
 use std::time::Instant;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::io;
-use rayon::prelude::*; // Importa Rayon per il parallelismo
+use rayon::prelude::*;
 
 // Struttura per la configurazione del backup
 #[derive(Debug, Deserialize)]
 pub struct BackupConfig {
-    source_path: String,          // Percorso sorgente del backup
     backup_type: BackupType,      // Tipo di backup
 }
 
@@ -33,11 +32,19 @@ impl BackupConfig {
     }
 }
 
+// Funzione per trovare la directory superiore (ad esempio, "Group-29")
+fn find_project_root(start_path: &Path, project_name: &str) -> Option<PathBuf> {
+    for ancestor in start_path.ancestors() {
+        if ancestor.ends_with(project_name) {
+            return Some(ancestor.to_path_buf());
+        }
+    }
+    None
+}
+
 // Funzione per calcolare la dimensione totale dei file in un percorso
 fn calculate_total_size(path: &PathBuf) -> u64 {
     let mut total_size = 0;
-
-    // Itera sui file per calcolare la dimensione totale
     if path.is_dir() {
         for entry in fs::read_dir(path).unwrap() {
             let entry = entry.unwrap();
@@ -67,7 +74,12 @@ fn log_backup_info(total_size: u64, cpu_usage: f32) -> Result<(), Box<dyn std::e
 
 // Funzione per eseguire il backup
 pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let src_path = PathBuf::from(&config.source_path);
+    let current_dir = env::current_dir()?; // Ottiene la directory corrente
+
+    // Trova la directory del progetto risalendo fino a "Group-29"
+    let src_path = find_project_root(&current_dir, "Group-29")
+        .ok_or("Impossibile trovare la directory del progetto Group-29")?;
+
     let dest_path = PathBuf::from(destination);
 
     println!("Esecuzione backup...");
@@ -102,7 +114,6 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
     let mut system = System::new_all();
     let start = Instant::now(); // Misura il tempo di inizio
 
-    // Aggiorna le informazioni CPU prima del backup
     system.refresh_cpu();
     let start_cpu_usage = system.global_cpu_info().cpu_usage();
 
@@ -117,7 +128,6 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
         BackupType::FullFolder(true) => {
             println!("Eseguendo un backup completo della cartella...");
             copy_directory_parallel(&src_path, &dest_path)?;  // Usa la funzione parallelizzata
-
             total_size = calculate_total_size(&src_path); // Calcola la dimensione dei file
         },
         BackupType::FileType(ext) => {
@@ -140,12 +150,9 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
                             play_sound_backup_error()?; // Riproduci il suono di errore
                             return Err("Errore durante la copia del file".into());
                         } else {
-                            // Calcola la dimensione del file copiato
                             total_size += entry.metadata()?.len();
                             println!("Copia riuscita di: {:?} in {:?}", path, dest_file);
                         }
-                    } else {
-                        println!("Estensione non corrisponde. Ignoro il file: {:?}", path.file_name());
                     }
                 }
             }
@@ -158,33 +165,23 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
         }
     }
 
-    // Aggiorna le informazioni CPU al termine del backup
     system.refresh_cpu();
     let end_cpu_usage = system.global_cpu_info().cpu_usage();
-
-    // Calcola la media dell'utilizzo della CPU
     let avg_cpu_usage = (start_cpu_usage + end_cpu_usage) / 2.0;
-
-    // Calcola il tempo totale impiegato
-    let duration = start.elapsed(); // Ottieni il tempo totale impiegato
+    let duration = start.elapsed();
 
     println!("Backup completato in: {:?}", duration);
-
-    // Crea il log con le informazioni del backup
     log_backup_info(total_size, avg_cpu_usage)?;
 
-    // Crea un nuovo thread per riprodurre il suono di successo
     let sound_thread = thread::spawn(|| {
-        play_sound_backup_ok().unwrap(); // Gestisci eventuali errori di riproduzione
+        play_sound_backup_ok().unwrap();
     });
 
-    // Mostra il messaggio di completamento
     MessageDialog::new()
         .set_title("Backup Completato")
         .set_description("Il backup è stato completato con successo.")
         .show();
 
-    // Aspetta che il thread del suono finisca
     sound_thread.join().unwrap();
 
     Ok(())
@@ -192,26 +189,21 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
 
 // Funzione ricorsiva per copiare una directory in modo parallelo con controllo del numero di thread
 fn copy_directory_parallel(src: &PathBuf, dst: &PathBuf) -> io::Result<()> {
-    // Crea la directory di destinazione se non esiste
     if !dst.exists() {
         fs::create_dir_all(dst)?;
     }
 
-    // Leggi tutte le voci nella directory sorgente
     let entries: Vec<_> = fs::read_dir(src)?
         .map(|entry| entry.unwrap())
         .collect();
 
-    // Usa rayon per parallelizzare la copia dei file
     entries.par_iter().for_each(|entry| {
         let src_path = entry.path();
         let dst_path = dst.join(entry.file_name());
 
         if src_path.is_dir() {
-            // Se l'elemento è una directory, copia ricorsivamente
             copy_directory_parallel(&src_path, &dst_path).unwrap();
         } else {
-            // Se l'elemento è un file, copialo
             fs::copy(&src_path, &dst_path).unwrap();
             println!("Copia del file: {:?} in {:?}", src_path, dst_path);
         }

@@ -27,7 +27,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = backup::BackupConfig::load_from_file(config_str)?;
 
     // Specifica il percorso della chiavetta USB o di una cartella specifica
-    let usb_destination = PathBuf::from("C:/Users/sagli/Desktop/uni/PROGRAMMAZIONE DI SISTEMA/SECONDA PARTE/Progetto/destinazione");
+    let usb_destination = PathBuf::from("C:/Users/Fabiano Vaglio/Desktop/destinazione");
 
     // Esegui il backup
     let usb_str = usb_destination.to_str().ok_or("Percorso non valido")?;
