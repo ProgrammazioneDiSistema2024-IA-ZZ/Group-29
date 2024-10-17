@@ -5,8 +5,13 @@ use std::env;
 use std::path::PathBuf;
 
 pub fn play_sound_backup_ok() -> Result<(), Box<dyn std::error::Error>> {
-    let mut current_dir = env::current_dir().unwrap().parent().unwrap().to_path_buf();
-    let file_path = "C:/Users/Fabiano Vaglio/RustroverProjects/Group-29/group29_backup/Suoni/successoBackup.wav";
+    let current_dir = env::current_dir()?;
+    let project_dir = current_dir
+        .ancestors()
+        .nth(1)  // Salta un solo livello per arrivare a Group-29
+        .ok_or("Impossibile ottenere la directory del progetto")?;
+    let file_path = project_dir.join("group29_backup/Suoni/successoBackup.wav");
+
     // Inizializza il flusso di output
     let (_stream, stream_handle) = OutputStream::try_default()?;
 
@@ -27,7 +32,13 @@ pub fn play_sound_backup_ok() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 pub fn play_sound_backup_error() -> Result<(), Box<dyn std::error::Error>> {
-    let file_path = "C:/Users/Fabiano Vaglio/RustroverProjects/Group-29/group29_backup/Suoni/erroreBackup.wav";
+
+    let current_dir = env::current_dir()?;
+    let project_dir = current_dir
+        .ancestors()
+        .nth(1)  // Salta un solo livello per arrivare a Group-29
+        .ok_or("Impossibile ottenere la directory del progetto")?;
+    let file_path = project_dir.join("group29_backup/Suoni/erroreBackup.wav");
     // Inizializza il flusso di output
     let (_stream, stream_handle) = OutputStream::try_default()?;
 

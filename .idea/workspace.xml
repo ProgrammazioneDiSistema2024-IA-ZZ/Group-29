@@ -9,7 +9,15 @@
     <cargoProject FILE="$PROJECT_DIR$/config/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="directory 4" />
+    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="directory 5">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/src/suoni.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/suoni.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.exe" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.pdb" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729171033271</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="directory 5">
+      <option name="closed" value="true" />
+      <created>1729171694536</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1729171694536</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,6 +216,7 @@
     <MESSAGE value="cpu usage - backup" />
     <MESSAGE value="directory 2" />
     <MESSAGE value="directory 4" />
-    <option name="LAST_COMMIT_MESSAGE" value="directory 4" />
+    <MESSAGE value="directory 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="directory 5" />
   </component>
 </project>
