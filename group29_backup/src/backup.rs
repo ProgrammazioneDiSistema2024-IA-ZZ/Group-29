@@ -9,6 +9,7 @@ use std::thread;
 use sysinfo::{System, SystemExt, CpuExt}; // Per raccogliere informazioni sul sistema e CPU
 use std::time::Instant;
 use std::fs::OpenOptions;
+use std::io::Write;
 use std::io;
 
 // Struttura per la configurazione del backup
