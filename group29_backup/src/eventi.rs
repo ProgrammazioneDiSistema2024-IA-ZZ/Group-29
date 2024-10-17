@@ -291,19 +291,24 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
             } else if is_rectangle && direction == Direction::Unknown && !end_rectangle {
                 //Ci entra nella seconda iterazione , quando is_rectangle=true e la direzione è settata ancora a Unknown
 
-                if x != prev_x && ((y-prev_y).abs()) < tolerance {
-                    // Movimento lungo l'asse x (bordo superiore)
-                    direction = Direction::Clockwise;
-                    //Una volta impostata la direzione necessito modificare il border in base al corner
-                    match initial_corner{
-                        Corner::TopLeft => current_border = Border::Top,
-                        Corner::TopRight => current_border = Border::Right,
-                        Corner::BottomLeft => current_border = Border::Left,
-                        Corner::BottomRight =>  current_border = Border::Bottom,
-                        Corner::None =>  println!("No corner detected yet"),
-                    }
-                    println!("Clockwise -> Moving to {:?}",current_border);
-                } else if y != prev_y && ((x- prev_x).abs()) < tolerance {
+                if (x != prev_x && (y - prev_y).abs() < tolerance && (corner == Corner::TopLeft || corner == Corner::BottomRight)) ||
+                    ((x - prev_x).abs() < tolerance && y != prev_y && (corner == Corner::TopRight || corner == Corner::BottomLeft)) {
+                        // Movimento lungo l'asse x (bordo superiore)
+                        direction = Direction::Clockwise;
+                        //Una volta impostata la direzione necessito modificare il border in base al corner
+                        match initial_corner {
+                            Corner::TopLeft => current_border = Border::Top,
+                            Corner::TopRight => current_border = Border::Right,
+                            Corner::BottomLeft => current_border = Border::Left,
+                            Corner::BottomRight => current_border = Border::Bottom,
+                            Corner::None => println!("No corner detected yet"),
+                        }
+                        println!("Clockwise -> Moving to {:?}",current_border);
+
+                } else if (x != prev_x && (y - prev_y).abs() < tolerance && (corner == Corner::TopRight || corner == Corner::BottomLeft)) ||
+                    ((x - prev_x).abs() < tolerance && y != prev_y && (corner == Corner::TopLeft || corner == Corner::BottomRight)){
+                    //va bene solo per due punti
+                    //nel caso in cui sono in bottomleft cambia la x
                     // Movimento lungo l'asse y (bordo sinistro)
                     direction = Direction::CounterClockwise;
                     match initial_corner{
