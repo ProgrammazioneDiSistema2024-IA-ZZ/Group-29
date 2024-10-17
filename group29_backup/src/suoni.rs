@@ -1,8 +1,11 @@
 use std::fs::File;
 use std::io::Cursor;
 use rodio::{Decoder, OutputStream, Sink};
+use std::env;
+use std::path::PathBuf;
 
 pub fn play_sound_backup_ok() -> Result<(), Box<dyn std::error::Error>> {
+    let mut current_dir = env::current_dir().unwrap().parent().unwrap().to_path_buf();
     let file_path = "C:/Users/sagli/Desktop/uni/PROGRAMMAZIONE DI SISTEMA/SECONDA PARTE/Group-29/group29_backup/Suoni/successoBackup.wav";
     // Inizializza il flusso di output
     let (_stream, stream_handle) = OutputStream::try_default()?;
