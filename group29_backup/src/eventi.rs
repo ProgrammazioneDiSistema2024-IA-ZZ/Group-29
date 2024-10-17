@@ -212,7 +212,8 @@ pub fn check_movement(){
 use std::cmp::PartialEq;
 use rdev::{listen, Event, EventType};  // Importa rdev per ascoltare gli eventi globali del mouse
 use std::sync::{Arc, Mutex};
-
+use std::thread;
+use std::time::Duration;
 
 #[derive(Debug)]
 enum Border {
@@ -259,7 +260,7 @@ fn is_in_corner(x: f64, y: f64, screen_width: u32, screen_height: u32) -> Corner
 
 // Funzione principale per monitorare il movimento del mouse
 pub fn check_movement(screen_width: u32, screen_height: u32) {
-    let tolerance = 20.0; // Tolleranza di 5 pixel
+    let tolerance = 50.0; // Tolleranza di 5 pixel
     let mut is_rectangle = false;
     let mut prev_x = 0.0;
     let mut prev_y = 0.0;
@@ -285,7 +286,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                 corner_reached = true;
                 initial_corner = corner;
                 println!("Mouse in corner {:?} , waiting for direction", initial_corner);
-                //Problema direzione
+
 
             } else if is_rectangle && direction == Direction::Unknown && !end_rectangle {
                 //Ci entra nella seconda iterazione , quando is_rectangle=true e la direzione è settata ancora a Unknown
@@ -295,42 +296,22 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                     direction = Direction::Clockwise;
                     //Una volta impostata la direzione necessito modificare il border in base al corner
                     match initial_corner{
-                        Corner::TopLeft => {
-                            current_border = Border::Top;
-                        }
-                        Corner::TopRight => {
-                            current_border = Border::Right;
-                        }
-                        Corner::BottomLeft => {
-                            current_border = Border::Left;
-                        }
-                        Corner::BottomRight => {
-                            current_border = Border::Bottom;
-                        }
-                        Corner::None => {
-                            println!("No corner detected yet");
-                        }
+                        Corner::TopLeft => current_border = Border::Top,
+                        Corner::TopRight => current_border = Border::Right,
+                        Corner::BottomLeft => current_border = Border::Left,
+                        Corner::BottomRight =>  current_border = Border::Bottom,
+                        Corner::None =>  println!("No corner detected yet"),
                     }
                     println!("Clockwise -> Moving to {:?}",current_border);
                 } else if y != prev_y && ((x- prev_x).abs()) < tolerance {
                     // Movimento lungo l'asse y (bordo sinistro)
                     direction = Direction::CounterClockwise;
                     match initial_corner{
-                        Corner::TopLeft => {
-                            current_border = Border::Left;
-                        }
-                        Corner::TopRight => {
-                            current_border = Border::Top;
-                        }
-                        Corner::BottomLeft => {
-                            current_border = Border::Bottom;
-                        }
-                        Corner::BottomRight => {
-                            current_border = Border::Right;
-                        }
-                        Corner::None => {
-                            println!("No corner detected yet");
-                        }
+                        Corner::TopLeft => current_border = Border::Left,
+                        Corner::TopRight =>  current_border = Border::Top,
+                        Corner::BottomLeft => current_border = Border::Bottom,
+                        Corner::BottomRight => current_border = Border::Right,
+                        Corner::None => println!("No corner detected yet"),
                     }
                     println!("CounterClockwise -> Moving to {:?}", current_border);
                 }
@@ -359,6 +340,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                                         }else{
                                             current_border =Border::Right;
                                             println!("Switching to Right Border");
+                                            thread::sleep(Duration::from_secs(1));
                                         }
                                     }else {
                                         is_rectangle = false;
@@ -380,6 +362,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                                         }else {
                                             current_border = Border::Left;
                                             println!("Switching to Left Border");
+                                            thread::sleep(Duration::from_secs(1));
                                         }
                                     }else{
                                         is_rectangle = false;
@@ -407,6 +390,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                                         }else{
                                             current_border = Border::Bottom;
                                             println!("Switching to Bottom Border");
+                                            thread::sleep(Duration::from_secs(1));
                                         }
                                     }else {
                                         is_rectangle = false;
@@ -426,6 +410,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                                         }else{
                                             current_border=Border::Top;
                                             println!("Switching to Top Border");
+                                            thread::sleep(Duration::from_secs(1));
                                         }
                                     }else{
                                         is_rectangle = false;
@@ -453,6 +438,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                                         }else {
                                             current_border = Border::Left;
                                             println!("Switching to Left Border");
+                                            thread::sleep(Duration::from_secs(1));
                                         }
                                     }else {
                                         is_rectangle = false;
@@ -473,6 +459,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                                         }else{
                                             current_border = Border::Right;
                                             println!("Switching to Right Border");
+                                            thread::sleep(Duration::from_secs(1));
                                         }
 
                                     }else {
@@ -504,6 +491,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                                         }else{
                                             println!("Switch border");
                                             current_border = Border::Top;
+                                            thread::sleep(Duration::from_secs(1));
                                         }
 
                                     }else{
@@ -524,6 +512,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                                         }else{
                                             println!("Switch border bottom");
                                             current_border = Border::Bottom;
+                                            thread::sleep(Duration::from_secs(1));
                                         }
 
                                     }else{
