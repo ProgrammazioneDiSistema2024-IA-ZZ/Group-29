@@ -1,9 +1,7 @@
 use serde::{Deserialize};
 use std::fs;
-use std::process::Command;
 use std::path::PathBuf;
 use rfd::MessageDialog;
-use std::ffi::OsStr;
 use crate::suoni::{play_sound_backup_ok, play_sound_backup_error};
 use std::thread;
 use sysinfo::{System, SystemExt, CpuExt}; // Per raccogliere informazioni sul sistema e CPU
@@ -11,6 +9,7 @@ use std::time::Instant;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::io;
+use rayon::prelude::*; // Importa Rayon per il parallelismo
 
 // Struttura per la configurazione del backup
 #[derive(Debug, Deserialize)]
@@ -103,6 +102,10 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
     let mut system = System::new_all();
     let start = Instant::now(); // Misura il tempo di inizio
 
+    // Aggiorna le informazioni CPU prima del backup
+    system.refresh_cpu();
+    let start_cpu_usage = system.global_cpu_info().cpu_usage();
+
     // Crea la directory di destinazione se non esiste
     fs::create_dir_all(&dest_path)?;
 
@@ -113,7 +116,7 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
     match &config.backup_type {
         BackupType::FullFolder(true) => {
             println!("Eseguendo un backup completo della cartella...");
-            copy_directory(&src_path, &dest_path)?;
+            copy_directory_parallel(&src_path, &dest_path)?;  // Usa la funzione parallelizzata
 
             total_size = calculate_total_size(&src_path); // Calcola la dimensione dei file
         },
@@ -155,15 +158,20 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
         }
     }
 
-    // Calcola il tempo CPU e totale impiegato
+    // Aggiorna le informazioni CPU al termine del backup
     system.refresh_cpu();
-    let cpu_usage = system.global_cpu_info().cpu_usage(); // Ottieni il consumo globale di CPU
+    let end_cpu_usage = system.global_cpu_info().cpu_usage();
+
+    // Calcola la media dell'utilizzo della CPU
+    let avg_cpu_usage = (start_cpu_usage + end_cpu_usage) / 2.0;
+
+    // Calcola il tempo totale impiegato
     let duration = start.elapsed(); // Ottieni il tempo totale impiegato
 
     println!("Backup completato in: {:?}", duration);
 
     // Crea il log con le informazioni del backup
-    log_backup_info(total_size, cpu_usage)?;
+    log_backup_info(total_size, avg_cpu_usage)?;
 
     // Crea un nuovo thread per riprodurre il suono di successo
     let sound_thread = thread::spawn(|| {
@@ -182,26 +190,32 @@ pub fn perform_backup(config: &BackupConfig, destination: &str) -> Result<(), Bo
     Ok(())
 }
 
-// Funzione ricorsiva per copiare una directory
-fn copy_directory(src: &PathBuf, dst: &PathBuf) -> io::Result<()> {
+// Funzione ricorsiva per copiare una directory in modo parallelo con controllo del numero di thread
+fn copy_directory_parallel(src: &PathBuf, dst: &PathBuf) -> io::Result<()> {
     // Crea la directory di destinazione se non esiste
     if !dst.exists() {
         fs::create_dir_all(dst)?;
     }
 
     // Leggi tutte le voci nella directory sorgente
-    for entry in fs::read_dir(src)? {
-        let entry = entry?;
+    let entries: Vec<_> = fs::read_dir(src)?
+        .map(|entry| entry.unwrap())
+        .collect();
+
+    // Usa rayon per parallelizzare la copia dei file
+    entries.par_iter().for_each(|entry| {
         let src_path = entry.path();
         let dst_path = dst.join(entry.file_name());
+
         if src_path.is_dir() {
             // Se l'elemento è una directory, copia ricorsivamente
-            copy_directory(&src_path, &dst_path)?;
+            copy_directory_parallel(&src_path, &dst_path).unwrap();
         } else {
             // Se l'elemento è un file, copialo
-            fs::copy(&src_path, &dst_path)?;
+            fs::copy(&src_path, &dst_path).unwrap();
             println!("Copia del file: {:?} in {:?}", src_path, dst_path);
         }
-    }
+    });
+
     Ok(())
 }
