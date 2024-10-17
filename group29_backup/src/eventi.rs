@@ -259,7 +259,7 @@ fn is_in_corner(x: f64, y: f64, screen_width: u32, screen_height: u32) -> Corner
 
 // Funzione principale per monitorare il movimento del mouse
 pub fn check_movement(screen_width: u32, screen_height: u32) {
-    let tolerance = 50.0; // Tolleranza di 5 pixel
+    let tolerance = 20.0; // Tolleranza di 5 pixel
     let mut is_rectangle = false;
     let mut prev_x = 0.0;
     let mut prev_y = 0.0;
@@ -290,7 +290,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
             } else if is_rectangle && direction == Direction::Unknown && !end_rectangle {
                 //Ci entra nella seconda iterazione , quando is_rectangle=true e la direzione è settata ancora a Unknown
 
-                if x != prev_x && y == prev_y {
+                if x != prev_x && ((y-prev_y).abs()) < tolerance {
                     // Movimento lungo l'asse x (bordo superiore)
                     direction = Direction::Clockwise;
                     //Una volta impostata la direzione necessito modificare il border in base al corner
@@ -312,7 +312,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                         }
                     }
                     println!("Clockwise -> Moving to {:?}",current_border);
-                } else if y != prev_y && x == prev_x {
+                } else if y != prev_y && ((x- prev_x).abs()) < tolerance {
                     // Movimento lungo l'asse y (bordo sinistro)
                     direction = Direction::CounterClockwise;
                     match initial_corner{
