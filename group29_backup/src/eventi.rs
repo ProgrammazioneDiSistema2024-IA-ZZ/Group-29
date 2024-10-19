@@ -270,7 +270,6 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
     let mut initial_x=0.0;;
     let mut initial_y=0.0;
     let mut initial_corner = Corner::None;
-    let mut end_rectangle = false;
 
     // Ascolta eventi del mouse con rdev
     if let Err(err) = listen(move |event: Event| {
@@ -286,14 +285,12 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                 corner_reached = true;
                 initial_corner = corner;
                 println!("Mouse in corner {:?} , waiting for direction", initial_corner);
-                thread::sleep(Duration::from_secs(1));
-
-
-            } else if is_rectangle && direction == Direction::Unknown && !end_rectangle {
+                thread::sleep(Duration::from_millis(1000));
+            } else if is_rectangle && direction == Direction::Unknown  {
                 //Ci entra nella seconda iterazione , quando is_rectangle=true e la direzione è settata ancora a Unknown
 
-                if (x != prev_x && y == prev_y && (corner == Corner::TopLeft || corner == Corner::BottomRight)) ||
-                    (x ==prev_x && y != prev_y && (corner == Corner::TopRight || corner == Corner::BottomLeft)) {
+                if (x != prev_x && ((y-prev_y) < tolerance) && (corner == Corner::TopLeft || corner == Corner::BottomRight)) ||
+                    (((x-prev_x) < tolerance) && y != prev_y && (corner == Corner::TopRight || corner == Corner::BottomLeft)) {
                         // Movimento lungo l'asse x (bordo superiore)
                         direction = Direction::Clockwise;
                         //Una volta impostata la direzione necessito modificare il border in base al corner
@@ -306,8 +303,8 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                         }
                         println!("Clockwise -> Moving to {:?}",current_border);
 
-                } else if (x != prev_x && y ==prev_y&& (corner == Corner::TopRight || corner == Corner::BottomLeft)) ||
-                    (x == prev_x && y != prev_y && (corner == Corner::TopLeft || corner == Corner::BottomRight)){
+                } else if (x != prev_x && ((y-prev_y) < tolerance )&& (corner == Corner::TopRight || corner == Corner::BottomLeft)) ||
+                    (((x-prev_x) < tolerance) && y != prev_y && (corner == Corner::TopLeft || corner == Corner::BottomRight)){
 
                         direction = Direction::CounterClockwise;
                         match initial_corner{
@@ -322,7 +319,7 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
 
                 prev_x = x;
                 prev_y = y;
-            }else if is_rectangle  && direction != Direction::Unknown && !end_rectangle {
+            }else if is_rectangle  && direction != Direction::Unknown  {
 
                 // Movimento lungo i bordi, controlla i bordi in base alla direzione
 
@@ -330,46 +327,48 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                     Border::Top => {
                         match direction{
                             Direction::Clockwise => {
-                                if (y.abs() < tolerance)  && (prev_x <= x && x < (screen_width as f64)) {
-                                    println!("Previous x is:{}",prev_x);
-                                    println!("Top border match!({}),({})", x, y);
-                                    prev_x = x;
-                                } else {
-                                    if (x - screen_width as f64).abs() < tolerance && (y.abs() <= tolerance) {
-                                        if initial_corner == Corner::TopRight {
-                                            println!("Rectangle completed");
-                                            end_rectangle = true;
-                                            //Richiama la funzione successiva
+                                if (x - screen_width as f64).abs() < tolerance && (y.abs() <= tolerance) {
+                                    if initial_corner == Corner::TopRight {
+                                        println!("Rectangle completed");
+                                        //Richiama la funzione successiva
 
-                                        }else{
-                                            current_border =Border::Right;
-                                            println!("Switching to Right Border");
-                                            thread::sleep(Duration::from_secs(1));
-                                        }
-                                    }else {
+                                    }else{
+                                        current_border =Border::Right;
+                                        println!("Switching to Right Border");
+                                        thread::sleep(Duration::from_secs(1));
+                                    }
+                                }else {
+                                    if (y.abs() < tolerance)  && ((prev_x-x <= tolerance) && x < (screen_width as f64)) {
+                                        println!("Previous x is:{}",prev_x);
+                                        println!("Top border match!({}),({})", x, y);
+                                        prev_x = x;
+                                    } else {
+                                     //Siamo fuori dalla possibilita di tracciare un rettangolo
                                         is_rectangle = false;
+                                        direction = Direction::Unknown;
+                                        corner_reached = false;
                                         println!("Failed top border check ({}),({}), stopping...", x, y);
                                     }
                                 }
                             }
-                            Direction::CounterClockwise =>{
-                                if (y.abs() < tolerance) && (prev_x >= x && x >(0 as f64)) {
-                                    println!("Previous x is:{}",prev_x);
-                                    println!("Top border match!({}),({})", x, y);
-                                    prev_x = x;
-                                }else{
-                                    if(x.abs() < tolerance && y.abs() < tolerance) {
-                                        if initial_corner == Corner::TopLeft {
-                                            end_rectangle = true;
-                                            println!("Rectangle completed");
-
-                                        }else {
-                                            current_border = Border::Left;
-                                            println!("Switching to Left Border");
-                                            thread::sleep(Duration::from_secs(1));
-                                        }
-                                    }else{
+                            Direction::CounterClockwise => {
+                                if (x.abs() < tolerance && y.abs() < tolerance) {
+                                    if initial_corner == Corner::TopLeft {
+                                        println!("Rectangle completed");
+                                    } else {
+                                        current_border = Border::Left;
+                                        println!("Switching to Left Border");
+                                        thread::sleep(Duration::from_secs(1));
+                                    }
+                                } else {
+                                    if (y.abs() < tolerance) && ((prev_x-x >= tolerance) && x >= (0f64)) {
+                                        println!("Previous x is:{}", prev_x);
+                                        println!("Top border match!({}),({})", x, y);
+                                        prev_x = x;
+                                    } else {
                                         is_rectangle = false;
+                                        direction = Direction::Unknown;
+                                        corner_reached = false;
                                         println!("Failed top border check ({}),({}), stopping...", x, y);
                                     }
                                 }
@@ -383,41 +382,43 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                     Border::Right => {
                         match direction{
                             Direction::Clockwise => {
-                                if (x - screen_width as f64).abs() < tolerance && prev_y <= y && y < (screen_height as f64) {
-                                    println!("Right border match!");
-                                    prev_y = y;
-                                } else {
-                                    if (y - screen_height as f64).abs() < tolerance && (x - screen_width as f64).abs() <= tolerance {
-                                        if initial_corner == Corner::BottomRight {
-                                            end_rectangle = true;
-                                            println!("Rectangle completed");
-                                        }else{
-                                            current_border = Border::Bottom;
-                                            println!("Switching to Bottom Border");
-                                            thread::sleep(Duration::from_secs(1));
-                                        }
-                                    }else {
+                                if (y - screen_height as f64).abs() < tolerance && (x - screen_width as f64).abs() <= tolerance {
+                                    if initial_corner == Corner::BottomRight {
+                                        println!("Rectangle completed");
+                                    }else{
+                                        current_border = Border::Bottom;
+                                        println!("Switching to Bottom Border");
+                                        thread::sleep(Duration::from_secs(1));
+                                    }
+                                }else {
+                                    if (x - screen_width as f64).abs() < tolerance && (prev_y -y<= tolerance) && y < (screen_height as f64) {
+                                        println!("Right border match!");
+                                        prev_y = y;
+                                    } else {
                                         is_rectangle = false;
-                                        println!("Failed right border check, stopping...");
+                                        direction = Direction::Unknown;
+                                        corner_reached = false;
+                                        println!("Failed right border check, x:{},y:{}", x,y);
                                     }
                                 }
                             }
                             Direction::CounterClockwise => {
-                                if (x - screen_width as f64).abs() < tolerance && prev_y >= y && y > (0f64){
-                                    println!("Right border match!");
-                                    prev_y = y;
-                                }else{
-                                    if ((x - screen_width as f64).abs() < tolerance && y.abs() < tolerance) {
-                                        if initial_corner == Corner::TopLeft {
-                                            end_rectangle = true;
-                                            println!("Rectangle completed");
-                                        }else{
-                                            current_border=Border::Top;
-                                            println!("Switching to Top Border");
-                                            thread::sleep(Duration::from_secs(1));
-                                        }
-                                    }else{
+                                if ((x - screen_width as f64).abs() < tolerance && y.abs() < tolerance) {
+                                    if initial_corner == Corner::TopLeft {
+                                        println!("Rectangle completed");
+                                    } else {
+                                        current_border = Border::Top;
+                                        println!("Switching to Top Border");
+                                        thread::sleep(Duration::from_secs(1));
+                                    }
+                                } else {
+                                    if (x - screen_width as f64).abs() < tolerance && (prev_y-y >= tolerance) && y > (0f64) {
+                                        println!("Right border match!");
+                                        prev_y = y;
+                                    } else {
                                         is_rectangle = false;
+                                        direction = Direction::Unknown;
+                                        corner_reached = false;
                                         println!("Failed right border check, stopping...");
                                     }
                                 }
@@ -431,43 +432,44 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                     Border::Bottom => {
                         match direction{
                             Direction::Clockwise => {
-                                if (y - screen_height as f64).abs() < tolerance && prev_x >= x && x > 0.0 {
-                                    println!("Bottom border match!");
-                                    prev_x = x;
+                                if (x.abs() < tolerance) && (y - screen_height as f64).abs() <= tolerance {
+                                    if initial_corner == Corner::BottomLeft {
+                                        println!("Rectangle completed");
+                                    } else {
+                                        current_border = Border::Left;
+                                        println!("Switching to Left Border");
+                                        thread::sleep(Duration::from_secs(1));
+                                    }
                                 } else {
-                                    if (x.abs() < tolerance) && (y - screen_height as f64).abs() <= tolerance {
-                                        if initial_corner == Corner::BottomLeft{
-                                            end_rectangle = true;
-                                            println!("Rectangle completed");
-                                        }else {
-                                            current_border = Border::Left;
-                                            println!("Switching to Left Border");
-                                            thread::sleep(Duration::from_secs(1));
-                                        }
-                                    }else {
+                                    if (y - screen_height as f64).abs() < tolerance && (prev_x-x >= tolerance) && x > 0.0 {
+                                        println!("Bottom border match!");
+                                        prev_x = x;
+                                    } else {
                                         is_rectangle = false;
-                                        println!("Failed bottom border check, stopping...");
+                                        direction = Direction::Unknown;
+                                        corner_reached = false;
+                                        println!("Failed bottom border check, x:{},y:{}",x,y);
                                     }
                                 }
                             }
                             Direction::CounterClockwise => {
+                                if ((x - screen_width as f64).abs() < tolerance && (y - screen_height as f64).abs() < tolerance){
+                                    if initial_corner == Corner::BottomRight{
+                                        println!("Rectangle completed");
+                                    }else{
+                                        current_border = Border::Right;
+                                        println!("Switching to Right Border, x:{}, y:{}",x,y);
+                                        thread::sleep(Duration::from_secs(1));
+                                    }
 
-                                if (y - screen_height as f64).abs() < tolerance && prev_x <= x && x < screen_width as f64 {
-                                    println!("Bottom border match!");
-                                    prev_x = x;
-                                } else {
-                                    if ((x - screen_width as f64).abs() < tolerance && (y - screen_height as f64).abs() < tolerance){
-                                        if initial_corner == Corner::BottomRight{
-                                            end_rectangle = true;
-                                            println!("Rectangle completed");
-                                        }else{
-                                            current_border = Border::Right;
-                                            println!("Switching to Right Border");
-                                            thread::sleep(Duration::from_secs(1));
-                                        }
-
-                                    }else {
+                                }else {
+                                    if (y - screen_height as f64).abs() < tolerance && (prev_x-x <= tolerance) && x < screen_width as f64 {
+                                        println!("Bottom border match!");
+                                        prev_x = x;
+                                    } else {
                                         is_rectangle = false;
+                                        direction = Direction::Unknown;
+                                        corner_reached = false;
                                         println!("Failed bottom border check, stopping...");
                                     }
                                 }
@@ -484,46 +486,49 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                     Border::Left => {
                         match direction{
                             Direction::Clockwise => {
-                                if (x.abs() < tolerance) && prev_y >= y && y > 0.0 {
-                                    println!("Left border match!");
-                                    prev_y = y;
-                                } else {
-                                    if (x.abs() < tolerance && y.abs() < tolerance){
-                                        if initial_corner == Corner::TopLeft{
-                                            end_rectangle = true;
-                                            println!("Rectangle completed");
-                                        }else{
-                                            println!("Switch border");
-                                            current_border = Border::Top;
-                                            thread::sleep(Duration::from_secs(1));
-                                        }
-
+                                if (x.abs() < tolerance && y.abs() < tolerance){
+                                    if initial_corner == Corner::TopLeft{
+                                        println!("Rectangle completed");
                                     }else{
+                                        println!("Switch border");
+                                        current_border = Border::Top;
+                                        thread::sleep(Duration::from_secs(1));
+                                    }
+
+                                }else {
+                                    if (x.abs() < tolerance) && (prev_y-y >= tolerance) && y > 0.0 {
+                                        println!("Left border match!");
+                                        prev_y = y;
+                                    } else {
                                         is_rectangle = false;
+                                        direction = Direction::Unknown;
+                                        corner_reached = false;
                                         println!("Failed left border check, stopping...");
                                     }
                                 }
                             }
                             Direction::CounterClockwise => {
-                                if (x.abs() < tolerance) && prev_y <= y && y < screen_height as f64 {
-                                    println!("Left border match!");
-                                    prev_y = y;
-                                } else {
-                                    if (x.abs() < tolerance && (y - screen_height as f64).abs() < tolerance){
-                                        if initial_corner == Corner::BottomLeft{
-                                            end_rectangle = true;
-                                            println!("Rectangle completed");
-                                        }else{
-                                            println!("Switch border bottom");
-                                            current_border = Border::Bottom;
-                                            thread::sleep(Duration::from_secs(1));
-                                        }
-
+                                if (x.abs() < tolerance && (y - screen_height as f64).abs() < tolerance){
+                                    if initial_corner == Corner::BottomLeft{
+                                        println!("Rectangle completed");
                                     }else{
+                                        println!("Switch border bottom");
+                                        current_border = Border::Bottom;
+                                        thread::sleep(Duration::from_secs(1));
+                                    }
+
+                                }else {
+                                    if (x.abs() < tolerance) && (prev_y-y <= tolerance) && y < screen_height as f64 {
+                                        println!("Left border match!");
+                                        prev_y = y;
+                                    } else {
                                         is_rectangle = false;
+                                        direction = Direction::Unknown;
+                                        corner_reached = false;
                                         println!("Failed left border check, stopping...");
                                     }
                                 }
+
                             }
                             Direction::Unknown => {
                                 println!("Problema con la direzione!!");
