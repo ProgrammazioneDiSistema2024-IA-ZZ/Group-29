@@ -289,8 +289,9 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
             } else if is_rectangle && direction == Direction::Unknown  {
                 //Ci entra nella seconda iterazione , quando is_rectangle=true e la direzione è settata ancora a Unknown
 
-                if (x != prev_x && ((y-prev_y) < tolerance) && (corner == Corner::TopLeft || corner == Corner::BottomRight)) ||
-                    (((x-prev_x) < tolerance) && y != prev_y && (corner == Corner::TopRight || corner == Corner::BottomLeft)) {
+                if x != prev_x && (y - prev_y).abs() < tolerance && (corner == Corner::TopLeft || corner == Corner::BottomRight)
+                    || (x - prev_x).abs() < tolerance && y != prev_y && (corner == Corner::TopRight || corner == Corner::BottomLeft)
+                {
                         // Movimento lungo l'asse x (bordo superiore)
                         direction = Direction::Clockwise;
                         //Una volta impostata la direzione necessito modificare il border in base al corner
@@ -303,8 +304,9 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                         }
                         println!("Clockwise -> Moving to {:?}",current_border);
 
-                } else if (x != prev_x && ((y-prev_y) < tolerance )&& (corner == Corner::TopRight || corner == Corner::BottomLeft)) ||
-                    (((x-prev_x) < tolerance) && y != prev_y && (corner == Corner::TopLeft || corner == Corner::BottomRight)){
+                }  else if x != prev_x && (y - prev_y).abs() < tolerance && (corner == Corner::TopRight || corner == Corner::BottomLeft)
+                || (x - prev_x).abs() < tolerance && y != prev_y && (corner == Corner::TopLeft || corner == Corner::BottomRight)
+            {
 
                         direction = Direction::CounterClockwise;
                         match initial_corner{
