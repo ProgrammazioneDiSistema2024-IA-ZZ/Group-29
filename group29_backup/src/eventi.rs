@@ -4,6 +4,8 @@ use rdev::{listen, Event, EventType};  // Importa rdev per ascoltare gli eventi 
 use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Duration;
+use winit::event_loop::EventLoop;
+use winit::window::WindowBuilder;
 
 #[derive(Debug)]
 enum Border {
@@ -47,7 +49,7 @@ fn is_in_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corner
         Corner::None
     }
 }
-pub fn check_movement(screen_width: f64, screen_height: f64) {
+pub fn check_movement(screen_width: f64, screen_height: f64) -> bool{
     let tolerance = 50.0; // Tolleranza di 5 pixel
     let mut is_rectangle = false;
     let mut prev_x = 0.0;
@@ -59,15 +61,16 @@ pub fn check_movement(screen_width: f64, screen_height: f64) {
     let mut initial_y=0.0;
     let mut initial_corner = Corner::None;
     let mut flag_fine = false;
+    let mut rectangle_completed = false;
 
     // Ascolta eventi del mouse con rdev
+
     if let Err(err) = listen(move |event: Event| {
+
         if let EventType::MouseMove { x, y } = event.event_type {
             let mut corner = is_in_corner(x, y, screen_width, screen_height);
-            println!("Primo passo,l'angolo è : {:?}, con coordinate x:{},y{} ", corner, x, y);
 
             if corner != Corner::None && !corner_reached {
-                println!("Sei dentro al primo if bro");
                 // Primo movimento in un angolo
                 is_rectangle = true;
                 initial_x = x;
@@ -77,7 +80,6 @@ pub fn check_movement(screen_width: f64, screen_height: f64) {
                 corner_reached = true;
                 initial_corner = corner;
                 println!("Mouse in corner {:?} , waiting for direction", initial_corner);
-                //thread::sleep(Duration::from_millis(200));
 
             } else if is_rectangle && direction == Direction::Unknown && corner == Corner::None {
                 //Ci entra nel momento in cui non è più nell'intorno dell'angolo e definisce la direzione
@@ -123,41 +125,6 @@ pub fn check_movement(screen_width: f64, screen_height: f64) {
                         println!("Angolo non trovato");
                     }
                 }
-                /*match initial_corner{
-                    Corner::TopLeft => {
-                        if /*x>prev_x || y< prev_y &&*/ (y.abs() < tolerance){
-                            direction = Direction::Clockwise;
-                        } else if /*prev_x>x|| y>prev_y && */(x.abs() < tolerance) {
-                            direction = Direction::CounterClockwise;
-                        }
-                    }
-                    Corner::TopRight => {
-                        if /*(x>prev_x || y> prev_y &&*/ (x.abs() < tolerance){
-                           direction = Direction:: Clockwise;
-                        } else if /*prev_y>y || prev_x>x &&*/ (y.abs() < tolerance){
-                            direction = Direction::CounterClockwise;
-                        }
-                    }
-                    Corner::BottomRight => {
-                        if /*x<prev_x || y>prev_y &&*/ (y.abs() < tolerance){
-                            direction = Direction::Clockwise;
-                        }else if /*prev_x<x||y<prev_y &&*/ (x.abs() < tolerance){
-                            direction=Direction::CounterClockwise;
-                        }
-                    }
-                    Corner::BottomLeft => {
-                        if /*x<prev_x || y<prev_y &&*/ (y.abs() < tolerance){
-                            direction = Direction::Clockwise;
-                        }else if /*prev_y<y || prev_x<x &&*/ (x.abs() < tolerance){
-                            direction = Direction::CounterClockwise;
-                        }
-
-                    }
-                    Corner::None =>{ println!("Angolo non trovato")}
-
-                }*/
-
-
                 prev_x = x;
                 prev_y = y;
             } else if is_rectangle && direction != Direction::Unknown && corner == Corner::None { //Controlli sui bordi e fuori dall'intorno di un angolo
@@ -309,7 +276,8 @@ pub fn check_movement(screen_width: f64, screen_height: f64) {
                 if(initial_corner == corner && flag_fine){
                     println!("Rectangle completed!!!!!!");
                     flag_fine=false;
-                    return;
+                    rectangle_completed=true;
+                    //Interrompere questo event_loop e azionare il minus sign
                 }else{
                     match direction{
                         Direction::Clockwise =>{
@@ -344,4 +312,76 @@ pub fn check_movement(screen_width: f64, screen_height: f64) {
     }) {
         println!("Errore nell'ascolto degli eventi del mouse: {:?}", err);
     }
+    rectangle_completed
+}
+
+
+pub fn check_minus_sign(screen_width: f64, screen_height: f64) -> bool{
+    let event_loop = EventLoop::new();
+    let window = WindowBuilder::new()
+        .with_title("Mouse Tracking for Minus Sign")
+        .build(&event_loop)
+        .unwrap();
+
+    let screen_width = window.inner_size().width as f64;
+    let screen_height = window.inner_size().height as f64;
+    let tolerance = 50.0;
+    let min_length = screen_width * 0.2; // Lunghezza minima del segno meno
+    let mut is_tracking = false;
+    let mut initial_x = 0.0;
+    let mut initial_y = 0.0;
+    let mut prev_x = 0.0;
+    let mut is_minus_sign = false;
+
+    println!("Sei in Minus");
+    // Ciclo di ascolto degli eventi del mouse
+
+    // Questo gestisce il ciclo di ascolto degli eventi
+    if let Err(err) = listen(move |event: Event| {
+        if let EventType::MouseMove { x, y } = event.event_type {
+            if !is_tracking {
+                // Inizia a tracciare il segno meno dal primo movimento orizzontale
+                initial_x = x;
+                initial_y = y;
+                prev_x = x;
+                is_tracking = true;
+                println!("Tracking started at position: ({}, {})", x, y);
+            } else {
+                // Verifica se il movimento è orizzontale
+                if (initial_y - y).abs() < tolerance && (x - prev_x).abs() >= 0.0 {
+                    prev_x = x;
+                    println!("Tracking minus sign: current position ({}, {})", x, y);
+                    if (prev_x - initial_x) >= min_length {
+                        is_minus_sign = true; // Setta la variabile di stato
+                        println!("Minus sign detected successfully!");
+                        return; // Puoi usare return per uscire dalla closure
+                    }
+
+                } else {
+                    if (initial_y - y).abs() >= tolerance {
+                        // Movimento fuori tolleranza, reset del tracciamento
+                        is_tracking = false;
+                        println!("Movement out of tolerance. Resetting tracking.");
+                    }
+                }
+
+                // Controlla se il segno meno è abbastanza lungo
+                if (prev_x - initial_x) >= min_length {
+                    is_minus_sign = true; // Setta la variabile di stato
+                    println!("Minus sign detected successfully!");
+                    return;// Puoi usare return per uscire dalla closure
+                }
+            }
+        }
+    }) {
+        println!("Error while listening to mouse events: {:?}", err);
+    }
+
+
+
+    // Qui potresti anche gestire eventuali azioni post-tracciamento
+    if !is_minus_sign {
+        println!("Minus sign tracking failed.");
+    }
+    is_minus_sign
 }
