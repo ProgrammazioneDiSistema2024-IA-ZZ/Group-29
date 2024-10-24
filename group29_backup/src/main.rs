@@ -14,7 +14,7 @@ fn main() {
     println!("Screen size: {}x{}", screen_width, screen_height);
 
     thread::spawn(move|| {
-        check_movement(screen_width,screen_height);
+        check_movement(screen_width as f64,screen_height as f64);
     });
 
     event_loop.run(move |_event, _, control_flow| {
