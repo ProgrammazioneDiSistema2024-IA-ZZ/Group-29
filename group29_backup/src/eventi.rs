@@ -34,7 +34,7 @@ enum Direction {
 
 // Funzione per verificare se il mouse è in un angolo dello schermo
 fn is_in_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corner{
-    let tolerance = 30.0; // Tolleranza di 5 pixel
+    let tolerance = 50.0; // Tolleranza di 5 pixel
     if (x.abs() < tolerance && y.abs() < tolerance) {
         Corner::TopLeft
     } else if ((x - screen_width).abs() < tolerance && y.abs() < tolerance) {
@@ -48,7 +48,7 @@ fn is_in_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corner
     }
 }
 pub fn check_movement(screen_width: f64, screen_height: f64) {
-    let tolerance = 80.0; // Tolleranza di 5 pixel
+    let tolerance = 50.0; // Tolleranza di 5 pixel
     let mut is_rectangle = false;
     let mut prev_x = 0.0;
     let mut prev_y = 0.0;
@@ -67,6 +67,7 @@ pub fn check_movement(screen_width: f64, screen_height: f64) {
             println!("Primo passo,l'angolo è : {:?}, con coordinate x:{},y{} ", corner, x, y);
 
             if corner != Corner::None && !corner_reached {
+                println!("Sei dentro al primo if bro");
                 // Primo movimento in un angolo
                 is_rectangle = true;
                 initial_x = x;
@@ -308,6 +309,7 @@ pub fn check_movement(screen_width: f64, screen_height: f64) {
                 if(initial_corner == corner && flag_fine){
                     println!("Rectangle completed!!!!!!");
                     flag_fine=false;
+                    return;
                 }else{
                     match direction{
                         Direction::Clockwise =>{
@@ -331,7 +333,7 @@ pub fn check_movement(screen_width: f64, screen_height: f64) {
 
                         }
                         Direction::Unknown=>{
-                            println!("Direzione non conosciuta, mi è difficile capire quale bordo :-)");
+                            println!("Unknown direction");
 
                         }
                     }
