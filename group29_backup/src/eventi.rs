@@ -244,7 +244,7 @@ enum Direction {
 
 // Funzione per verificare se il mouse è in un angolo dello schermo
 fn is_in_corner(x: f64, y: f64, screen_width: u32, screen_height: u32) -> Corner{
-    let tolerance = 80.0; // Tolleranza di 5 pixel
+    let tolerance = 5.0; // Tolleranza di 5 pixel
     if (x.abs() < tolerance && y.abs() < tolerance) {
         Corner::TopLeft
     } else if ((x - screen_width as f64).abs() < tolerance && y.abs() < tolerance) {
@@ -287,9 +287,12 @@ pub fn check_movement(screen_width: u32, screen_height: u32) {
                 initial_corner = corner;
                 println!("Mouse in corner {:?} , waiting for direction", initial_corner);
                 //thread::sleep(Duration::from_millis(200));
-            } else if is_rectangle && direction == Direction::Unknown {
+            } else if is_rectangle && direction == Direction::Unknown /*corner == Corner::None*/ {
                 //Ci entra nella seconda iterazione , quando is_rectangle=true e la direzione è settata ancora a Unknown
 
+                //Prende coordinate e verifica il bordo
+                //In base al bordo -> definire direzione
+                // TopLeft => { y.abs<tolerance -> direction = ClockWise } { x.abs < tolerance -> direction = CounterClockWise}
                 match initial_corner{
                     Corner::TopLeft => {
                         if(x>prev_x || y< prev_y){
