@@ -5,8 +5,26 @@ mod gui_backup;
 
 use std::env;
 use std::path::{PathBuf, Path};
+use gui_backup::ConfigApp; // Import your GUI App
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Initialize the GUI application
+    let app = ConfigApp::default();
+
+    // Run the eframe application
+    eframe::run_native("Backup Configurator", Default::default(), Box::new(|_cc| Box::<ConfigApp>::default()));
+
+    // Your existing backup logic can be called here if necessary
+    let current_dir = env::current_dir()?;
+    println!("Current directory: {:?}", current_dir);
+
+    // Other code logic...
+
+    Ok(())
+}
+/*
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+
     // Ottieni il percorso della directory di lavoro corrente
     let current_dir = env::current_dir()?;
     println!("Current directory: {:?}", current_dir);
@@ -34,5 +52,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let usb_str = usb_destination.to_str().ok_or("Percorso non valido")?;
     backup::perform_backup(&config, usb_str)?;
 
+
+
     Ok(())
-}
+}*/
+
+

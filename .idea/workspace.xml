@@ -9,11 +9,22 @@
     <cargoProject FILE="$PROJECT_DIR$/config/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="directory 6">
+    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="gui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/src/backup.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/backup.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.toml" beforeDir="false" afterPath="$PROJECT_DIR$/config.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/src/gui_backup.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/gui_backup.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup.json" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/dep-bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/dep-bin-group29_backup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.d" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.d" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.exe" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.pdb" afterDir="false" />
     </list>
@@ -81,6 +92,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Fabiano Vaglio\RustroverProjects\Group-29" />
+    </key>
+  </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
   </component>
@@ -100,6 +116,7 @@
       <workItem from="1727681713247" duration="6504000" />
       <workItem from="1729152094964" duration="1752000" />
       <workItem from="1729168407715" duration="1301000" />
+      <workItem from="1729858049682" duration="8220000" />
     </task>
     <task id="LOCAL-00001" summary="Commit di fra iniziale">
       <option name="closed" value="true" />
@@ -197,7 +214,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729172318177</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="gui">
+      <option name="closed" value="true" />
+      <created>1729175767517</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1729175767517</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,6 +250,7 @@
     <MESSAGE value="directory 4" />
     <MESSAGE value="directory 5" />
     <MESSAGE value="directory 6" />
-    <option name="LAST_COMMIT_MESSAGE" value="directory 6" />
+    <MESSAGE value="gui" />
+    <option name="LAST_COMMIT_MESSAGE" value="gui" />
   </component>
 </project>
