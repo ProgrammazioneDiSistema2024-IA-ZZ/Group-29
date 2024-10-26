@@ -49,7 +49,7 @@ fn is_in_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corner
         Corner::None
     }
 }
-pub fn check_movement(screen_width: f64, screen_height: f64) -> bool{
+pub fn check_movement(screen_width: f64, screen_height: f64, stop_flag: Arc<Mutex<bool>>) -> bool{
     let tolerance = 50.0; // Tolleranza di 5 pixel
     let mut is_rectangle = false;
     let mut prev_x = 0.0;
@@ -63,9 +63,15 @@ pub fn check_movement(screen_width: f64, screen_height: f64) -> bool{
     let mut flag_fine = false;
     let mut rectangle_completed = false;
 
+
     // Ascolta eventi del mouse con rdev
 
     if let Err(err) = listen(move |event: Event| {
+
+        if *stop_flag.lock().unwrap() {
+            println!("Stop flag is set, terminating check_movement...");
+            return;
+        }
 
         if let EventType::MouseMove { x, y } = event.event_type {
             let mut corner = is_in_corner(x, y, screen_width, screen_height);
@@ -277,7 +283,7 @@ pub fn check_movement(screen_width: f64, screen_height: f64) -> bool{
                     println!("Rectangle completed!!!!!!");
                     flag_fine=false;
                     rectangle_completed=true;
-                    track_minus_sign(screen_width,screen_height);
+                    track_minus_sign(screen_width,screen_height,Arc::clone(&stop_flag));
                 }else{
                     match direction{
                         Direction::Clockwise =>{
@@ -316,7 +322,7 @@ pub fn check_movement(screen_width: f64, screen_height: f64) -> bool{
 }
 
 
-pub fn track_minus_sign(screen_width: f64, screen_height: f64) {
+pub fn track_minus_sign(screen_width: f64, screen_height: f64, stop_flag: Arc<Mutex<bool>>) {
     let tolerance = 50.0;
     let min_length = screen_width as f64 * 0.2; // Lunghezza minima del segno meno
     let mut is_tracking = false;
@@ -329,6 +335,12 @@ pub fn track_minus_sign(screen_width: f64, screen_height: f64) {
 
     // Questo gestisce il ciclo di ascolto degli eventi
     if let Err(err) = listen(move |event: Event| {
+
+        if *stop_flag.lock().unwrap() {
+            println!("Stop flag is set, terminating minus sign...");
+            return;
+        }
+
         if let EventType::MouseMove { x, y } = event.event_type {
             if !is_tracking {
                 // Inizia a tracciare il segno meno dal primo movimento orizzontale
@@ -342,11 +354,6 @@ pub fn track_minus_sign(screen_width: f64, screen_height: f64) {
                 if (initial_y - y).abs() < tolerance && (x - prev_x).abs() >= 0.0 {
                     prev_x = x;
                     println!("Tracking minus sign: current position ({}, {})", x, y);
-                    if (prev_x - initial_x) >= min_length {
-                        is_minus_sign = true; // Setta la variabile di stato
-                        println!("Minus sign detected successfully!");
-                        return; // Puoi usare return per uscire dalla closure
-                    }
 
                 } else {
                     if (initial_y - y).abs() >= tolerance {
@@ -360,7 +367,9 @@ pub fn track_minus_sign(screen_width: f64, screen_height: f64) {
                 if (prev_x - initial_x) >= min_length {
                     is_minus_sign = true; // Setta la variabile di stato
                     println!("Minus sign detected successfully!");
-                    return; // Puoi usare return per uscire dalla closure
+                    let mut stop = stop_flag.lock().unwrap();
+                    *stop = true;  // Segnala che il tracking è terminato
+                    return; // Uscire dal callback, fermando ulteriori elaborazioni
                 }
             }
         }
