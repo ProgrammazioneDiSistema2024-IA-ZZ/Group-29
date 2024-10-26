@@ -1,7 +1,7 @@
 
 use std::cmp::PartialEq;
 use rdev::{listen, Event, EventType};  // Importa rdev per ascoltare gli eventi globali del mouse
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, mpsc, Mutex};
 use std::thread;
 use std::time::Duration;
 use winit::event_loop::EventLoop;
@@ -49,7 +49,7 @@ fn is_in_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corner
         Corner::None
     }
 }
-pub fn check_movement(screen_width: f64, screen_height: f64, stop_flag: Arc<Mutex<bool>>) -> bool{
+pub fn check_movement(screen_width: f64, screen_height: f64, should_continue_clone:Arc<Mutex<bool>>) -> bool{
     let tolerance = 50.0; // Tolleranza di 5 pixel
     let mut is_rectangle = false;
     let mut prev_x = 0.0;
@@ -63,18 +63,20 @@ pub fn check_movement(screen_width: f64, screen_height: f64, stop_flag: Arc<Mute
     let mut flag_fine = false;
     let mut rectangle_completed = false;
 
-
     // Ascolta eventi del mouse con rdev
+    let should_continue = Arc::new(Mutex::new(true));
+
+    // Listen for mouse events with rdev
+    let should_continue_clone = Arc::clone(&should_continue);
 
     if let Err(err) = listen(move |event: Event| {
 
-        if *stop_flag.lock().unwrap() {
-            println!("Stop flag is set, terminating check_movement...");
-            return;
-        }
-
         if let EventType::MouseMove { x, y } = event.event_type {
             let mut corner = is_in_corner(x, y, screen_width, screen_height);
+            if !*should_continue_clone.lock().unwrap() {
+                return; // Exit the listener if we're done
+            }
+
 
             if corner != Corner::None && !corner_reached {
                 // Primo movimento in un angolo
@@ -283,7 +285,7 @@ pub fn check_movement(screen_width: f64, screen_height: f64, stop_flag: Arc<Mute
                     println!("Rectangle completed!!!!!!");
                     flag_fine=false;
                     rectangle_completed=true;
-                    track_minus_sign(screen_width,screen_height,Arc::clone(&stop_flag));
+                    track_minus_sign(screen_width,screen_height);
                 }else{
                     match direction{
                         Direction::Clockwise =>{
@@ -322,7 +324,7 @@ pub fn check_movement(screen_width: f64, screen_height: f64, stop_flag: Arc<Mute
 }
 
 
-pub fn track_minus_sign(screen_width: f64, screen_height: f64, stop_flag: Arc<Mutex<bool>>) {
+pub fn track_minus_sign(screen_width: f64, screen_height: f64) -> bool{
     let tolerance = 50.0;
     let min_length = screen_width as f64 * 0.2; // Lunghezza minima del segno meno
     let mut is_tracking = false;
@@ -332,16 +334,17 @@ pub fn track_minus_sign(screen_width: f64, screen_height: f64, stop_flag: Arc<Mu
     let mut is_minus_sign = false;
 
     // Ciclo di ascolto degli eventi del mouse
+    let should_continue = Arc::new(Mutex::new(true));
+
+    // This handles the event listening loop
+    let should_continue_clone = Arc::clone(&should_continue);
 
     // Questo gestisce il ciclo di ascolto degli eventi
     if let Err(err) = listen(move |event: Event| {
-
-        if *stop_flag.lock().unwrap() {
-            println!("Stop flag is set, terminating minus sign...");
-            return;
-        }
-
         if let EventType::MouseMove { x, y } = event.event_type {
+            if !*should_continue_clone.lock().unwrap() {
+                return; // Exit the listener if we're done
+            }
             if !is_tracking {
                 // Inizia a tracciare il segno meno dal primo movimento orizzontale
                 initial_x = x;
@@ -354,6 +357,14 @@ pub fn track_minus_sign(screen_width: f64, screen_height: f64, stop_flag: Arc<Mu
                 if (initial_y - y).abs() < tolerance && (x - prev_x).abs() >= 0.0 {
                     prev_x = x;
                     println!("Tracking minus sign: current position ({}, {})", x, y);
+                    if (prev_x - initial_x) >= min_length {
+                        is_minus_sign = true; // Setta la variabile di stato
+                        println!("Minus sign detected successfully!");
+
+                        // Stop the listener by setting the shared state to false
+                        *should_continue.lock().unwrap() = false;
+                        return; // You can use return to exit the closure
+                    }
 
                 } else {
                     if (initial_y - y).abs() >= tolerance {
@@ -367,9 +378,7 @@ pub fn track_minus_sign(screen_width: f64, screen_height: f64, stop_flag: Arc<Mu
                 if (prev_x - initial_x) >= min_length {
                     is_minus_sign = true; // Setta la variabile di stato
                     println!("Minus sign detected successfully!");
-                    let mut stop = stop_flag.lock().unwrap();
-                    *stop = true;  // Segnala che il tracking è terminato
-                    return; // Uscire dal callback, fermando ulteriori elaborazioni
+                    return; // Puoi usare return per uscire dalla closure
                 }
             }
         }
@@ -383,4 +392,5 @@ pub fn track_minus_sign(screen_width: f64, screen_height: f64, stop_flag: Arc<Mu
     if !is_minus_sign {
         println!("Minus sign tracking failed.");
     }
+    is_minus_sign
 }
