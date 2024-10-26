@@ -1,5 +1,5 @@
 use std::thread;
-use crate::eventi::{check_minus_sign, check_movement};
+use crate::eventi::{track_minus_sign, check_movement};
 use std::sync::{mpsc,Arc,Mutex};
 use winit::event_loop::{ControlFlow, EventLoop};
 enum State {

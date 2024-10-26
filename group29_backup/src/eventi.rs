@@ -277,7 +277,7 @@ pub fn check_movement(screen_width: f64, screen_height: f64) -> bool{
                     println!("Rectangle completed!!!!!!");
                     flag_fine=false;
                     rectangle_completed=true;
-                    //Interrompere questo event_loop e azionare il minus sign
+                    track_minus_sign(screen_width,screen_height);
                 }else{
                     match direction{
                         Direction::Clockwise =>{
@@ -316,24 +316,15 @@ pub fn check_movement(screen_width: f64, screen_height: f64) -> bool{
 }
 
 
-pub fn check_minus_sign(screen_width: f64, screen_height: f64) -> bool{
-    let event_loop = EventLoop::new();
-    let window = WindowBuilder::new()
-        .with_title("Mouse Tracking for Minus Sign")
-        .build(&event_loop)
-        .unwrap();
-
-    let screen_width = window.inner_size().width as f64;
-    let screen_height = window.inner_size().height as f64;
+pub fn track_minus_sign(screen_width: f64, screen_height: f64) {
     let tolerance = 50.0;
-    let min_length = screen_width * 0.2; // Lunghezza minima del segno meno
+    let min_length = screen_width as f64 * 0.2; // Lunghezza minima del segno meno
     let mut is_tracking = false;
     let mut initial_x = 0.0;
     let mut initial_y = 0.0;
     let mut prev_x = 0.0;
     let mut is_minus_sign = false;
 
-    println!("Sei in Minus");
     // Ciclo di ascolto degli eventi del mouse
 
     // Questo gestisce il ciclo di ascolto degli eventi
@@ -369,7 +360,7 @@ pub fn check_minus_sign(screen_width: f64, screen_height: f64) -> bool{
                 if (prev_x - initial_x) >= min_length {
                     is_minus_sign = true; // Setta la variabile di stato
                     println!("Minus sign detected successfully!");
-                    return;// Puoi usare return per uscire dalla closure
+                    return; // Puoi usare return per uscire dalla closure
                 }
             }
         }
@@ -383,5 +374,4 @@ pub fn check_minus_sign(screen_width: f64, screen_height: f64) -> bool{
     if !is_minus_sign {
         println!("Minus sign tracking failed.");
     }
-    is_minus_sign
 }
