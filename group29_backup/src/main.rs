@@ -14,8 +14,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Run the eframe application
     eframe::run_native("Backup Configurator", Default::default(), Box::new(|_cc| Box::<ConfigApp>::default()));
 
-    mouse_controller::mouse_events;
 
+
+    mouse_controller::mouse_events();
     // Your existing backup logic can be called here if necessary
     let current_dir = env::current_dir()?;
     println!("Current directory: {:?}", current_dir);
