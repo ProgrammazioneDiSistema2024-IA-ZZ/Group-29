@@ -3,61 +3,74 @@ mod gui_backup;
 mod mouse_controller;
 mod eventi;
 mod suoni;
+mod cpu_usage;
+
 use std::env;
-use std::path::{PathBuf, Path};
-use gui_backup::ConfigApp; // Import your GUI App
+use std::path::{Path, PathBuf};
+use serde::Deserialize;
+use sysinfo::{DiskExt, System, SystemExt};
+use gui_backup::ConfigApp;
+
+#[derive(Debug, Deserialize)]
+struct ConfigData {
+    backup_type: String,
+    extension: Option<String>,
+    input_path: String,
+    output_path: String,
+}
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Initialize the GUI application
-    let app = ConfigApp::default();
+    // 1. Avvia la GUI e ottieni i percorsi di input e output
+    run_gui();
 
-    // Run the eframe application
-    eframe::run_native("Backup Configurator", Default::default(), Box::new(|_cc| Box::<ConfigApp>::default()));
+    // 2. Ottieni la directory del progetto e il percorso del file di configurazione
+    let config_path = get_project_directory()?.join("config.toml");
 
+    // 3. Carica la configurazione dal file TOML
+    let (backup_type, extension, input_path, output_path) = load_config(&config_path)?;
 
+    // 4. Verifica la validità dei percorsi
+    verify_paths(&input_path, &output_path)?;
 
-    mouse_controller::mouse_events();
-    // Your existing backup logic can be called here if necessary
-    let current_dir = env::current_dir()?;
-    println!("Current directory: {:?}", current_dir);
-
-    // Other code logic...
+    //MARIKA + FRA = <3
+    backup::perform_backup(&backup_type, extension.as_deref(), &PathBuf::from(&input_path), &PathBuf::from(&output_path))?;
 
     Ok(())
 }
-/*
-fn main() -> Result<(), Box<dyn std::error::Error>> {
 
-    // Ottieni il percorso della directory di lavoro corrente
+/// Funzione per avviare la GUI e ottenere i percorsi input/output
+fn run_gui() {
+    let options = eframe::NativeOptions::default();
+    eframe::run_native(
+        "Backup Configurator",
+        options,
+        Box::new(|_cc| Box::<ConfigApp>::default())
+    ).expect("Errore nell'avvio della GUI");
+}
+
+/// Funzione per ottenere la directory del progetto
+fn get_project_directory() -> Result<PathBuf, Box<dyn std::error::Error>> {
     let current_dir = env::current_dir()?;
-    println!("Current directory: {:?}", current_dir);
-
-    // Ottieni la directory superiore (risalendo di un livello)
     let project_dir = current_dir
         .ancestors()
-        .nth(1)  // Salta un solo livello per arrivare a Group-29
+        .nth(1)
         .ok_or("Impossibile ottenere la directory del progetto")?;
+    Ok(project_dir.to_path_buf())
+}
 
-    println!("Project directory: {:?}", project_dir);
+/// Funzione per caricare la configurazione dal file TOML
+fn load_config(path: &PathBuf) -> Result<(String, Option<String>, String, String), Box<dyn std::error::Error>> {
+    let config_str = std::fs::read_to_string(path)?;
+    let config: ConfigData = toml::from_str(&config_str)?;
+    Ok((config.backup_type, config.extension, config.input_path, config.output_path))
+}
 
-    // Costruisci il percorso del file di configurazione
-    let config_path = project_dir.join("config.toml");
-    println!("Config path: {:?}", config_path);
-
-    // Carica il file di configurazione
-    let config_str = config_path.to_str().ok_or("Percorso non valido")?;
-    let config = backup::BackupConfig::load_from_file(config_str)?;
-
-    // Specifica il percorso della chiavetta USB o di una cartella specifica
-    let usb_destination = PathBuf::from("C:/Users/Fabiano Vaglio/Desktop/destinazione");
-
-    // Esegui il backup
-    let usb_str = usb_destination.to_str().ok_or("Percorso non valido")?;
-    backup::perform_backup(&config, usb_str)?;
-
-
-
+/// Funzione per verificare che entrambi i percorsi siano validi
+fn verify_paths(input_path: &str, output_path: &str) -> Result<(), Box<dyn std::error::Error>> {
+    if input_path.is_empty() || output_path.is_empty() {
+        return Err("Please select both input and output paths.".into());
+    }
+    println!("Input Path: {:?}", input_path);
+    println!("Output Path: {:?}", output_path);
     Ok(())
-}*/
-
-
+}
