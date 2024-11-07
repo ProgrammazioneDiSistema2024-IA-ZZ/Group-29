@@ -32,8 +32,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 4. Verifica la validità dei percorsi
     verify_paths(&input_path, &output_path)?;
 
-    //MARIKA + FRA = <3
-    backup::perform_backup(&backup_type, extension.as_deref(), &PathBuf::from(&input_path), &PathBuf::from(&output_path))?;
+    mouse_controller::mouse_events(extension,&backup_type,&input_path,&output_path);
 
     Ok(())
 }

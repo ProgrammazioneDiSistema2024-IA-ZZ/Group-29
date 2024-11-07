@@ -1,10 +1,13 @@
+use std::path::PathBuf;
 use std::thread;
 use crate::eventi::{track_minus_sign, check_movement};
 use std::sync::{mpsc,Arc,Mutex};
 use winit::event_loop::{ EventLoop};
 use std::sync::atomic::{Ordering,AtomicBool};
+use crate::backup;
 
-pub fn mouse_events() {
+
+pub fn mouse_events(extension: Option<String>,backup_type: &String,input_path: &String ,  output_path: &String ) {
     println!("Sei in mouse events");
 
     //Per prendere dimensioni schermo
@@ -28,6 +31,7 @@ pub fn mouse_events() {
     if(done_receiver).recv().is_ok(){
         println!("Movimento e segno meno rilevati. Esecuzione commpletata");
         done_flag.store(true,Ordering::Relaxed);
+        backup::perform_backup(backup_type, extension.as_deref(), &PathBuf::from(input_path), &PathBuf::from(output_path));
     }
 
 
