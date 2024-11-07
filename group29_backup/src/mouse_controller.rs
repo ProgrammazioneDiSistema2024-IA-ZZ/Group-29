@@ -10,12 +10,12 @@ use crate::backup;
 pub fn mouse_events(extension: Option<String>,backup_type: &String,input_path: &String ,  output_path: &String ) {
     println!("Sei in mouse events");
 
-    //Per prendere dimensioni schermo
-    let event_loop = winit::event_loop::EventLoop::new(); // Creiamo un event loop temporaneo
-    let monitor = event_loop.primary_monitor().unwrap();
-    let screen_size = monitor.size();
-    let screen_width = screen_size.width;
-    let screen_height = screen_size.height;
+    let (screen_width, screen_height) = {
+        let event_loop = EventLoop::new();
+        let monitor = event_loop.primary_monitor().unwrap();
+        let screen_size = monitor.size();
+        (screen_size.width, screen_size.height)
+    };
 
     println!("Screen size: {}x{}", screen_width, screen_height);
 
