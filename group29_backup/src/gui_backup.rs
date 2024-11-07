@@ -68,7 +68,6 @@ impl App for ConfigApp {
                     }
                 }
             });
-
             // Pulsante per applicare la configurazione e salvarla
             if ui.button("Salva configurazione").clicked() {
                 if !self.input_path.is_empty() && !self.output_path.is_empty() {
@@ -114,7 +113,7 @@ output_path = {:?}
     };
 
     // Scrive la configurazione nel file config.toml nella directory specificata
-    fs::write("C:\\Users\\sagli\\Desktop\\uni\\Group-29\\config.toml", config_content)?; // Scrittura del contenuto nel file
+    fs::write("config.toml", config_content)?; // Scrittura del contenuto nel file
     Ok(())
 }
 

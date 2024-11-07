@@ -7,6 +7,7 @@ mod cpu_usage;
 
 use std::env;
 use std::path::{Path, PathBuf};
+use egui::debug_text::print;
 use serde::Deserialize;
 use sysinfo::{DiskExt, System, SystemExt};
 use gui_backup::ConfigApp;
@@ -24,8 +25,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     run_gui();
 
     // 2. Ottieni la directory del progetto e il percorso del file di configurazione
-    let config_path = get_project_directory()?.join("config.toml");
-
+    let config_path = get_project_directory()?;
+    println!("Config Path: {:?}", config_path);
     // 3. Carica la configurazione dal file TOML
     let (backup_type, extension, input_path, output_path) = load_config(&config_path)?;
 
@@ -54,7 +55,8 @@ fn get_project_directory() -> Result<PathBuf, Box<dyn std::error::Error>> {
         .ancestors()
         .nth(1)
         .ok_or("Impossibile ottenere la directory del progetto")?;
-    Ok(project_dir.to_path_buf())
+    let config_path = project_dir.join("group29_backup").join("config.toml");
+    Ok(config_path)
 }
 
 /// Funzione per caricare la configurazione dal file TOML
