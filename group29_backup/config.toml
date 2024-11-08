@@ -1,0 +1,4 @@
+
+backup_type = "FullFolder"
+input_path = "D:\\Uni\\Università Polito\\Burocrazia"
+output_path = "D:\\"

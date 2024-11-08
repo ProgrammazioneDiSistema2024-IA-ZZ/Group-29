@@ -11,6 +11,7 @@ use egui::debug_text::print;
 use serde::Deserialize;
 use sysinfo::{DiskExt, System, SystemExt};
 use gui_backup::ConfigApp;
+use auto_launch::AutoLaunch;
 
 #[derive(Debug, Deserialize)]
 struct ConfigData {
@@ -21,6 +22,18 @@ struct ConfigData {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+
+    let exe_path_buf = std::env::current_exe()?;
+    let exe_path = exe_path_buf
+        .to_str()
+        .ok_or("Failed to convert executable path to string")?;
+
+    let auto = AutoLaunch::new("Backup",exe_path);
+
+    if !auto.is_enabled()?{
+        auto.enable()?;
+        println!("Avvio automatico abilitato per il programma Backup.");
+    }
     // 1. Avvia la GUI e ottieni i percorsi di input e output
     run_gui();
 
