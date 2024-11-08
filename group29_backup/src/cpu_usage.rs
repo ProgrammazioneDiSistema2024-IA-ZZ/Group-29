@@ -6,7 +6,7 @@ use std::thread;
 
 pub fn log_cpu_usage() {
     let mut system = System::new_all();
-
+    //COMMIT
     loop {
         system.refresh_cpu();
         let cpu_usage = system.cpus().iter().map(|cpu| cpu.cpu_usage()).sum::<f32>() / system.cpus().len() as f32;
