@@ -4,12 +4,16 @@ use crate::eventi::{track_minus_sign, check_movement};
 use std::sync::{mpsc,Arc,Mutex};
 use winit::event_loop::{ EventLoop};
 use std::sync::atomic::{Ordering,AtomicBool};
-use std::time::Duration;
+use sysinfo::{CpuExt, System, SystemExt};
 use crate::backup;
 
 
 pub fn mouse_events(extension: Option<String>,backup_type: &String,input_path: &String ,  output_path: &String ) {
     println!("Sei in mouse events");
+
+    let mut system = System::new_all();
+    system.refresh_cpu();
+    let start_cpu_usage = system.global_cpu_info().cpu_usage();
 
     let (screen_width, screen_height) = {
         let event_loop = EventLoop::new();
@@ -32,8 +36,8 @@ pub fn mouse_events(extension: Option<String>,backup_type: &String,input_path: &
     if(done_receiver).recv().is_ok(){
         println!("Movimento e segno meno rilevati. Esecuzione commpletata");
         done_flag.store(true,Ordering::Relaxed);
-        backup::perform_backup(backup_type, extension.as_deref(), &PathBuf::from(input_path), &PathBuf::from(output_path));
-
+        backup::perform_backup(backup_type, extension.as_deref(), &PathBuf::from(input_path), &PathBuf::from(output_path), start_cpu_usage).expect("Errore durante il backup");
     }
+
 
 }

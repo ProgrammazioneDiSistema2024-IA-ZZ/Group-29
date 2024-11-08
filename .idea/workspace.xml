@@ -8,14 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="backup e guibackup">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/backup_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/backup_log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/config.toml" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/config.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/src/eventi.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/eventi.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/src/suoni.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/suoni.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/backup_log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/config.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/src/backup.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/backup.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/src/cpu_usage.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/cpu_usage.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/src/mouse_controller.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/mouse_controller.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup.json" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup.json" afterDir="false" />

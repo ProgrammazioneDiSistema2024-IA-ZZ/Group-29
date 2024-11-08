@@ -24,7 +24,6 @@ fn calculate_total_size(path: &PathBuf) -> u64 {
     total_size
 }
 
-// Funzione per loggare dimensione totale e tempo CPU su un file di log
 fn log_backup_info(total_size: u64, cpu_usage: f32) -> Result<(), Box<dyn std::error::Error>> {
     let log_path = "backup_log.txt";
     let mut file = OpenOptions::new()
@@ -42,7 +41,8 @@ fn log_backup_info(total_size: u64, cpu_usage: f32) -> Result<(), Box<dyn std::e
 }
 
 // Funzione per eseguire il backup
-pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &PathBuf, dest_path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &PathBuf, dest_path: &PathBuf, mut start_cpu_usage: f32,) -> Result<(), Box<dyn std::error::Error>> {
+
     if !src_path.exists() {
         play_sound_backup_error()?;
         return Err("Percorso sorgente non esiste".into());
@@ -56,7 +56,6 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
     let mut system = System::new_all();
     let start = Instant::now();
     system.refresh_cpu();
-    let start_cpu_usage = system.global_cpu_info().cpu_usage();
 
     fs::create_dir_all(&dest_path)?;
 
@@ -94,6 +93,13 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
     let avg_cpu_usage = (start_cpu_usage + end_cpu_usage) / 2.0;
     let duration = start.elapsed();
 
+    println!("Backup completato in: {:?}", duration);
+    log_backup_info(total_size, avg_cpu_usage)?;
+
+    system.refresh_cpu();
+    let end_cpu_usage = system.global_cpu_info().cpu_usage();
+    let avg_cpu_usage = (start_cpu_usage + end_cpu_usage) / 2.0;
+    let duration = start.elapsed();
     println!("Backup completato in: {:?}", duration);
     log_backup_info(total_size, avg_cpu_usage)?;
 

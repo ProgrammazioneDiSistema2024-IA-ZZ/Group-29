@@ -24,6 +24,6 @@ pub fn log_cpu_usage() {
         writeln!(file, "Consumo di CPU: {:.2}%", cpu_usage).expect("Impossibile scrivere nel file di log");
 
         // Attendi 2 minuti prima di ripetere il log
-        thread::sleep(Duration::from_secs(120));
+        thread::sleep(Duration::from_secs(10));
     }
 }
