@@ -3,6 +3,8 @@ use std::io::Cursor;
 use rodio::{Decoder, OutputStream, Sink};
 use std::env;
 use std::path::PathBuf;
+use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
+use std::f32::consts::PI;
 
 pub fn play_sound_backup_ok() -> Result<(), Box<dyn std::error::Error>> {
     let current_dir = env::current_dir()?;
@@ -55,5 +57,38 @@ pub fn play_sound_backup_error() -> Result<(), Box<dyn std::error::Error>> {
     // Riproduci il suono
     sink.sleep_until_end(); // Aspetta fino a quando il suono finisce di riprodursi
 
+    Ok(())
+}
+
+pub fn play_sound_sign() -> Result<(), Box<dyn std::error::Error>> {
+    // Configura la frequenza del suono e la frequenza di campionamento
+    let sample_rate = 44100.0;
+    let frequency = 550.0; // Frequenza di La (A4)
+
+    // Ottieni il dispositivo di output audio predefinito
+    let host = cpal::default_host();
+    let device = host.default_output_device().expect("Nessun dispositivo di output disponibile");
+    let config = device.default_output_config().expect("Nessuna configurazione di output disponibile");
+
+    // Funzione per generare l'onda sinusoidale
+    let mut sample_clock = 0f32;
+    let sample_delta = frequency * 2.0 * PI / sample_rate;
+
+    let stream = device.build_output_stream(
+        &config.into(),
+        move |data: &mut [f32], _: &cpal::OutputCallbackInfo| {
+            for sample in data.iter_mut() {
+                *sample = (sample_clock * sample_delta).sin();
+                sample_clock = (sample_clock + 1.0) % sample_rate;
+            }
+        },
+        |err| eprintln!("Errore nel flusso audio: {}", err),
+    ).expect("Errore nella creazione del flusso audio");
+
+    // Avvia il flusso
+    stream.play().expect("Errore nell'avvio del flusso audio");
+
+    // Mantiene il programma in esecuzione per ascoltare il suono
+    std::thread::sleep(std::time::Duration::from_secs(1));
     Ok(())
 }

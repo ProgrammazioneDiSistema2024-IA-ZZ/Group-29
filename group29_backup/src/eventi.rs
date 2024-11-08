@@ -8,7 +8,7 @@ use winit::event_loop::EventLoop;
 use winit::window::WindowBuilder;
 use std::sync::mpsc::Sender; // Importa Sender
 use std::sync::atomic::{Ordering,AtomicBool};
-
+use crate::suoni::play_sound_sign;
 
 #[derive(Debug)]
 struct RectangleTracker {
@@ -368,6 +368,10 @@ pub fn traccia_rettangolo( tracker : &mut RectangleTracker, screen_width: f64, s
             println!("Initial corner is :{:?}", tracker.initial_corner);
             if (tracker.initial_corner == corner && tracker.flag_fine) {
                 println!("Rectangle completed!!!!!!");
+                match play_sound_sign() {
+                    Ok(_) => println!("Suono riprodotto con successo"),
+                    Err(e) => eprintln!("Errore durante la riproduzione del suono: {}", e),
+                }
                 tracker.flag_fine = false;
                 return true;
             } else {
@@ -437,6 +441,10 @@ pub fn rileva_segno_meno(tracker: &mut TrackingMinusStatus , screen_width:f64,sc
 
             // Controlla se il segno meno è abbastanza lungo
             if (tracker.prev_x - tracker.initial_x) >= min_length {
+                match play_sound_sign() {
+                    Ok(_) => println!("Suono riprodotto con successo"),
+                    Err(e) => eprintln!("Errore durante la riproduzione del suono: {}", e),
+                }
                 tracker.is_minus_sign = true; // Setta la variabile di stato
                 println!("Minus sign detected successfully!");
                 return true; // Puoi usare return per uscire dalla closure
