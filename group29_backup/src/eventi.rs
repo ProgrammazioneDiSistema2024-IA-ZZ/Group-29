@@ -115,26 +115,26 @@ pub fn check_movement(screen_width: f64, screen_height: f64, done_flag: Arc<Atom
     //Flag per terminare il listen
     let done_flag_clone = Arc::clone(&done_flag);
 
-    thread::spawn(move || {
+
         // Ascolta eventi del mouse con rdev
-        listen(move |event: Event| {
+    listen(move |event: Event| {
 
-            // Controlla se il flag di terminazione è stato impostato
-            if done_flag_clone.load(Ordering::Relaxed) {
-                return; // Esce dal callback senza fare nulla
-            }
+        // Controlla se il flag di terminazione è stato impostato
+        if done_flag_clone.load(Ordering::Relaxed) {
+            return; // Esce dal callback senza fare nulla
+        }
 
-            if traccia_rettangolo(&mut tracker,screen_width,screen_height,event){
-                println!("Sei dentro traccia rettangolo -> true");
-                let done_flag_clone2 = Arc::clone(&done_flag);
-                let done_sender_clone = done_sender.clone();
-                thread::spawn(move|| {
-                    track_minus_sign(screen_width,screen_height,done_flag_clone2, done_sender_clone)
-                });
-            }
+        if traccia_rettangolo(&mut tracker,screen_width,screen_height,event){
+            println!("Sei dentro traccia rettangolo -> true");
+            let done_flag_clone2 = Arc::clone(&done_flag);
+            let done_sender_clone = done_sender.clone();
+            thread::spawn(move|| {
+                track_minus_sign(screen_width,screen_height,done_flag_clone2, done_sender_clone)
+            });
+        }
 
-        }).expect("Errore nell'ascolto degli eventi di rdev in check movement");
-    });
+    }).expect("Errore nell'ascolto degli eventi di rdev in check movement");
+
 }
 
 
