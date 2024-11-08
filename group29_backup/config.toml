@@ -1,0 +1,4 @@
+
+backup_type = "FullFolder"
+input_path = "C:\\Users\\sagli\\Desktop\\uni\\SSI\\pdf appunti"
+output_path = "C:\\Users\\sagli\\Desktop\\output"
