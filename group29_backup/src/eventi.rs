@@ -143,7 +143,6 @@ pub fn track_minus_sign(screen_width:f64,screen_height:f64,done_flag: Arc<Atomic
     let mut tracker = TrackingMinusStatus::new();
 
    listen(move |event:Event| {
-
        println!("Sei dentro il listen del thread spawn del track_minus_sign e done_flag:{:?}", done_flag);
        if done_flag.load(Ordering::Relaxed){
            return;
@@ -152,7 +151,7 @@ pub fn track_minus_sign(screen_width:f64,screen_height:f64,done_flag: Arc<Atomic
            done_sender.send(()).expect("Errore nell'invio del segnale di completmento");
            done_flag.store(true,Ordering::Relaxed);
        }
-       }).expect("Errore nell'ascolto degli eventi di rdev in trck minus");
+   }).expect("Errore nell'ascolto degli eventi di rdev in trck minus");
 }
 
 
@@ -427,6 +426,11 @@ pub fn rileva_segno_meno(tracker: &mut TrackingMinusStatus , screen_width:f64,sc
                 tracker.prev_x = x;
                 println!("Tracking minus sign: current position ({}, {})", x, y);
                 if (tracker.prev_x - tracker.initial_x) >= min_length {
+                    match play_sound_sign() {
+                        Ok(_) => println!("Suono riprodotto con successo"),
+                        Err(e) => eprintln!("Errore durante la riproduzione del suono: {}", e),
+                    }
+                    println!("Minus sign detected successfully!");
                     tracker.is_minus_sign = true; // Setta la variabile di stato
                     return true; // You can use return to exit the closure
                 }
@@ -437,17 +441,6 @@ pub fn rileva_segno_meno(tracker: &mut TrackingMinusStatus , screen_width:f64,sc
                     tracker.is_tracking = false;
                     println!("Movement out of tolerance. Resetting tracking.");
                 }
-            }
-
-            // Controlla se il segno meno è abbastanza lungo
-            if (tracker.prev_x - tracker.initial_x) >= min_length {
-                match play_sound_sign() {
-                    Ok(_) => println!("Suono riprodotto con successo"),
-                    Err(e) => eprintln!("Errore durante la riproduzione del suono: {}", e),
-                }
-                tracker.is_minus_sign = true; // Setta la variabile di stato
-                println!("Minus sign detected successfully!");
-                return true; // Puoi usare return per uscire dalla closure
             }
         }
     }
