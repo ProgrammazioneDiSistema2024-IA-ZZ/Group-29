@@ -115,7 +115,7 @@ pub fn check_movement(screen_width: f64, screen_height: f64, done_flag: Arc<Atom
     //Flag per terminare il listen
     let done_flag_clone = Arc::clone(&done_flag);
 
-
+    println!("Sei dentro check_movemen");
         // Ascolta eventi del mouse con rdev
     listen(move |event: Event| {
 
@@ -132,6 +132,7 @@ pub fn check_movement(screen_width: f64, screen_height: f64, done_flag: Arc<Atom
                 track_minus_sign(screen_width,screen_height,done_flag_clone2, done_sender_clone)
             });
         }
+
 
     }).expect("Errore nell'ascolto degli eventi di rdev in check movement");
 
@@ -151,6 +152,7 @@ pub fn track_minus_sign(screen_width:f64,screen_height:f64,done_flag: Arc<Atomic
            done_sender.send(()).expect("Errore nell'invio del segnale di completmento");
            done_flag.store(true,Ordering::Relaxed);
        }
+
    }).expect("Errore nell'ascolto degli eventi di rdev in trck minus");
 }
 

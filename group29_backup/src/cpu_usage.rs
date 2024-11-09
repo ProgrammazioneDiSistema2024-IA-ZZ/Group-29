@@ -1,4 +1,4 @@
-use sysinfo::{System, SystemExt, ProcessExt, Pid};
+use sysinfo::{System, SystemExt, ProcessExt, Pid, CpuExt};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::time::Duration;
@@ -47,4 +47,4 @@ pub fn log_cpu_usage() {
         // Attendi 10 secondi prima di ripetere il log
         thread::sleep(Duration::from_secs(120));
     }
-}
+
