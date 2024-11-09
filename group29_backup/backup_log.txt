@@ -10,3 +10,9 @@ Utilizzo medio della CPU: 7.77%
 Backup completato:
 Dimensione totale dei file: 4181063 bytes
 Utilizzo medio della CPU: 14.12%
+Backup completato:
+Dimensione totale dei file: 888079 bytes
+Utilizzo medio della CPU: 20.87%
+Backup completato:
+Dimensione totale dei file: 888079 bytes
+Utilizzo medio della CPU: 83.29%
