@@ -1,7 +1,7 @@
-use sysinfo::{System, SystemExt, ProcessExt, Pid, CpuExt};
+use sysinfo::{System, SystemExt, ProcessExt, Pid};
 use std::fs::OpenOptions;
 use std::io::Write;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 use std::thread;
 
 pub fn log_cpu_usage() {
@@ -10,22 +10,28 @@ pub fn log_cpu_usage() {
     // Ottieni il PID del processo corrente
     let pid = Pid::from(std::process::id() as usize);
 
+    let mut file = OpenOptions::new()
+        .append(true)
+        .create(true)
+        .open("cpu_usage.log")
+        .expect("Impossibile aprire il file di log");
+
     loop {
-        // Log dell'uso della CPU totale
-        let cpu_usage = system.cpus().iter().map(|cpu| cpu.cpu_usage()).sum::<f32>() / system.cpus().len() as f32;
 
-        let mut file = OpenOptions::new()
-            .append(true)
-            .create(true)
-            .open("cpu_usage.log")
-            .expect("Impossibile aprire il file di log");
-
+        // Introduci un piccolo ritardo per calcolare l'utilizzo della CPU
+        let start = Instant::now();
+        thread::sleep(Duration::from_millis(500));
+        system.refresh_process(pid);
 
         // Log dell'uso della CPU del processo corrente
         if let Some(process) = system.process(pid) {
             let process_cpu_usage = process.cpu_usage();
-
-            writeln!(file, "Consumo di CPU del processo: {:.2}%", process_cpu_usage)
+            writeln!(
+                file,
+                "Consumo di CPU del processo {}: {:.2}%",
+                pid,
+                process_cpu_usage
+            )
                 .expect("Impossibile scrivere nel file di log");
         } else {
             writeln!(file, "Impossibile trovare il processo con PID: {}", pid)
@@ -33,7 +39,7 @@ pub fn log_cpu_usage() {
         }
 
         // Attendi 120 secondi prima di ripetere il log
-        thread::sleep(Duration::from_secs(120));
+        thread::sleep(Duration::from_secs(120) - start.elapsed());
     }
-    }
+}
 
