@@ -1,12 +1,3 @@
 Backup completato:
 Dimensione totale dei file: 888079 bytes
-Utilizzo medio della CPU: 4.49%
-Backup completato:
-Dimensione totale dei file: 888079 bytes
-Utilizzo medio della CPU: 7.54%
-Backup completato:
-Dimensione totale dei file: 888079 bytes
-Utilizzo medio della CPU: 5.23%
-Backup completato:
-Dimensione totale dei file: 888079 bytes
-Utilizzo medio della CPU: 8.88%
+Tempo impiegato per il backup: 5.8447ms%

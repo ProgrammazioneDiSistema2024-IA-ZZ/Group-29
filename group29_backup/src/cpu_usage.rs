@@ -23,8 +23,6 @@ pub fn log_cpu_usage() {
             .open("cpu_usage.log")
             .expect("Impossibile aprire il file di log");
 
-        writeln!(file, "Consumo medio di CPU: {:.2}%", cpu_usage)
-            .expect("Impossibile scrivere nel file di log");
 
         // Log dell'uso della CPU del processo corrente
         if let Some(process) = system.process(pid) {

@@ -5,7 +5,7 @@ use rfd::MessageDialog;
 use crate::suoni::{play_sound_backup_ok, play_sound_backup_error};
 use std::thread;
 use sysinfo::{System, SystemExt, CpuExt};
-use std::time::Instant;
+use std::time::{Duration, Instant};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::io;
@@ -24,7 +24,7 @@ fn calculate_total_size(path: &PathBuf) -> u64 {
     total_size
 }
 
-fn log_backup_info(total_size: u64, cpu_usage: f32) -> Result<(), Box<dyn std::error::Error>> {
+fn log_backup_info(total_size: u64, duration: Duration)-> Result<(), Box<dyn std::error::Error>> {
     let log_path = "backup_log.txt";
     let mut file = OpenOptions::new()
         .append(true)
@@ -33,8 +33,8 @@ fn log_backup_info(total_size: u64, cpu_usage: f32) -> Result<(), Box<dyn std::e
 
     writeln!(
         file,
-        "Backup completato:\nDimensione totale dei file: {} bytes\nUtilizzo medio della CPU: {:.2}%",
-        total_size, cpu_usage
+        "Backup completato:\nDimensione totale dei file: {} bytes\nTempo impiegato per il backup: {:?}",
+        total_size, duration
     )?;
 
     Ok(())
@@ -89,12 +89,12 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
     }
 
     system.refresh_cpu();
-    let end_cpu_usage = system.global_cpu_info().cpu_usage();
-    let avg_cpu_usage = (start_cpu_usage + end_cpu_usage) / 2.0;
+    //let end_cpu_usage = system.global_cpu_info().cpu_usage();
+    // let avg_cpu_usage = (start_cpu_usage + end_cpu_usage) / 2.0;
     let duration = start.elapsed();
     println!("Backup completato in: {:?}", duration);
 
-    log_backup_info(total_size, avg_cpu_usage)?;
+    log_backup_info(total_size, duration)?;
 
     let sound_thread = thread::spawn(|| {
         play_sound_backup_ok().unwrap();
