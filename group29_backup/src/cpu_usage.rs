@@ -11,9 +11,6 @@ pub fn log_cpu_usage() {
     let pid = Pid::from(std::process::id() as usize);
 
     loop {
-        // Aggiorna le informazioni del sistema
-        system.refresh_all();
-
         // Log dell'uso della CPU totale
         let cpu_usage = system.cpus().iter().map(|cpu| cpu.cpu_usage()).sum::<f32>() / system.cpus().len() as f32;
 
