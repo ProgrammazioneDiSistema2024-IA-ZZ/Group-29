@@ -41,7 +41,7 @@ fn log_backup_info(total_size: u64, duration: Duration)-> Result<(), Box<dyn std
 }
 
 // Funzione per eseguire il backup
-pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &PathBuf, dest_path: &PathBuf, mut start_cpu_usage: f32,) -> Result<(), Box<dyn std::error::Error>> {
+pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &PathBuf, dest_path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
 
     if !src_path.exists() {
         play_sound_backup_error()?;

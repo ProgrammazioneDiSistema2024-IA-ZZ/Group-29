@@ -69,7 +69,7 @@ pub fn mouse_events(extension: Option<String>, backup_type: &String, input_path:
         }
         println!("Movimento e segno meno rilevati. Esecuzione commpletata");
         done_flag.store(true,Ordering::Relaxed);
-        backup::perform_backup(backup_type, extension.as_deref(), &PathBuf::from(input_path), &PathBuf::from(output_path), start_cpu_usage).expect("Errore durante il backup");
+        backup::perform_backup(backup_type, extension.as_deref(), &PathBuf::from(input_path), &PathBuf::from(output_path)).expect("Errore durante il backup");
     }
 
 

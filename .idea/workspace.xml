@@ -5,19 +5,25 @@
   </component>
   <component name="CargoProjects">
     <cargoProject FILE="$PROJECT_DIR$/group29_backup/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="cpu_usage">
+    <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="dir changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/src/backup.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/backup.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/src/cpu_usage.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/cpu_usage.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/src/eventi.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/eventi.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/src/mouse_controller.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/mouse_controller.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/config.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/src/dir_functions.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/dir_functions.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/src/gui_backup.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/gui_backup.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup.json" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/dep-bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/dep-bin-group29_backup" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.d" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.d" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.exe" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/group29_backup.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +83,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sagli\Desktop\uni\Group-29" />
+    </key>
+  </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
   </component>
@@ -93,6 +104,7 @@
       <workItem from="1727338593844" duration="785000" />
       <workItem from="1727341741859" duration="843000" />
       <workItem from="1730990135931" duration="2649000" />
+      <workItem from="1732808661048" duration="2513000" />
     </task>
     <task id="LOCAL-00001" summary="Commit di fra iniziale">
       <option name="closed" value="true" />
@@ -134,7 +146,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731058757674</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="dir changes">
+      <option name="closed" value="true" />
+      <created>1732808550005</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1732808550005</updated>
+    </task>
+    <task id="LOCAL-00007" summary="dir changes">
+      <option name="closed" value="true" />
+      <created>1732808576326</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732808576326</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,6 +184,7 @@
     <MESSAGE value="Dependencies aggiornate" />
     <MESSAGE value="backup e guibackup" />
     <MESSAGE value="cpu_usage" />
-    <option name="LAST_COMMIT_MESSAGE" value="cpu_usage" />
+    <MESSAGE value="dir changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="dir changes" />
   </component>
 </project>
