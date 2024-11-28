@@ -6,14 +6,15 @@ mod suoni;
 mod cpu_usage;
 mod dir_functions;
 
-use std::env;
+use std::{env, thread};
 use std::path::{Path, PathBuf};
 use egui::debug_text::print;
 use serde::Deserialize;
-use sysinfo::{DiskExt, System, SystemExt};
 use gui_backup::ConfigApp;
 use auto_launch::AutoLaunch;
 use dir_functions::get_project_directory;
+use crate::cpu_usage::log_cpu_usage;
+
 #[derive(Debug, Deserialize)]
 struct ConfigData {
     backup_type: String,
@@ -23,6 +24,11 @@ struct ConfigData {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+
+    // Avvia la registrazione dell'utilizzo della CPU in un thread separato
+    thread::spawn(|| {
+        log_cpu_usage(); // Funzione che continua a loggare la CPU ogni 10 secondi
+    });
 
     let exe_path_buf = std::env::current_exe()?;
     let exe_path = exe_path_buf

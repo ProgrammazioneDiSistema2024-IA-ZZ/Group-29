@@ -1,0 +1,2 @@
+Consumo di CPU del processo 3824: 200.000000%
+Consumo di CPU del processo 20552: 114.285721%

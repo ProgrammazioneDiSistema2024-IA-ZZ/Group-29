@@ -4,7 +4,7 @@ use std::path::{PathBuf, Path};
 use rfd::MessageDialog;
 use crate::suoni::{play_sound_backup_ok, play_sound_backup_error, play_sound_sign};
 use std::thread;
-use sysinfo::{System, SystemExt, CpuExt};
+use sysinfo::{System};
 use std::time::{Duration, Instant};
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -53,10 +53,6 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
         return Err("Percorso sorgente o destinazione non valido".into());
     }
 
-    let mut system = System::new_all();
-    system.refresh_cpu();
-    let start = Instant::now();
-
     fs::create_dir_all(&dest_path)?;
 
     let mut total_size = 0;
@@ -88,13 +84,6 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
         _ => return Err("Tipo di backup non valido".into()),
     }
 
-    system.refresh_cpu();
-    //let end_cpu_usage = system.global_cpu_info().cpu_usage();
-    // let avg_cpu_usage = (start_cpu_usage + end_cpu_usage) / 2.0;
-    let duration = start.elapsed();
-    println!("Backup completato in: {:?}", duration);
-
-    log_backup_info(total_size, duration)?;
 
     let sound_thread = thread::spawn(|| {
         play_sound_backup_ok().unwrap();

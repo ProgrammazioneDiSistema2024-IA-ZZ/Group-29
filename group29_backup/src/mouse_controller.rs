@@ -4,7 +4,6 @@ use crate::eventi::{ check_movement};
 use std::sync::{mpsc,Arc,Mutex};
 use winit::event_loop::EventLoop;
 use std::sync::atomic::{Ordering,AtomicBool};
-use sysinfo::{CpuExt, System, SystemExt};
 use crate::backup;
 use crate::cpu_usage::log_cpu_usage;
 use std::time::{Duration, Instant};
@@ -17,14 +16,6 @@ use crate::suoni::play_sound_sign;
 pub fn mouse_events(extension: Option<String>, backup_type: &String, input_path: &String, output_path: &String ) {
     println!("Sei in mouse events");
 
-    let mut system = System::new_all();
-    system.refresh_cpu();
-    let start_cpu_usage = system.global_cpu_info().cpu_usage();
-
-    // Avvia la registrazione dell'utilizzo della CPU in un thread separato
-    thread::spawn(|| {
-        log_cpu_usage(); // Funzione che continua a loggare la CPU ogni 10 secondi
-    });
 
 
     let (screen_width, screen_height) = {
