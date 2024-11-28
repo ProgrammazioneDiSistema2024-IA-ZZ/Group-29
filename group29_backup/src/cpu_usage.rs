@@ -18,10 +18,6 @@ pub fn log_cpu_usage() {
 
     loop {
 
-        // Introduci un piccolo ritardo per calcolare l'utilizzo della CPU
-        thread::sleep(Duration::from_millis(500));
-        system.refresh_process(pid);
-
         // Log dell'uso della CPU del processo corrente
         if let Some(process) = system.process(pid) {
             let process_cpu_usage = process.cpu_usage();
