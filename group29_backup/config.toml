@@ -1,5 +1,4 @@
 
-backup_type = "FileType"
-extension = "txt"
-input_path = "C:\\Users\\frank\\OneDrive\\Desktop\\Uni"
+backup_type = "FullFolder"
+input_path = "C:\\Users\\frank\\OneDrive\\Immagini\\Screenshots\\Screenshots"
 output_path = "C:\\Users\\frank\\OneDrive\\Desktop"

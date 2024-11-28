@@ -53,6 +53,8 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
         return Err("Percorso sorgente o destinazione non valido".into());
     }
 
+    let start = Instant::now();
+
     fs::create_dir_all(&dest_path)?;
 
     let mut total_size = 0;
@@ -88,6 +90,10 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
     let sound_thread = thread::spawn(|| {
         play_sound_backup_ok().unwrap();
     });
+
+    let duration = start.elapsed();
+
+    log_backup_info(total_size,duration)?;
 
     MessageDialog::new()
         .set_title("Backup Completato")
