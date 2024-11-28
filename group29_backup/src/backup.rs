@@ -9,6 +9,7 @@ use std::time::{Duration, Instant};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::io;
+use std::sync::atomic::Ordering;
 use rayon::prelude::*;
 
 // Funzione per calcolare la dimensione totale dei file in un percorso
@@ -95,6 +96,8 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
     println!("Backup completato in: {:?}", duration);
 
     log_backup_info(total_size, duration)?;
+
+    //done_flag.store(true, Ordering::Relaxed);
 
     let sound_thread = thread::spawn(|| {
         play_sound_backup_ok().unwrap();

@@ -3,13 +3,14 @@ use std::cmp::PartialEq;
 use rdev::{listen, Event, EventType};  // Importa rdev per ascoltare gli eventi globali del mouse
 use std::sync::{Arc, mpsc, Mutex};
 use std::thread;
-use std::time::Duration;
+use std::time::{Duration,Instant};
 use winit::event_loop::EventLoop;
 use winit::window::WindowBuilder;
 use std::sync::mpsc::Sender; // Importa Sender
 use std::sync::atomic::{Ordering,AtomicBool};
 use crate::suoni::play_sound_sign;
 
+const DEBOUNCE_INTERVAL: Duration = Duration::from_millis(100);
 #[derive(Debug)]
 struct RectangleTracker {
     is_rectangle: bool,
@@ -115,6 +116,8 @@ pub fn check_movement(screen_width: f64, screen_height: f64, done_flag: Arc<Atom
     //Flag per terminare il listen
     let done_flag_clone = Arc::clone(&done_flag);
 
+    let last_event_time = Arc::new(Mutex::new(Instant::now()));
+
     println!("Sei dentro check_movemen");
         // Ascolta eventi del mouse con rdev
     listen(move |event: Event| {
@@ -123,6 +126,13 @@ pub fn check_movement(screen_width: f64, screen_height: f64, done_flag: Arc<Atom
         if done_flag_clone.load(Ordering::Relaxed) {
             return; // Esce dal callback senza fare nulla
         }
+        let now = Instant::now();
+        let mut last_time = last_event_time.lock().unwrap();
+
+        if now.duration_since(*last_time) < DEBOUNCE_INTERVAL {
+            return;
+        }
+        *last_time = now;
 
         if traccia_rettangolo(&mut tracker,screen_width,screen_height,event){
             println!("Sei dentro traccia rettangolo -> true");

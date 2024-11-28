@@ -11,7 +11,7 @@ use std::time::{Duration, Instant};
 use rdev::{Event, listen};
 
 
-const DEBOUNCE_INTERVAL: Duration = Duration::from_millis(10); // Intervallo di debounce per ignorare eventi troppo vicini
+//const DEBOUNCE_INTERVAL: Duration = Duration::from_millis(50); // Intervallo di debounce per ignorare eventi troppo vicini
 
 pub fn mouse_events(extension: Option<String>, backup_type: &String, input_path: &String, output_path: &String ) {
     println!("Sei in mouse events");
@@ -43,14 +43,14 @@ pub fn mouse_events(extension: Option<String>, backup_type: &String, input_path:
     let last_event_time = Arc::new(Mutex::new(Instant::now())); // Per tenere traccia dell'ultimo evento significativo
 
     thread::spawn(move || {
-        let last_event_time = Arc::clone(&last_event_time);
+        //let last_event_time = Arc::clone(&last_event_time);
         listen(move |event: Event| {
             // Verifica se il tempo trascorso dall'ultimo evento supera l'intervallo di debounce
             let mut last_time = last_event_time.lock().unwrap();
-            if last_time.elapsed() >= DEBOUNCE_INTERVAL {
-                *last_time = Instant::now(); // Aggiorna il tempo dell'ultimo evento processato
+            //if last_time.elapsed() >= DEBOUNCE_INTERVAL {
+                //*last_time = Instant::now(); // Aggiorna il tempo dell'ultimo evento processato
                 check_movement(screen_width as f64, screen_height as f64, Arc::clone(&done_flag_clone), done_sender.clone());
-            }
+            //}
         }).expect("Errore nell'ascolto degli eventi di rdev in mouse_events");
     });
 
