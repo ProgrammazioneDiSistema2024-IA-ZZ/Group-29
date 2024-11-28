@@ -136,6 +136,10 @@ pub fn check_movement(screen_width: f64, screen_height: f64, done_flag: Arc<Atom
 
         if traccia_rettangolo(&mut tracker,screen_width,screen_height,event){
             println!("Sei dentro traccia rettangolo -> true");
+            match play_sound_sign() {
+                Ok(_) => println!("Suono riprodotto con successo"),
+                Err(e) => eprintln!("Errore durante la riproduzione del suono: {}", e),
+            }
             let done_flag_clone2 = Arc::clone(&done_flag);
             let done_sender_clone = done_sender.clone();
             thread::spawn(move|| {
@@ -379,10 +383,6 @@ pub fn traccia_rettangolo( tracker : &mut RectangleTracker, screen_width: f64, s
             println!("Initial corner is :{:?}", tracker.initial_corner);
             if (tracker.initial_corner == corner && tracker.flag_fine) {
                 println!("Rectangle completed!!!!!!");
-                match play_sound_sign() {
-                    Ok(_) => println!("Suono riprodotto con successo"),
-                    Err(e) => eprintln!("Errore durante la riproduzione del suono: {}", e),
-                }
                 tracker.flag_fine = false;
                 return true;
             } else {
@@ -438,10 +438,6 @@ pub fn rileva_segno_meno(tracker: &mut TrackingMinusStatus , screen_width:f64,sc
                 tracker.prev_x = x;
                 println!("Tracking minus sign: current position ({}, {})", x, y);
                 if (tracker.prev_x - tracker.initial_x) >= min_length {
-                    match play_sound_sign() {
-                        Ok(_) => println!("Suono riprodotto con successo"),
-                        Err(e) => eprintln!("Errore durante la riproduzione del suono: {}", e),
-                    }
                     println!("Minus sign detected successfully!");
                     tracker.is_minus_sign = true; // Setta la variabile di stato
                     return true; // You can use return to exit the closure

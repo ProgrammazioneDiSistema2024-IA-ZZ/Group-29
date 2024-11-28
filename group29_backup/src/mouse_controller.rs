@@ -9,6 +9,7 @@ use crate::backup;
 use crate::cpu_usage::log_cpu_usage;
 use std::time::{Duration, Instant};
 use rdev::{Event, listen};
+use crate::suoni::play_sound_sign;
 
 
 //const DEBOUNCE_INTERVAL: Duration = Duration::from_millis(50); // Intervallo di debounce per ignorare eventi troppo vicini
@@ -62,6 +63,10 @@ pub fn mouse_events(extension: Option<String>, backup_type: &String, input_path:
 
 
     if(done_receiver).recv().is_ok(){
+        match play_sound_sign() {
+            Ok(_) => println!("Suono riprodotto con successo"),
+            Err(e) => eprintln!("Errore durante la riproduzione del suono: {}", e),
+        }
         println!("Movimento e segno meno rilevati. Esecuzione commpletata");
         done_flag.store(true,Ordering::Relaxed);
         backup::perform_backup(backup_type, extension.as_deref(), &PathBuf::from(input_path), &PathBuf::from(output_path), start_cpu_usage).expect("Errore durante il backup");

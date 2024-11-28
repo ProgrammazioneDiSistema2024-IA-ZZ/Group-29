@@ -19,7 +19,6 @@ pub fn log_cpu_usage() {
     loop {
 
         // Introduci un piccolo ritardo per calcolare l'utilizzo della CPU
-        let start = Instant::now();
         thread::sleep(Duration::from_millis(500));
         system.refresh_process(pid);
 
@@ -28,7 +27,7 @@ pub fn log_cpu_usage() {
             let process_cpu_usage = process.cpu_usage();
             writeln!(
                 file,
-                "Consumo di CPU del processo {}: {:.2}%",
+                "Consumo di CPU del processo {}: {:.6}%",
                 pid,
                 process_cpu_usage
             )
@@ -39,7 +38,7 @@ pub fn log_cpu_usage() {
         }
 
         // Attendi 120 secondi prima di ripetere il log
-        thread::sleep(Duration::from_secs(120) - start.elapsed());
+        thread::sleep(Duration::from_secs(5));
     }
 }
 
