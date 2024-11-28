@@ -2,14 +2,13 @@ use serde::{Deserialize};
 use std::{env, fs};
 use std::path::{PathBuf, Path};
 use rfd::MessageDialog;
-use crate::suoni::{play_sound_backup_ok, play_sound_backup_error};
+use crate::suoni::{play_sound_backup_ok, play_sound_backup_error, play_sound_sign};
 use std::thread;
 use sysinfo::{System, SystemExt, CpuExt};
 use std::time::{Duration, Instant};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::io;
-use std::sync::atomic::Ordering;
 use rayon::prelude::*;
 
 // Funzione per calcolare la dimensione totale dei file in un percorso
@@ -96,8 +95,6 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
     println!("Backup completato in: {:?}", duration);
 
     log_backup_info(total_size, duration)?;
-
-    //done_flag.store(true, Ordering::Relaxed);
 
     let sound_thread = thread::spawn(|| {
         play_sound_backup_ok().unwrap();

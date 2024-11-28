@@ -1,11 +1,10 @@
 use eframe::{egui, App}; // Assicurati di avere le importazioni corrette
-use std::fs;
+use std::{env, fs};
 use std::io::{self, Write};
 use std::path::PathBuf;
 use native_dialog::FileDialog; // Per il dialogo di selezione della cartella
 use egui::ViewportCommand;
-
-
+use crate::dir_functions::get_project_directory;
 pub struct ConfigApp {
     pub use_full_folder: bool,     // Checkbox per "Cartella completa del progetto"
     pub selected_extension: String, // Estensione selezionata
@@ -89,8 +88,8 @@ impl App for ConfigApp {
         });
     }
 }
-// Funzione per scrivere nel file config.toml
-fn write_config(use_full_folder: bool, extension: &str, input_path: &str, output_path: &str) -> Result<(), io::Error> {
+
+fn write_config(use_full_folder: bool, extension: &str, input_path: &str, output_path: &str) -> Result<(), Box<dyn std::error::Error>> {
     let config_content = if use_full_folder {
         format!(
             r#"
@@ -111,9 +110,15 @@ output_path = {:?}
             extension, input_path, output_path
         )
     };
-
-    // Scrive la configurazione nel file config.toml nella directory specificata
-    fs::write("config.toml", config_content)?; // Scrittura del contenuto nel file
+    let proj_dir = get_project_directory()?;
+    let config_path = proj_dir.join("config.toml");
+    //fs::write(config_path, config_content)?;
+    println!("Config Path calcolato da write: {:?}", config_path);
+    println!("Config Content: {}", config_content);
+    fs::write(config_path, config_content).map_err(|e| {
+        println!("Errore nella scrittura del file config.toml: {}", e);
+        e
+    })?;
     Ok(())
 }
 
