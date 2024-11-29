@@ -1,4 +1,1 @@
-Consumo di CPU del processo 3824: 200.000000%
-Consumo di CPU del processo 20552: 114.285721%
-Consumo di CPU del processo 5204: 444.444458%
-Consumo di CPU del processo 22192: 94.117645%
+Media consumo CPU del processo 3456: 0.170245% dopo 24 campioni.

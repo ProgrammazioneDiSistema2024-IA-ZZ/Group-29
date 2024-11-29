@@ -1,3 +1,21 @@
 Backup completato:
 Dimensione totale dei file: 0 bytes
-Tempo impiegato per il backup: 4.3745ms
+Tempo impiegato per il backup: 2.1442ms
+Backup completato:
+Dimensione totale dei file: 0 bytes
+Tempo impiegato per il backup: 2.3528ms
+Backup completato:
+Dimensione totale dei file: 0 bytes
+Tempo impiegato per il backup: 3.059ms
+Backup completato:
+Dimensione totale dei file: 0 bytes
+Tempo impiegato per il backup: 2.3823ms
+Backup completato:
+Dimensione totale dei file: 0 bytes
+Tempo impiegato per il backup: 4.1439ms
+Backup completato:
+Dimensione totale dei file: 0 bytes
+Tempo impiegato per il backup: 4.7683ms
+Backup completato:
+Dimensione totale dei file: 0 bytes
+Tempo impiegato per il backup: 2.9526ms
