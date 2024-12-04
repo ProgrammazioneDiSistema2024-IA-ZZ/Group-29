@@ -3,6 +3,15 @@ use std::fs::OpenOptions;
 use std::io::Write;
 use std::time::{Duration, Instant};
 use std::thread;
+use std::path::PathBuf;
+use dirs;
+
+fn get_log_file_path() -> PathBuf {
+    // Usa la directory locale dell'utente (es. AppData\Local su Windows)
+    let log_dir = dirs::data_local_dir()
+        .expect("Impossibile determinare la directory locale dei dati dell'utente");
+    log_dir.join("cpu_usage_log.txt") // Percorso completo del file di log
+}
 
 pub fn log_cpu_usage() {
     let mut system = System::new_all();
@@ -11,13 +20,17 @@ pub fn log_cpu_usage() {
     let pid = std::process::id();
     println!("PID del processo corrente: {}", pid);
 
-    // Apre il file di log per scrittura
+    // Determina il percorso del file di log
+    let log_file_path = get_log_file_path();
+    println!("Percorso del file di log: {:?}", log_file_path);
+
+    // Apre il file di log per scrittura nella directory specificata
     let mut file = OpenOptions::new()
         .append(true)
         .create(true)
-        .open("cpu_usage_log.txt")
-        .expect("Impossibile aprire il file di log");
-    println!("File di log aperto correttamente. Percorso: {:?}", std::env::current_dir());
+        .open(&log_file_path)
+        .expect("Impossibile aprire o creare il file di log");
+    println!("File di log aperto correttamente.");
 
     // Ottieni il numero di core logici della CPU
     let num_cores = system.cpus().len();
