@@ -10,14 +10,15 @@
   <component name="ChangeListManager">
     <list default="true" id="437084ef-4eab-4157-a949-5eed20bea345" name="Changes" comment="dir changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/config.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/src/dir_functions.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/dir_functions.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/src/gui_backup.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/gui_backup.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/backup_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/backup_log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/config.toml" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/config.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group29_backup/cpu_usage_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/cpu_usage_log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/.rustc_info.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup.json" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/bin-group29_backup.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/dep-bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/dep-bin-group29_backup" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/.fingerprint/group29_backup-0e913578c68690d9/output-bin-group29_backup" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.d" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" beforeDir="false" afterPath="$PROJECT_DIR$/group29_backup/target/debug/deps/group29_backup.exe" afterDir="false" />
@@ -105,6 +106,9 @@
       <workItem from="1727341741859" duration="843000" />
       <workItem from="1730990135931" duration="2649000" />
       <workItem from="1732808661048" duration="2513000" />
+      <workItem from="1733327038048" duration="3270000" />
+      <workItem from="1733331104313" duration="917000" />
+      <workItem from="1733334539391" duration="335000" />
     </task>
     <task id="LOCAL-00001" summary="Commit di fra iniziale">
       <option name="closed" value="true" />
