@@ -3,3 +3,4 @@ Media consumo CPU del processo 20504: 1.931474% dopo 24 campioni.
 Media consumo CPU del processo 20504: 0.611288% dopo 24 campioni.
 Media consumo CPU del processo 19236: 0.709365% dopo 24 campioni.
 Media consumo CPU del processo 22572: 0.528579% dopo 24 campioni.
+Media consumo CPU del processo 14384: 0.524939% dopo 24 campioni.

@@ -4,7 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
+[[bin]]
+name = "backup"
+path = "src/main.rs"
+# Specifica il tipo di subsystem come "windows" (nasconde la finestra del terminale)
+windows_subsystem = "windows"
 
 [dependencies]
 rdev = "0.5.3"        # Libreria per la gestione dei dispositivi di input

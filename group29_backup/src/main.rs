@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 mod backup;
 mod gui_backup;
 mod mouse_controller;
@@ -15,6 +16,7 @@ use winreg::RegKey;
 use dir_functions::get_project_directory;
 use crate::cpu_usage::log_cpu_usage;
 use crate::suoni::play_sound_backup_ok;
+
 
 #[derive(Debug, Deserialize)]
 struct ConfigData {
@@ -57,6 +59,91 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
+
+    let exe_path_buf = env::current_exe()?; // Ottieni il percorso dell'eseguibile
+    let exe_path = exe_path_buf
+        .to_str()
+        .ok_or("Failed to convert executable path to string")?;
+    let exe_path_with_quotes = format!("\"{}\"", exe_path); // Aggiungi virgolette
+
+    #[cfg(target_os = "windows")]
+    {
+        let hkcu = RegKey::predef(HKEY_CURRENT_USER);
+        let run = hkcu.open_subkey_with_flags("Software\\Microsoft\\Windows\\CurrentVersion\\Run", KEY_WRITE)?;
+
+        let app_name = "Backup";
+        match run.get_value::<String, _>(app_name) {
+            Ok(existing_path) if existing_path == exe_path_with_quotes => {
+                println!("Avvio automatico già configurato su Windows.");
+            }
+            _ => {
+                println!("Configurazione dell'avvio automatico su Windows...");
+                run.set_value(app_name, &exe_path_with_quotes)?;
+                println!("Avvio automatico configurato con successo su Windows.");
+            }
+        }
+    }
+
+    #[cfg(target_os = "linux")]
+    {
+        let autostart_dir = dirs::config_dir()
+            .ok_or("Impossibile trovare la directory di configurazione")?
+            .join("autostart");
+
+        fs::create_dir_all(&autostart_dir)?;
+        let desktop_entry_path = autostart_dir.join("backup.desktop");
+        let mut desktop_file = fs::File::create(desktop_entry_path)?;
+
+        let desktop_content = format!(
+            "[Desktop Entry]
+            Type=Application
+            Name=Backup
+            Exec={}
+            X-GNOME-Autostart-enabled=true
+            ",
+            exe_path
+        );
+
+        desktop_file.write_all(desktop_content.as_bytes())?;
+        println!("Avvio automatico configurato con successo su Linux.");
+    }
+
+    #[cfg(target_os = "macos")]
+    {
+        let launch_agents_dir = dirs::home_dir()
+            .ok_or("Impossibile trovare la directory home")?
+            .join("Library/LaunchAgents");
+
+        fs::create_dir_all(&launch_agents_dir)?;
+        let plist_path = launch_agents_dir.join("com.example.backup.plist");
+        let mut plist_file = fs::File::create(plist_path)?;
+
+        let plist_content = format!(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+        <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+        <plist version=\"1.0\">
+        <dict>
+            <key>Label</key>
+            <string>com.example.backup</string>
+            <key>ProgramArguments</key>
+            <array>
+                <string>{}</string>
+            </array>
+            <key>RunAtLoad</key>
+            <true/>
+        </dict>
+        </plist>",
+            exe_path
+        );
+
+        plist_file.write_all(plist_content.as_bytes())?;
+        println!("Avvio automatico configurato con successo su macOS.");
+    }
+
+    Ok(())
+
+/*
+
     // Ottieni il percorso dell'eseguibile corrente come PathBuf
     let exe_path_buf = env::current_exe()?; // PathBuf è ora una variabile persistente
 
@@ -97,6 +184,9 @@ fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     Ok(())
+
+*/
+
 }
 
 fn run_gui() {
