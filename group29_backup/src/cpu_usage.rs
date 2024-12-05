@@ -5,15 +5,9 @@ use std::time::{Duration, Instant};
 use std::thread;
 use std::path::PathBuf;
 use dirs;
+use crate::dir_functions::get_project_directory;
 
-fn get_log_file_path() -> PathBuf {
-    // Usa la directory locale dell'utente (es. AppData\Local su Windows)
-    let log_dir = dirs::data_local_dir()
-        .expect("Impossibile determinare la directory locale dei dati dell'utente");
-    log_dir.join("cpu_usage_log.txt") // Percorso completo del file di log
-}
-
-pub fn log_cpu_usage() {
+pub fn log_cpu_usage() -> Result<(), Box<dyn std::error::Error>> {
     let mut system = System::new_all();
 
     // Ottieni il PID del processo corrente
@@ -21,14 +15,15 @@ pub fn log_cpu_usage() {
     println!("PID del processo corrente: {}", pid);
 
     // Determina il percorso del file di log
-    let log_file_path = get_log_file_path();
-    println!("Percorso del file di log: {:?}", log_file_path);
+    let proj_dir = get_project_directory()?;
+    let file_path = proj_dir.join("cpu_usage_log.txt");
+    println!("Percorso del file di log: {:?}", file_path);
 
     // Apre il file di log per scrittura nella directory specificata
     let mut file = OpenOptions::new()
         .append(true)
         .create(true)
-        .open(&log_file_path)
+        .open(&file_path)
         .expect("Impossibile aprire o creare il file di log");
     println!("File di log aperto correttamente.");
 

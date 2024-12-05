@@ -14,19 +14,12 @@ use crate::suoni::play_sound_sign;
 //const DEBOUNCE_INTERVAL: Duration = Duration::from_millis(50); // Intervallo di debounce per ignorare eventi troppo vicini
 
 pub fn mouse_events(extension: Option<String>, backup_type: &String, input_path: &String, output_path: &String ) {
-    println!("Sei in mouse events");
-
-
-
     let (screen_width, screen_height) = {
         let event_loop = EventLoop::new();
         let monitor = event_loop.primary_monitor().unwrap();
         let screen_size = monitor.size();
         (screen_size.width, screen_size.height)
     };
-
-    println!("Screen size: {}x{}", screen_width, screen_height);
-
     let done_flag = Arc::new(AtomicBool::new(false));
     let (done_sender,done_receiver) = mpsc::channel();
 
@@ -58,11 +51,8 @@ pub fn mouse_events(extension: Option<String>, backup_type: &String, input_path:
             Ok(_) => println!("Suono riprodotto con successo"),
             Err(e) => eprintln!("Errore durante la riproduzione del suono: {}", e),
         }
-        println!("Movimento e segno meno rilevati. Esecuzione commpletata");
         done_flag.store(true,Ordering::Relaxed);
         backup::perform_backup(backup_type, extension.as_deref(), &PathBuf::from(input_path), &PathBuf::from(output_path)).expect("Errore durante il backup");
     }
-
-
 }
 

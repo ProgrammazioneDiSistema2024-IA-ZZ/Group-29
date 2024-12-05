@@ -14,6 +14,7 @@ use winreg::enums::*;
 use winreg::RegKey;
 use dir_functions::get_project_directory;
 use crate::cpu_usage::log_cpu_usage;
+use crate::suoni::play_sound_backup_ok;
 
 #[derive(Debug, Deserialize)]
 struct ConfigData {
@@ -29,16 +30,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         log_cpu_usage(); // Funzione che continua a loggare la CPU ogni 10 secondi
     });
 
+    let project_dir = get_project_directory()?;
+    println!("Project Directory suoni: {:?}", project_dir);
+    let file_path = project_dir.join("successoBackup.wav");
+    println!("Path suono successoooooooo: {:?}", file_path);
+
     // Configura l'avvio automatico su Windows
     configure_autorun()?;
 
     // Avvia l'interfaccia grafica
     run_gui();
 
+
+
     // Configurazione e verifica dei percorsi
     let proj_dir = get_project_directory()?;
     let config_path = proj_dir.join("config.toml");
-    println!("Config Path calcolato: {:?}", config_path);
     let (backup_type, extension, input_path, output_path) = load_config(&config_path)?;
 
     verify_paths(&input_path, &output_path)?;

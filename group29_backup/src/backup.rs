@@ -86,10 +86,11 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
         _ => return Err("Tipo di backup non valido".into()),
     }
 
+    play_sound_backup_ok()?;
 
-    let sound_thread = thread::spawn(|| {
+    /*let sound_thread = thread::spawn(|| {
         play_sound_backup_ok().unwrap();
-    });
+    });*/
 
     let duration = start.elapsed();
 
@@ -100,7 +101,7 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
         .set_description("Il backup è stato completato con successo.")
         .show();
 
-    sound_thread.join().unwrap();
+    //sound_thread.join().unwrap();
 
     Ok(())
 }

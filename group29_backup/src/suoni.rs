@@ -5,9 +5,9 @@ use std::env;
 use std::path::PathBuf;
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 use std::f32::consts::PI;
-use crate::dir_functions::get_project_directory_sound;
+use crate::dir_functions::{get_project_directory, get_project_directory_sound};
 pub fn play_sound_backup_ok() -> Result<(), Box<dyn std::error::Error>> {
-    let project_dir = get_project_directory_sound()?;
+    let project_dir = get_project_directory()?;
     println!("Project Directory suoni: {:?}", project_dir);
     let file_path = project_dir.join("successoBackup.wav");
     println!("Path suono successoooooooo: {:?}", file_path);
@@ -29,15 +29,11 @@ pub fn play_sound_backup_ok() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-
 pub fn play_sound_backup_error() -> Result<(), Box<dyn std::error::Error>> {
-
-    let current_dir = env::current_dir()?;
-    let project_dir = current_dir
-        .ancestors()
-        .nth(2)
-        .ok_or("Impossibile ottenere la directory del progetto")?;
-    let file_path = project_dir.join("Suoni").join("erroreBackup.wav");
+    let project_dir = get_project_directory_sound()?;
+    println!("Project Directory suoni: {:?}", project_dir);
+    let file_path = project_dir.join("erroreBackup.wav");
+    println!("Path suono successoooooooo: {:?}", file_path);
     // Inizializza il flusso di output
     let (_stream, stream_handle) = OutputStream::try_default()?;
 
@@ -56,7 +52,6 @@ pub fn play_sound_backup_error() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-
 pub fn play_sound_sign() -> Result<(), Box<dyn std::error::Error>> {
     // Configura la frequenza del suono e la frequenza di campionamento
     let sample_rate = 44100.0;
