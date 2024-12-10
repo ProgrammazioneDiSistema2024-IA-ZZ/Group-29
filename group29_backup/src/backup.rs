@@ -7,6 +7,7 @@ use std::fs::OpenOptions;
 use std::io::Write;
 use std::io;
 use rayon::prelude::*;
+use crate::dir_functions::get_project_directory;
 
 // Funzione per calcolare la dimensione totale dei file in un percorso
 fn calculate_total_size(path: &PathBuf) -> u64 {
@@ -22,11 +23,12 @@ fn calculate_total_size(path: &PathBuf) -> u64 {
 }
 
 fn log_backup_info(total_size: u64, duration: Duration)-> Result<(), Box<dyn std::error::Error>> {
-    let log_path = "backup_log.txt";
+    let proj_dir = get_project_directory()?;
+    let file_path = proj_dir.join("backup_log.txt");
     let mut file = OpenOptions::new()
         .append(true)
         .create(true)
-        .open(log_path)?;
+        .open(file_path)?;
 
     writeln!(
         file,
