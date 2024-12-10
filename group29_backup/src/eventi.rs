@@ -4,9 +4,6 @@ use rdev::{listen, Event, EventType};  // Importa rdev per ascoltare gli eventi 
 use std::sync::{Arc, mpsc, Mutex};
 use std::thread;
 use std::time::{Duration,Instant};
-use winit::event_loop::EventLoop;
-use winit::window::WindowBuilder;
-use std::sync::mpsc::Sender; // Importa Sender
 use std::sync::atomic::{Ordering,AtomicBool};
 use crate::suoni::play_sound_sign;
 
@@ -96,13 +93,13 @@ enum Direction {
 // Funzione per verificare se il mouse è in un angolo dello schermo
 fn is_in_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corner{
     let tolerance = 50.0; // Tolleranza di 5 pixel
-    if (x.abs() < tolerance && y.abs() < tolerance) {
+    if x.abs() < tolerance && y.abs() < tolerance {
         Corner::TopLeft
-    } else if ((x - screen_width).abs() < tolerance && y.abs() < tolerance) {
+    } else if (x - screen_width).abs() < tolerance && y.abs() < tolerance {
         Corner::TopRight
-    } else if (x.abs() < tolerance && (y - screen_height).abs() < tolerance) {
+    } else if x.abs() < tolerance && (y - screen_height).abs() < tolerance {
         Corner::BottomLeft
-    } else if ((x - screen_width).abs() < tolerance && (y - screen_height).abs() < tolerance) {
+    } else if (x - screen_width).abs() < tolerance && (y - screen_height).abs() < tolerance {
         Corner::BottomRight
     } else{
         Corner::None
@@ -381,7 +378,7 @@ pub fn traccia_rettangolo( tracker : &mut RectangleTracker, screen_width: f64, s
             // Qui sono nell'intorno dell'angolo -> Switch del bordo
             println!("Mouse in {:?} neighbourhood ({}),({}), {} ,{:?}", corner, x, y, tracker.is_rectangle, tracker.direction);
             println!("Initial corner is :{:?}", tracker.initial_corner);
-            if (tracker.initial_corner == corner && tracker.flag_fine) {
+            if tracker.initial_corner == corner && tracker.flag_fine {
                 println!("Rectangle completed!!!!!!");
                 tracker.flag_fine = false;
                 return true;

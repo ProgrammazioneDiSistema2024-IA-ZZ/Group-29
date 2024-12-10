@@ -1,6 +1,6 @@
 use eframe::{egui, App}; // Assicurati di avere le importazioni corrette
-use std::{env, fs};
-use std::io::{self, Write};
+use std::{fs};
+use std::io::{ Write};
 use std::path::PathBuf;
 use native_dialog::FileDialog; // Per il dialogo di selezione della cartella
 use egui::ViewportCommand;

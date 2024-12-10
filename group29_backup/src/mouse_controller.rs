@@ -5,8 +5,7 @@ use std::sync::{mpsc,Arc,Mutex};
 use winit::event_loop::EventLoop;
 use std::sync::atomic::{Ordering,AtomicBool};
 use crate::backup;
-use crate::cpu_usage::log_cpu_usage;
-use std::time::{Duration, Instant};
+use std::time::{Instant};
 use rdev::{Event, listen};
 use crate::suoni::play_sound_sign;
 
@@ -28,22 +27,10 @@ pub fn mouse_events(extension: Option<String>, backup_type: &String, input_path:
     let last_event_time = Arc::new(Mutex::new(Instant::now())); // Per tenere traccia dell'ultimo evento significativo
 
     thread::spawn(move || {
-        //let last_event_time = Arc::clone(&last_event_time);
         listen(move |event: Event| {
-            // Verifica se il tempo trascorso dall'ultimo evento supera l'intervallo di debounce
-            let mut last_time = last_event_time.lock().unwrap();
-            //if last_time.elapsed() >= DEBOUNCE_INTERVAL {
-                //*last_time = Instant::now(); // Aggiorna il tempo dell'ultimo evento processato
-                check_movement(screen_width as f64, screen_height as f64, Arc::clone(&done_flag_clone), done_sender.clone());
-            //}
+            check_movement(screen_width as f64, screen_height as f64, Arc::clone(&done_flag_clone), done_sender.clone());
         }).expect("Errore nell'ascolto degli eventi di rdev in mouse_events");
     });
-
-    /*
-    thread::spawn(move || {
-        check_movement(screen_width as f64,screen_height as f64,done_flag_clone,done_sender);
-    });
-    */
 
 
     if(done_receiver).recv().is_ok(){

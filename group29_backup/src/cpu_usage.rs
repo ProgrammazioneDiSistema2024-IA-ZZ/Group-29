@@ -3,8 +3,6 @@ use std::fs::OpenOptions;
 use std::io::Write;
 use std::time::{Duration, Instant};
 use std::thread;
-use std::path::PathBuf;
-use dirs;
 use crate::dir_functions::get_project_directory;
 
 pub fn log_cpu_usage() -> Result<(), Box<dyn std::error::Error>> {

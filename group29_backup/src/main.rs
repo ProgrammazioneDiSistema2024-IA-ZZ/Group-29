@@ -8,14 +8,13 @@ mod cpu_usage;
 mod dir_functions;
 
 use std::{env, thread};
-use std::path::{Path, PathBuf};
+use std::path::{PathBuf};
 use serde::Deserialize;
 use gui_backup::ConfigApp;
 use winreg::enums::*;
 use winreg::RegKey;
 use dir_functions::get_project_directory;
 use crate::cpu_usage::log_cpu_usage;
-use crate::suoni::play_sound_backup_ok;
 
 
 #[derive(Debug, Deserialize)]

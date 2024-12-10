@@ -1,8 +1,5 @@
 use std::fs::File;
-use std::io::Cursor;
 use rodio::{Decoder, OutputStream, Sink};
-use std::env;
-use std::path::PathBuf;
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 use std::f32::consts::PI;
 use crate::dir_functions::{get_project_directory, get_project_directory_sound};

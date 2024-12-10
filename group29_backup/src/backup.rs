@@ -1,10 +1,7 @@
-use serde::{Deserialize};
-use std::{env, fs};
-use std::path::{PathBuf, Path};
+use std::{ fs};
+use std::path::{PathBuf};
 use rfd::MessageDialog;
-use crate::suoni::{play_sound_backup_ok, play_sound_backup_error, play_sound_sign};
-use std::thread;
-use sysinfo::{System};
+use crate::suoni::{play_sound_backup_ok, play_sound_backup_error};
 use std::time::{Duration, Instant};
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -48,7 +45,7 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
         return Err("Percorso sorgente non esiste".into());
     }
 
-    if (!src_path.is_dir() || !dest_path.exists() ||  !dest_path.is_dir()){
+    if !src_path.is_dir() || !dest_path.exists() ||  !dest_path.is_dir(){
         play_sound_backup_error()?;
         return Err("Percorso sorgente o destinazione non valido".into());
     }
@@ -88,9 +85,6 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
 
     play_sound_backup_ok()?;
 
-    /*let sound_thread = thread::spawn(|| {
-        play_sound_backup_ok().unwrap();
-    });*/
 
     let duration = start.elapsed();
 
@@ -101,7 +95,6 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
         .set_description("Il backup è stato completato con successo.")
         .show();
 
-    //sound_thread.join().unwrap();
 
     Ok(())
 }
