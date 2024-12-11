@@ -1,6 +1,5 @@
 use std::path::PathBuf;
 use std::thread;
-use crate::eventi::{ check_movement};
 use std::sync::{mpsc,Arc,Mutex};
 use winit::event_loop::EventLoop;
 use std::sync::atomic::{Ordering,AtomicBool};
@@ -8,6 +7,7 @@ use crate::backup;
 use std::time::{Instant};
 use rdev::{Event, listen};
 use crate::suoni::play_sound_sign;
+use crate::eventi_pulito::monitor_movement;
 
 
 //const DEBOUNCE_INTERVAL: Duration = Duration::from_millis(50); // Intervallo di debounce per ignorare eventi troppo vicini
@@ -28,7 +28,7 @@ pub fn mouse_events(extension: Option<String>, backup_type: &String, input_path:
 
     thread::spawn(move || {
         listen(move |event: Event| {
-            check_movement(screen_width as f64, screen_height as f64, Arc::clone(&done_flag_clone), done_sender.clone());
+            monitor_movement(screen_width as f64, screen_height as f64, Arc::clone(&done_flag_clone), done_sender.clone());
         }).expect("Errore nell'ascolto degli eventi di rdev in mouse_events");
     });
 
