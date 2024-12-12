@@ -46,6 +46,7 @@ pub struct RectangleTracker {
     initial_corner: Corner,
     flag_fine: bool,
     count_corners: i32,
+    last_corner:Corner,
 }
 
 impl RectangleTracker {
@@ -61,7 +62,8 @@ impl RectangleTracker {
             initial_y: 0.0,
             initial_corner: Corner::None,
             flag_fine: false,
-            count_corners: 0
+            count_corners: 0,
+            last_corner: Corner::None
         }
     }
 }
@@ -109,7 +111,6 @@ fn detect_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corne
 
 /// Traccia il movimento del mouse per verificare un rettangolo
 pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen_height: f64, event: Event) -> bool {
-    let mut count_corners=0;
     let tolerance = 50.0; // Tolleranza di 5 pixel
     if let EventType::MouseMove { x, y } = event.event_type {
         let corner = detect_corner(x, y, screen_width, screen_height);
@@ -123,6 +124,7 @@ pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen
             tracker.prev_y = y;
             tracker.corner_reached = true;
             tracker.initial_corner = corner;
+            tracker.count_corners +=1;
             println!("Mouse rilevato nell'angolo: {:?}", tracker.initial_corner);
         } else if tracker.is_rectangle && tracker.direction == Direction::Unknown && corner == Corner::None {
             // Determina la direzione (ClockWise/Counterclockwise) e il bordo corrente basandosi sull'angolo iniziale
@@ -184,13 +186,13 @@ pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen
                 "Mouse in {:?} neighbourhood ({}, {}), is_rectangle: {}, direction: {:?}",
                 corner, x, y, tracker.is_rectangle, tracker.direction
             );
-            if tracker.initial_corner == corner && tracker.flag_fine && tracker.count_corners==3 {
+            if tracker.initial_corner == corner && tracker.flag_fine && tracker.count_corners > 2 {
                 println!("Rettangolo completato!");
                 tracker.flag_fine = false;
                 return true;
             } else {
                 switch_border(tracker, corner);
-                println!("{}",count_corners);
+                println!("{}",tracker.count_corners);
             }
         }
     }
@@ -290,33 +292,38 @@ fn reset_tracker(tracker: &mut RectangleTracker, message: &str) {
     tracker.is_rectangle = false;
     tracker.direction = Direction::Unknown;
     tracker.corner_reached = false;
+    tracker.count_corners =0;
     println!("{}", message);
 }
 
 fn switch_border(tracker: &mut RectangleTracker, corner: Corner) {
-    match tracker.direction {
-        Direction::Clockwise => {
-            tracker.current_border = match corner {
-                Corner::TopLeft => Border::Top,
-                Corner::TopRight => Border::Right,
-                Corner::BottomLeft => Border::Left,
-                Corner::BottomRight => Border::Bottom,
-                Corner::None => Border::None,
-            };
-            tracker.count_corners += 1; // Incrementa il contatore
-        }
-        Direction::CounterClockwise => {
-            tracker.current_border = match corner {
-                Corner::TopLeft => Border::Left,
-                Corner::TopRight => Border::Top,
-                Corner::BottomLeft => Border::Bottom,
-                Corner::BottomRight => Border::Right,
-                Corner::None => Border::None,
-            };
+    if tracker.last_corner !=  corner && corner != Corner::None {
+        match tracker.direction {
+            Direction::Clockwise => {
+                tracker.current_border = match corner {
+                    Corner::TopLeft => Border::Top,
+                    Corner::TopRight => Border::Right,
+                    Corner::BottomLeft => Border::Left,
+                    Corner::BottomRight => Border::Bottom,
+                    Corner::None => Border::None,
+                };
+                tracker.count_corners += 1; // Incrementa il contatore
+            }
+            Direction::CounterClockwise => {
+                tracker.current_border = match corner {
+                    Corner::TopLeft => Border::Left,
+                    Corner::TopRight => Border::Top,
+                    Corner::BottomLeft => Border::Bottom,
+                    Corner::BottomRight => Border::Right,
+                    Corner::None => Border::None,
+                };
 
-            tracker.count_corners += 1; // Incrementa il contatore
+                tracker.count_corners += 1; // Incrementa il contatore
+            }
+            Direction::Unknown => println!("Direzione sconosciuta"),
         }
-        Direction::Unknown => println!("Direzione sconosciuta"),
+        
+        tracker.last_corner = corner; //Aggiorna l'ultimo angolo
     }
 }
 
