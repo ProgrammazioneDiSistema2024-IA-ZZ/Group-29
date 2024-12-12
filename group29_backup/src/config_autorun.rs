@@ -3,6 +3,7 @@ use std::path::PathBuf;
 
 use gui_backup::ConfigApp;
 use serde::Deserialize;
+#[cfg(target_os="windows")]
 use winreg::enums::*;
 use winreg::RegKey;
 

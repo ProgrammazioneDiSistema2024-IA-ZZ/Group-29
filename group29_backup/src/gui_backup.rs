@@ -92,20 +92,20 @@ fn write_config(use_full_folder: bool, extension: &str, input_path: &str, output
     let config_content = if use_full_folder {
         format!(
             r#"
-backup_type = "FullFolder"
-input_path = {:?}
-output_path = {:?}
-"#,
+            backup_type = "FullFolder"
+            input_path = {:?}
+            output_path = {:?}
+            "#,
             input_path, output_path
         )
     } else {
         format!(
             r#"
-backup_type = "FileType"
-extension = {:?}
-input_path = {:?}
-output_path = {:?}
-"#,
+            backup_type = "FileType"
+            extension = {:?}
+            input_path = {:?}
+            output_path = {:?}
+            "#,
             extension, input_path, output_path
         )
     };

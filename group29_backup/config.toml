@@ -1,4 +1,5 @@
 
-backup_type = "FullFolder"
-input_path = "C:\\Users\\frank\\OneDrive\\Desktop\\App-GemHunter\\gemhunter\\client\\src\\icons"
-output_path = "C:\\Users\\frank\\OneDrive\\Desktop"
+            backup_type = "FullFolder"
+            input_path = "C:\\Users\\frank\\OneDrive\\Desktop\\App-GemHunter\\gemhunter\\client\\src\\icons"
+            output_path = "C:\\Users\\frank\\OneDrive\\Desktop"
+            

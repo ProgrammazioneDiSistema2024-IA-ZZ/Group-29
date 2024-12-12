@@ -45,6 +45,7 @@ pub struct RectangleTracker {
     initial_y: f64,
     initial_corner: Corner,
     flag_fine: bool,
+    count_corners: i32,
 }
 
 impl RectangleTracker {
@@ -60,6 +61,7 @@ impl RectangleTracker {
             initial_y: 0.0,
             initial_corner: Corner::None,
             flag_fine: false,
+            count_corners: 0
         }
     }
 }
@@ -107,12 +109,13 @@ fn detect_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corne
 
 /// Traccia il movimento del mouse per verificare un rettangolo
 pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen_height: f64, event: Event) -> bool {
-
+    let mut count_corners=0;
     let tolerance = 50.0; // Tolleranza di 5 pixel
     if let EventType::MouseMove { x, y } = event.event_type {
         let corner = detect_corner(x, y, screen_width, screen_height);
 
         if corner != Corner::None && !tracker.corner_reached {
+            //Prima iterazione -> Possibilità di avere una generazione di un rettangolo
             tracker.is_rectangle = true;
             tracker.initial_x = x;
             tracker.initial_y = y;
@@ -122,7 +125,7 @@ pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen
             tracker.initial_corner = corner;
             println!("Mouse rilevato nell'angolo: {:?}", tracker.initial_corner);
         } else if tracker.is_rectangle && tracker.direction == Direction::Unknown && corner == Corner::None {
-            // Determina la direzione iniziale e il bordo corrente basandosi sull'angolo iniziale
+            // Determina la direzione (ClockWise/Counterclockwise) e il bordo corrente basandosi sull'angolo iniziale
             match tracker.initial_corner {
                 Corner::TopLeft => {
                     println!("X:{}, Y:{}", x, y);
@@ -176,17 +179,18 @@ pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen
                 Border::None => println!("Non su un bordo valido"),
             }
         } else {
-            // Gestisce il passaggio di bordo nell'intorno di un angolo
+            // Gestisce il passaggio di bordo nell'intorno di un angolo -> Corner!=None
             println!(
                 "Mouse in {:?} neighbourhood ({}, {}), is_rectangle: {}, direction: {:?}",
                 corner, x, y, tracker.is_rectangle, tracker.direction
             );
-            if tracker.initial_corner == corner && tracker.flag_fine {
+            if tracker.initial_corner == corner && tracker.flag_fine && tracker.count_corners==3 {
                 println!("Rettangolo completato!");
                 tracker.flag_fine = false;
                 return true;
             } else {
                 switch_border(tracker, corner);
+                println!("{}",count_corners);
             }
         }
     }
@@ -299,6 +303,7 @@ fn switch_border(tracker: &mut RectangleTracker, corner: Corner) {
                 Corner::BottomRight => Border::Bottom,
                 Corner::None => Border::None,
             };
+            tracker.count_corners += 1; // Incrementa il contatore
         }
         Direction::CounterClockwise => {
             tracker.current_border = match corner {
@@ -308,6 +313,8 @@ fn switch_border(tracker: &mut RectangleTracker, corner: Corner) {
                 Corner::BottomRight => Border::Right,
                 Corner::None => Border::None,
             };
+
+            tracker.count_corners += 1; // Incrementa il contatore
         }
         Direction::Unknown => println!("Direzione sconosciuta"),
     }
