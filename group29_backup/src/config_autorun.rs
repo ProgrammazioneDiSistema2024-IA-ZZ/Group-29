@@ -119,9 +119,13 @@ pub fn run_gui() {
     eframe::run_native(
         "Backup Configurator",
         options,
-        Box::new(|_cc| Box::<ConfigApp>::default()),
+        Box::new(|_cc| {
+            
+            Box::new(ConfigApp::default()) as Box<dyn eframe::App>
+        }),
     ).expect("Errore nell'avvio della GUI");
 }
+
 
 pub fn load_config(path: &PathBuf) -> Result<(String, Option<String>, String, String), Box<dyn std::error::Error>> {
     #[cfg(target_os = "macos")]
