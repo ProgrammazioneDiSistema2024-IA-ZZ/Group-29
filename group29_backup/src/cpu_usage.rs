@@ -30,7 +30,7 @@ pub fn log_cpu_usage() -> Result<(), Box<dyn std::error::Error>> {
     println!("Numero di core logici: {}", num_cores);
 
     // Configura gli intervalli
-    let logging_interval = Duration::from_secs(5); // Intervallo totale di logging
+    let logging_interval = Duration::from_secs(120); // Intervallo totale di logging
     let sampling_interval = Duration::from_secs(5);  // Intervallo di campionamento
 
     loop {

@@ -8,6 +8,15 @@ pub fn get_project_directory() -> Result<PathBuf, Box<dyn std::error::Error>> {
         .ok_or("Impossibile ottenere la directory del progetto.")?
         .to_path_buf();
 
+    //controllo per MACOS:
+    if project_dir.ends_with("MacOS") {
+        project_dir = project_dir
+            .parent() // Risali a "Contents"
+            .and_then(|p| p.parent()) // Risali alla directory principale del bundle
+            .ok_or("Non è stato possibile risalire alla directory del progetto dal bundle macOS.")?
+            .to_path_buf();
+    }
+
     // Controlla se il percorso termina con "group29_backup"
     while !project_dir.ends_with("group29_backup") {
         project_dir = project_dir

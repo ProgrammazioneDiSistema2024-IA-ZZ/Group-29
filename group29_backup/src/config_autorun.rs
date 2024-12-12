@@ -1,15 +1,17 @@
 use std::env;
+use std::fs::{self, File};
 use std::path::PathBuf;
-
+use std::io::Write;
+#[cfg(target_os = "macos")]
+use tauri; // Usa Tauri per macOS
+#[cfg(not(target_os = "macos"))]
+use eframe; // Usa eframe per Windows e Linux
 use gui_backup::ConfigApp;
 use serde::Deserialize;
 #[cfg(target_os="windows")]
 use winreg::enums::*;
 use winreg::RegKey;
-
 use crate::gui_backup;
-
-
 
 #[derive(Debug, Deserialize)]
 struct ConfigData {
@@ -19,9 +21,7 @@ struct ConfigData {
     output_path: String,
 }
 
-
 pub fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
-
     let exe_path_buf = env::current_exe()?; // Ottieni il percorso dell'eseguibile
     let exe_path = exe_path_buf
         .to_str()
@@ -54,7 +54,7 @@ pub fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
 
         fs::create_dir_all(&autostart_dir)?;
         let desktop_entry_path = autostart_dir.join("backup.desktop");
-        let mut desktop_file = fs::File::create(desktop_entry_path)?;
+        let mut desktop_file = File::create(desktop_entry_path)?;
 
         let desktop_content = format!(
             "[Desktop Entry]
@@ -78,7 +78,7 @@ pub fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
 
         fs::create_dir_all(&launch_agents_dir)?;
         let plist_path = launch_agents_dir.join("com.example.backup.plist");
-        let mut plist_file = fs::File::create(plist_path)?;
+        let mut plist_file = File::create(plist_path)?;
 
         let plist_content = format!(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -103,54 +103,17 @@ pub fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     Ok(())
-
-/*
-
-    // Ottieni il percorso dell'eseguibile corrente come PathBuf
-    let exe_path_buf = env::current_exe()?; // PathBuf è ora una variabile persistente
-
-    // Get the absolute path as a string
-    let exe_path = exe_path_buf
-        .to_str()
-        .ok_or("Failed to convert executable path to string")?;
-
-    // Check if the path starts with ".\" and remove it if present
-    let exe_path = if exe_path.starts_with(".\\") {
-        &exe_path[2..] // Remove the ".\" prefix
-    } else {
-        exe_path
-    };
-
-    // Add quotes to the path
-    let exe_path_with_quotes = format!("\"{}\"", exe_path);
-
-    // Log for debugging purposes
-    println!("Percorso dell'eseguibile con virgolette: {}", exe_path_with_quotes);
-
-    // Accedi al registro di sistema
-    let hkcu = RegKey::predef(HKEY_CURRENT_USER);
-    let run = hkcu.open_subkey_with_flags("Software\\Microsoft\\Windows\\CurrentVersion\\Run", KEY_WRITE)?;
-
-    // Controlla se già esiste una chiave per l'applicazione
-    let app_name = "Backup";
-    match run.get_value::<String, _>(app_name) {
-        Ok(existing_path) if existing_path == exe_path_with_quotes => {
-            println!("Avvio automatico già configurato.");
-        }
-        _ => {
-            // Imposta il percorso dell'applicazione per l'avvio automatico
-            println!("Configurazione dell'avvio automatico...");
-            run.set_value(app_name, &exe_path_with_quotes)?; // Scrivi il percorso con le virgolette
-            println!("Avvio automatico configurato con successo.");
-        }
-    }
-
-    Ok(())
-
-*/
-
 }
 
+#[cfg(target_os = "macos")]
+pub fn run_gui() {
+    tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![/* Comandi personalizzati */])
+        .run(tauri::generate_context!())
+        .expect("Errore nell'avvio dell'interfaccia grafica con Tauri");
+}
+
+#[cfg(not(target_os = "macos"))]
 pub fn run_gui() {
     let options = eframe::NativeOptions::default();
     eframe::run_native(
@@ -161,8 +124,19 @@ pub fn run_gui() {
 }
 
 pub fn load_config(path: &PathBuf) -> Result<(String, Option<String>, String, String), Box<dyn std::error::Error>> {
-    let config_str = std::fs::read_to_string(path)?;
+    #[cfg(target_os = "macos")]
+    let path = {
+        let config_dir = dirs::data_local_dir()
+            .ok_or("Impossibile trovare la directory dei dati locali")?
+            .join("Backup");
+
+        std::fs::create_dir_all(&config_dir)?;
+        config_dir.join("config.toml")
+    };
+
+    let config_str = std::fs::read_to_string(&path)?;
     let config: ConfigData = toml::from_str(&config_str)?;
+
     Ok((config.backup_type, config.extension, config.input_path, config.output_path))
 }
 

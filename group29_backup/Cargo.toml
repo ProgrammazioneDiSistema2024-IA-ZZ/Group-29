@@ -25,5 +25,7 @@ eframe = "0.24"
 auto-launch = "0.2.0"
 cpal = "0.14"
 dirs = "5.0.1"
-#[cfg(version_os="windows)]
-winreg = "0.10.1"
+winreg = "0.10.1"   # Winreg è necessario per l'integrazione con Windows (utilizzo del registro di sistema)
+
+# Aggiungi Tauri per la compatibilità con macOS
+tauri = { version = "1.4", features = ["api-all"] }
