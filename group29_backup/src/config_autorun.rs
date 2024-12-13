@@ -1,10 +1,19 @@
 use std::env;
+#[cfg(target_os="macos")]
+use std::fs;
+#[cfg(target_os="macos")]
+use std::fs::File;
+#[cfg(target_os="macos")]
+use std::io::Write;
 use std::path::PathBuf;
 use gui_backup::ConfigApp;
 use serde::Deserialize;
 #[cfg(target_os="windows")]
 use winreg::enums::*;
+
+#[cfg(target_os="windows")]
 use winreg::RegKey;
+
 use crate::gui_backup;
 
 #[derive(Debug, Deserialize)]
@@ -58,7 +67,7 @@ pub fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
         desktop_file.write_all(desktop_content.as_bytes())?;
         println!("Avvio automatico configurato con successo su Linux.");
     }
-
+    
     #[cfg(target_os = "macos")]
     {
         let launch_agents_dir = dirs::home_dir()
@@ -93,15 +102,6 @@ pub fn run_gui() {
 }
 
 pub fn load_config(path: &PathBuf) -> Result<(String, Option<String>, String, String), Box<dyn std::error::Error>> {
-    #[cfg(target_os = "macos")]
-    let path = {
-        let config_dir = dirs::data_local_dir()
-            .ok_or("Impossibile trovare la directory dei dati locali")?
-            .join("Backup");
-
-        std::fs::create_dir_all(&config_dir)?;
-        config_dir.join("config.toml")
-    };
 
     let config_str = std::fs::read_to_string(&path)?;
     let config: ConfigData = toml::from_str(&config_str)?;

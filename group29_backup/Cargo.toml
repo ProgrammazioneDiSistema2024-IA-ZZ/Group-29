@@ -24,5 +24,6 @@ eframe = "0.24"
 auto-launch = "0.2.0"
 cpal = "0.14"
 dirs = "5.0.1"
-#[cfg(version_os="windows)]
+
+[target.'cfg(target_os = "windows")'.dependencies]
 winreg = "0.10.1"
