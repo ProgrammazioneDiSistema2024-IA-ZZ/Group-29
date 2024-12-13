@@ -1,11 +1,5 @@
 use std::env;
-use std::fs::{self, File};
 use std::path::PathBuf;
-use std::io::Write;
-#[cfg(target_os = "macos")]
-use tauri; // Usa Tauri per macOS
-#[cfg(not(target_os = "macos"))]
-use eframe; // Usa eframe per Windows e Linux
 use gui_backup::ConfigApp;
 use serde::Deserialize;
 #[cfg(target_os="windows")]
@@ -57,12 +51,7 @@ pub fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
         let mut desktop_file = File::create(desktop_entry_path)?;
 
         let desktop_content = format!(
-            "[Desktop Entry]
-            Type=Application
-            Name=Backup
-            Exec={}
-            X-GNOME-Autostart-enabled=true
-            ",
+            "[Desktop Entry]\n            Type=Application\n            Name=Backup\n            Exec={}\n            X-GNOME-Autostart-enabled=true\n            ",
             exe_path
         );
 
@@ -81,20 +70,7 @@ pub fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
         let mut plist_file = File::create(plist_path)?;
 
         let plist_content = format!(
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-        <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-        <plist version=\"1.0\">
-        <dict>
-            <key>Label</key>
-            <string>com.example.backup</string>
-            <key>ProgramArguments</key>
-            <array>
-                <string>{}</string>
-            </array>
-            <key>RunAtLoad</key>
-            <true/>
-        </dict>
-        </plist>",
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n        <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n        <plist version=\"1.0\">\n        <dict>\n            <key>Label</key>\n            <string>com.example.backup</string>\n            <key>ProgramArguments</key>\n            <array>\n                <string>{}</string>\n            </array>\n            <key>RunAtLoad</key>\n            <true/>\n        </dict>\n        </plist>",
             exe_path
         );
 
@@ -105,27 +81,16 @@ pub fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-#[cfg(target_os = "macos")]
-pub fn run_gui() {
-    tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![/* Comandi personalizzati */])
-        .run(tauri::generate_context!())
-        .expect("Errore nell'avvio dell'interfaccia grafica con Tauri");
-}
-
-#[cfg(not(target_os = "macos"))]
 pub fn run_gui() {
     let options = eframe::NativeOptions::default();
     eframe::run_native(
         "Backup Configurator",
         options,
         Box::new(|_cc| {
-            
             Box::new(ConfigApp::default()) as Box<dyn eframe::App>
         }),
     ).expect("Errore nell'avvio della GUI");
 }
-
 
 pub fn load_config(path: &PathBuf) -> Result<(String, Option<String>, String, String), Box<dyn std::error::Error>> {
     #[cfg(target_os = "macos")]

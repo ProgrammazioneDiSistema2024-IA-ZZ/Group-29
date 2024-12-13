@@ -1,6 +1,6 @@
-use std::{ fs};
+use std::{fs};
 use std::path::{PathBuf};
-use rfd::MessageDialog;
+use native_dialog; // Usa native-dialog
 use crate::suoni::{play_sound_backup_ok, play_sound_backup_error};
 use std::time::{Duration, Instant};
 use std::fs::OpenOptions;
@@ -22,7 +22,7 @@ fn calculate_total_size(path: &PathBuf) -> u64 {
     total_size
 }
 
-fn log_backup_info(total_size: u64, duration: Duration)-> Result<(), Box<dyn std::error::Error>> {
+fn log_backup_info(total_size: u64, duration: Duration) -> Result<(), Box<dyn std::error::Error>> {
     let proj_dir = get_project_directory()?;
     let file_path = proj_dir.join("backup_log.txt");
     let mut file = OpenOptions::new()
@@ -47,7 +47,7 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
         return Err("Percorso sorgente non esiste".into());
     }
 
-    if !src_path.is_dir() || !dest_path.exists() ||  !dest_path.is_dir(){
+    if !src_path.is_dir() || !dest_path.exists() || !dest_path.is_dir() {
         play_sound_backup_error()?;
         return Err("Percorso sorgente o destinazione non valido".into());
     }
@@ -87,20 +87,18 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
 
     play_sound_backup_ok()?;
 
-
     let duration = start.elapsed();
 
-    log_backup_info(total_size,duration)?;
+    log_backup_info(total_size, duration)?;
 
-    MessageDialog::new()
+    // Usa native-dialog per la finestra di dialogo
+    native_dialog::MessageDialog::new()
         .set_title("Backup Completato")
-        .set_description("Il backup è stato completato con successo.")
-        .show();
-
+        .set_text("Backup completato con successo!")    
+        .show_alert()?;
 
     Ok(())
 }
-
 
 // Funzione ricorsiva per copiare una directory in modo parallelo con controllo del numero di thread
 fn copy_directory_parallel(src: &PathBuf, dst: &PathBuf) -> io::Result<()> {

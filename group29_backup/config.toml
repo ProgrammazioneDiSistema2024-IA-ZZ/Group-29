@@ -1,5 +1,5 @@
 
             backup_type = "FullFolder"
             input_path = "C:\\Users\\sagli\\Desktop\\input"
-            output_path = "C:\\Users\\sagli\\Desktop"
+            output_path = "C:\\Users\\sagli\\Desktop\\dest"
             

@@ -3,7 +3,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::thread;
 use std::time::Instant;
 use rdev::{listen, Event};
-use rfd::MessageDialog;
+//use rfd::MessageDialog;
 
 use crate::suoni::play_sound_sign;
 use crate::tracker::{RectangleTracker, MinusSignTracker, track_rectangle, detect_minus_sign, DEBOUNCE_INTERVAL};
