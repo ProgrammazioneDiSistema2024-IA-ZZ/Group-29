@@ -1,0 +1,10 @@
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project_Rust\group29_backup\target\release\deps\libfdeflate-7aeae23b9d05c9be.rmeta: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src/lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\compress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\decompress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\tables.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project_Rust\group29_backup\target\release\deps\libfdeflate-7aeae23b9d05c9be.rlib: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src/lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\compress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\decompress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\tables.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project_Rust\group29_backup\target\release\deps\fdeflate-7aeae23b9d05c9be.d: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src/lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\compress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\decompress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\tables.rs
+
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src/lib.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\compress.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\decompress.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\tables.rs:

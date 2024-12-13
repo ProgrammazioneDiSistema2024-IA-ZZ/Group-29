@@ -1,0 +1,10 @@
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project_Rust\group29_backup\target\release\deps\libmemoffset-5c5d2969ba80cc6d.rmeta: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\raw_field.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\offset_of.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\span_of.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project_Rust\group29_backup\target\release\deps\libmemoffset-5c5d2969ba80cc6d.rlib: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\raw_field.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\offset_of.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\span_of.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project_Rust\group29_backup\target\release\deps\memoffset-5c5d2969ba80cc6d.d: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\raw_field.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\offset_of.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\span_of.rs
+
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\lib.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\raw_field.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\offset_of.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.7.1\src\span_of.rs:
