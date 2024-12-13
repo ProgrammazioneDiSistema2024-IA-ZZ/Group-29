@@ -1,6 +1,5 @@
 use std::sync::{Arc, mpsc, Mutex};
 use std::sync::atomic::{AtomicBool, Ordering};
-use std::thread;
 use std::time::Instant;
 use rdev::{listen, Event};
 //use rfd::MessageDialog;
@@ -12,7 +11,6 @@ use crate::tracker::{RectangleTracker, MinusSignTracker, track_rectangle, detect
 pub fn monitor_movement(screen_width: f64, screen_height: f64, done_flag: Arc<AtomicBool>, done_sender: mpsc::Sender<()>) {
     let mut tracker_rectangle = RectangleTracker::new();
     let mut tracker_minus_sign = MinusSignTracker::new();
-    let done_flag_clone = Arc::clone(&done_flag);
     let last_event_time = Arc::new(Mutex::new(Instant::now()));
     let mut monitoring_rectangle = true;
 

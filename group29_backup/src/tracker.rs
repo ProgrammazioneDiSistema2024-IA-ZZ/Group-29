@@ -192,7 +192,6 @@ pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen
                 return true;
             } else {
                 switch_border(tracker, corner);
-                println!("{}",tracker.count_corners);
             }
         }
     }
