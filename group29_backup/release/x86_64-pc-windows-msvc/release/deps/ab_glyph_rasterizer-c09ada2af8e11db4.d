@@ -1,0 +1,9 @@
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\libab_glyph_rasterizer-c09ada2af8e11db4.rmeta: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\geometry.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\raster.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\libab_glyph_rasterizer-c09ada2af8e11db4.rlib: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\geometry.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\raster.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\ab_glyph_rasterizer-c09ada2af8e11db4.d: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\geometry.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\raster.rs
+
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\lib.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\geometry.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ab_glyph_rasterizer-0.1.8\src\raster.rs:

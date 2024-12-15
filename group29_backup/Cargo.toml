@@ -3,6 +3,15 @@ name = "group29_backup"
 version = "0.1.0"
 edition = "2021"
 
+
+# Aggiungi la licenza
+license = "MIT"  # Puoi scegliere una licenza appropriata
+
+# Aggiungi gli autori
+authors = ["FrancescoPassiatore"]
+# Aggiungi il manutentore
+maintainer = "FrancescoPassiatore"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [[bin]]
 name = "backup"

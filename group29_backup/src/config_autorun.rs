@@ -1,9 +1,9 @@
 use std::env;
-#[cfg(target_os="macos")]
+#[cfg(not(target_os="windows"))]
 use std::fs;
-#[cfg(target_os="macos")]
+#[cfg(not(target_os="windows"))]
 use std::fs::File;
-#[cfg(target_os="macos")]
+#[cfg(not(target_os="windows"))]
 use std::io::Write;
 use std::path::PathBuf;
 use gui_backup::ConfigApp;
@@ -91,6 +91,8 @@ pub fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 pub fn run_gui() {
+
+    
     let options = eframe::NativeOptions::default();
     eframe::run_native(
         "Backup Configurator",

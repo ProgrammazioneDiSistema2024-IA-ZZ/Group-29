@@ -1,0 +1,10 @@
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/libidna-8a9627f4f3d98301.rmeta: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/punycode.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/uts46.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/uts46_mapping_table.rs
+
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/libidna-8a9627f4f3d98301.rlib: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/punycode.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/uts46.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/uts46_mapping_table.rs
+
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/idna-8a9627f4f3d98301.d: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/punycode.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/uts46.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/uts46_mapping_table.rs
+
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/lib.rs:
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/punycode.rs:
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/uts46.rs:
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/idna-0.5.0/src/uts46_mapping_table.rs:

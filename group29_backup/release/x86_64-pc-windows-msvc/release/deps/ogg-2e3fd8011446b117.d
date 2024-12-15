@@ -1,0 +1,10 @@
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\libogg-2e3fd8011446b117.rmeta: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\crc.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\reading.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\writing.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\libogg-2e3fd8011446b117.rlib: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\crc.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\reading.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\writing.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\ogg-2e3fd8011446b117.d: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\crc.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\reading.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\writing.rs
+
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\lib.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\crc.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\reading.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ogg-0.8.0\src\writing.rs:

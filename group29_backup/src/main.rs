@@ -25,7 +25,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     configure_autorun()?;
 
     // Avvia l'interfaccia grafica
-    run_gui();
+    let gui_thread = thread::spawn(|| {
+        run_gui();
+    });
 
     // Configurazione e verifica dei percorsi
     let proj_dir = get_project_directory()?;
@@ -36,6 +38,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Avvia il controller del mouse
     mouse_controller::mouse_events(extension, &backup_type, &input_path, &output_path);
+    
+    // Aspetta che il thread della GUI finisca (opzionale)
+    gui_thread.join().expect("Errore durante l'esecuzione della GUI");
 
     Ok(())
 }

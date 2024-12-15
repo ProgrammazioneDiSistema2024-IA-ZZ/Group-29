@@ -1,0 +1,10 @@
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\libglutin_egl_sys-f9e5289e3725b25a.rmeta: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\glutin_egl_sys-0.5.1\src\lib.rs C:\Users\frank\OneDrive\Desktop\Uni\Università\ Polito\Lezioni\Magistrale\2°Anno\Project\ Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\build\glutin_egl_sys-85e2eea5c3c0ae00\out/egl_bindings.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\libglutin_egl_sys-f9e5289e3725b25a.rlib: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\glutin_egl_sys-0.5.1\src\lib.rs C:\Users\frank\OneDrive\Desktop\Uni\Università\ Polito\Lezioni\Magistrale\2°Anno\Project\ Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\build\glutin_egl_sys-85e2eea5c3c0ae00\out/egl_bindings.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\glutin_egl_sys-f9e5289e3725b25a.d: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\glutin_egl_sys-0.5.1\src\lib.rs C:\Users\frank\OneDrive\Desktop\Uni\Università\ Polito\Lezioni\Magistrale\2°Anno\Project\ Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\build\glutin_egl_sys-85e2eea5c3c0ae00\out/egl_bindings.rs
+
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\glutin_egl_sys-0.5.1\src\lib.rs:
+C:\Users\frank\OneDrive\Desktop\Uni\Università\ Polito\Lezioni\Magistrale\2°Anno\Project\ Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\build\glutin_egl_sys-85e2eea5c3c0ae00\out/egl_bindings.rs:
+
+# env-dep:OUT_DIR=C:\\Users\\frank\\OneDrive\\Desktop\\Uni\\Università Polito\\Lezioni\\Magistrale\\2°Anno\\Project Rust\\Group-29\\group29_backup\\target\\x86_64-pc-windows-msvc\\release\\build\\glutin_egl_sys-85e2eea5c3c0ae00\\out

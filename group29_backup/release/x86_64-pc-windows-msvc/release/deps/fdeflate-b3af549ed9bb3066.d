@@ -1,0 +1,10 @@
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\libfdeflate-b3af549ed9bb3066.rmeta: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src/lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\compress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\decompress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\tables.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\libfdeflate-b3af549ed9bb3066.rlib: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src/lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\compress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\decompress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\tables.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Project Rust\Group-29\group29_backup\target\x86_64-pc-windows-msvc\release\deps\fdeflate-b3af549ed9bb3066.d: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src/lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\compress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\decompress.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\tables.rs
+
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src/lib.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\compress.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\decompress.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\fdeflate-0.3.5\src\tables.rs:
