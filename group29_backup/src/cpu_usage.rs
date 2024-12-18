@@ -27,7 +27,6 @@ pub fn log_cpu_usage() -> Result<(), Box<dyn std::error::Error>> {
 
     // Ottieni il numero di core logici della CPU
     let num_cores = system.cpus().len();
-    println!("Numero di core logici: {}", num_cores);
 
     // Configura gli intervalli
     let logging_interval = Duration::from_secs(120); // Intervallo totale di logging
@@ -38,11 +37,9 @@ pub fn log_cpu_usage() -> Result<(), Box<dyn std::error::Error>> {
         let mut total_cpu_usage = 0.0;
         let mut sample_count = 0;
 
-        println!("Inizio raccolta dati per l'intervallo di logging.");
 
         // Raccogli campioni durante l'intervallo di logging
         while start_time.elapsed() < logging_interval {
-            println!("Campionamento iniziato...");
             let sample_start = Instant::now();
 
             // Aggiorna le informazioni sui processi
@@ -50,16 +47,11 @@ pub fn log_cpu_usage() -> Result<(), Box<dyn std::error::Error>> {
                 ProcessesToUpdate::Some(&[Pid::from(pid as usize)]),
                 true,
             );
-            println!("Processi aggiornati.");
 
             // Ottieni l'uso della CPU del processo
             if let Some(process) = system.process(Pid::from(pid as usize)) {
                 let cpu_usage = process.cpu_usage();
-                println!(
-                    "CPU usage campionato: {:.6}% (tempo campionamento: {:.6}s)",
-                    cpu_usage,
-                    sample_start.elapsed().as_secs_f32()
-                );
+                
 
                 // Accumula l'uso della CPU e incrementa il numero di campioni
                 total_cpu_usage += cpu_usage;
@@ -76,11 +68,6 @@ pub fn log_cpu_usage() -> Result<(), Box<dyn std::error::Error>> {
         if sample_count > 0 {
             let average_cpu_usage = total_cpu_usage / (sample_count as f32 * num_cores as f32);
 
-            // Scrivi la media nel file di log
-            println!(
-                "Media consumo CPU calcolata: {:.6}% dopo {} campioni.",
-                average_cpu_usage, sample_count
-            );
             if let Err(e) = writeln!(
                 file,
                 "Media consumo CPU del processo {}: {:.6}% dopo {} campioni.",

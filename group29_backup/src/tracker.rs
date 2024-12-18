@@ -96,7 +96,6 @@ impl MinusSignTracker {
 /// Verifica se il mouse è in un angolo dello schermo
 fn detect_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corner {
     let tolerance = 50.0;
-    println!("Verifica coordinate passate a detect_corner: x = {}, y = {}", x, y);
 
 
     println!("Verifica angolo: x = {}, y = {}", x, y);
@@ -118,10 +117,10 @@ fn detect_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corne
 pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen_height: f64, event: Event) -> bool {
     let tolerance = 50.0; // Tolleranza di 5 pixel
     if let EventType::MouseMove { x, y } = event.event_type {
-        println!("Verifica coordinate passate a detect_corner: x = {}, y = {}", x, y);
+        println!("Coordinate  x = {}, y = {}", x, y);
 
         let corner = detect_corner(x, y, screen_width, screen_height);
-
+       
         if corner != Corner::None && !tracker.corner_reached {
             //Prima iterazione -> Possibilità di avere una generazione di un rettangolo
             tracker.is_rectangle = true;

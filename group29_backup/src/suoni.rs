@@ -2,7 +2,7 @@ use std::fs::File;
 use rodio::{Decoder, OutputStream, Sink};
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 use std::f32::consts::PI;
-use crate::dir_functions::{get_project_directory, get_project_directory_sound};
+use crate::dir_functions::get_project_directory;
 pub fn play_sound_backup_ok() -> Result<(), Box<dyn std::error::Error>> {
     let project_dir = get_project_directory()?;
     println!("Project Directory suoni: {:?}", project_dir);
@@ -27,7 +27,7 @@ pub fn play_sound_backup_ok() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 pub fn play_sound_backup_error() -> Result<(), Box<dyn std::error::Error>> {
-    let project_dir = get_project_directory_sound()?;
+    let project_dir = get_project_directory()?;
     println!("Project Directory suoni: {:?}", project_dir);
     let file_path = project_dir.join("erroreBackup.wav");
     println!("Path suono successoooooooo: {:?}", file_path);
