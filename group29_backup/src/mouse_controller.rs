@@ -1,12 +1,18 @@
+#[cfg(target_os="linux")]
+extern crate x11;
+
 use std::path::PathBuf;
 use std::thread;
 use std::sync::{mpsc,Arc};
+#[cfg(not(target_os="linux"))]
 use winit::event_loop::EventLoop;
 use std::sync::atomic::{Ordering,AtomicBool};
 use crate::backup;
 use rdev::{Event, listen};
 use crate::suoni::play_sound_sign;
 use crate::eventi_pulito::monitor_movement;
+#[cfg(target_os="linux")]
+use x11::xlib::{XOpenDisplay, XDefaultScreen, XDisplayWidth, XDisplayHeight};
 
 
 //const DEBOUNCE_INTERVAL: Duration = Duration::from_millis(50); // Intervallo di debounce per ignorare eventi troppo vicini
@@ -48,8 +54,30 @@ pub fn mouse_events(extension: Option<String>, backup_type: &String, input_path:
 
 // Funzione per ottenere la risoluzione dello schermo
 fn get_screen_size() -> Option<(u32, u32)> {
+    
+    #[cfg(not(target_os="linux"))]
+    {
     let event_loop = EventLoop::new();
     let monitor = event_loop.primary_monitor()?;
     let screen_size = monitor.size();
     Some((screen_size.width, screen_size.height))
+    }
+    
+    #[cfg(target_os="linux")]
+    unsafe {
+        // Apri la connessione con il server X11
+        let display = XOpenDisplay(std::ptr::null());
+        if display.is_null() {
+            eprintln!("Impossibile aprire la connessione X11");
+            return None;
+        }
+
+        // Ottieni lo schermo predefinito
+        let screen = XDefaultScreen(display);
+        let width = XDisplayWidth(display, screen) as u32;
+        let height = XDisplayHeight(display, screen) as u32;
+
+        println!("{},{}",width,height);
+        Some((width, height))
+    }
 }

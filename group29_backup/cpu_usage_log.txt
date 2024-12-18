@@ -1,0 +1,6 @@
+Media consumo CPU del processo 397: 0.000000% dopo 24 campioni.
+Media consumo CPU del processo 1074: 0.000000% dopo 24 campioni.
+Media consumo CPU del processo 1074: 0.000000% dopo 24 campioni.
+Media consumo CPU del processo 1074: 0.000000% dopo 24 campioni.
+Media consumo CPU del processo 1074: 0.000000% dopo 24 campioni.
+Media consumo CPU del processo 5152: 0.000000% dopo 24 campioni.

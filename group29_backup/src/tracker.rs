@@ -96,7 +96,12 @@ impl MinusSignTracker {
 /// Verifica se il mouse è in un angolo dello schermo
 fn detect_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corner {
     let tolerance = 50.0;
+    println!("Verifica coordinate passate a detect_corner: x = {}, y = {}", x, y);
+
+
+    println!("Verifica angolo: x = {}, y = {}", x, y);
     if x.abs() < tolerance && y.abs() < tolerance {
+        println!("Angolo rilevato: TopLeft");
         Corner::TopLeft
     } else if (x - screen_width).abs() < tolerance && y.abs() < tolerance {
         Corner::TopRight
@@ -113,6 +118,8 @@ fn detect_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corne
 pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen_height: f64, event: Event) -> bool {
     let tolerance = 50.0; // Tolleranza di 5 pixel
     if let EventType::MouseMove { x, y } = event.event_type {
+        println!("Verifica coordinate passate a detect_corner: x = {}, y = {}", x, y);
+
         let corner = detect_corner(x, y, screen_width, screen_height);
 
         if corner != Corner::None && !tracker.corner_reached {
@@ -202,6 +209,10 @@ pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen
 fn handle_top_border(tracker: &mut RectangleTracker, x: f64, y: f64, tolerance: f64, screen_width: f64) {
     match tracker.direction {
         Direction::Clockwise => {
+            println!(
+                "Movimento bordo superiore (Clockwise): prev_x = {}, x = {}, y = {}, tolerance = {}",
+                tracker.prev_x, x, y, tolerance
+            );
             if y.abs() < tolerance && tracker.prev_x <= x && x < screen_width {
                 tracker.prev_y = y;
                 tracker.prev_x = x;
@@ -296,6 +307,10 @@ fn reset_tracker(tracker: &mut RectangleTracker, message: &str) {
 }
 
 fn switch_border(tracker: &mut RectangleTracker, corner: Corner) {
+    println!(
+        "Cambio di bordo: corner = {:?}, last_corner = {:?}, direction = {:?}, count_corners = {}",
+        corner, tracker.last_corner, tracker.direction, tracker.count_corners
+    );
     if tracker.last_corner !=  corner && corner != Corner::None {
         match tracker.direction {
             Direction::Clockwise => {
