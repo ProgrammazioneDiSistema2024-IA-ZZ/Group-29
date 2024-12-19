@@ -10,25 +10,26 @@ mod eventi_pulito;
 mod config_autorun;
 
 use std::thread;
+use std::process::Command;
 use dir_functions::get_project_directory;
-use crate::config_autorun::{configure_autorun,run_gui,verify_paths,load_config};
-
+use crate::config_autorun::{configure_autorun, verify_paths, load_config};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-
-
     // Avvia la registrazione dell'utilizzo della CPU in un thread separato
     thread::spawn(|| {
         cpu_usage::log_cpu_usage(); // Funzione che continua a loggare la CPU ogni 10 secondi
     });
 
-
     // Configura l'avvio automatico su Windows
     configure_autorun()?;
 
-    // Avvia l'interfaccia grafica
-    run_gui();
-    
+    // Avvia la GUI come processo separato
+    println!("Avvio della GUI come processo separato...");
+    if let Err(e) = Command::new("gui_backup")
+        .spawn() // Avvia la GUI senza bloccare il thread principale
+    {
+        eprintln!("Errore nell'avvio della GUI: {}", e);
+    }
 
     // Configurazione e verifica dei percorsi
     let proj_dir = get_project_directory()?;
@@ -39,6 +40,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Avvia il controller del mouse
     mouse_controller::mouse_events(extension, &backup_type, &input_path, &output_path);
-    
+
     Ok(())
 }

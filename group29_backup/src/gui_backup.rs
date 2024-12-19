@@ -2,8 +2,8 @@ use eframe::{egui, App}; // Assicurati di avere le importazioni corrette
 use std::fs;
 use std::path::PathBuf;
 use native_dialog::FileDialog; // Per il dialogo di selezione della cartella
-use egui::ViewportCommand;
-use crate::dir_functions::get_project_directory;
+use std::env;
+
 pub struct ConfigApp {
     pub use_full_folder: bool,     // Checkbox per "Cartella completa del progetto"
     pub selected_extension: String, // Estensione selezionata
@@ -14,10 +14,10 @@ pub struct ConfigApp {
 impl Default for ConfigApp {
     fn default() -> Self {
         Self {
-            use_full_folder: false,           // Valore predefinito
-            selected_extension: "txt".to_string(), // Estensione predefinita
-            input_path: String::new(),         // Percorso di ingresso vuoto
-            output_path: String::new(),        // Percorso di uscita vuoto
+            use_full_folder: false,
+            selected_extension: "txt".to_string(),
+            input_path: String::new(),
+            output_path: String::new(),
         }
     }
 }
@@ -27,10 +27,8 @@ impl App for ConfigApp {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading("Configurazione Applicativo");
 
-            // Checkbox per selezionare l'opzione
             ui.checkbox(&mut self.use_full_folder, "Cartella completa");
 
-            // Mostra il ComboBox se l'utente non ha selezionato "Cartella completa del progetto"
             if !self.use_full_folder {
                 ui.label("Seleziona l'estensione dei file:");
                 egui::ComboBox::from_label("Estensioni")
@@ -41,7 +39,6 @@ impl App for ConfigApp {
                     });
             }
 
-            // Seleziona la cartella di ingresso
             ui.horizontal(|ui| {
                 ui.label("Percorso di ingresso:");
                 ui.text_edit_singleline(&mut self.input_path);
@@ -49,12 +46,10 @@ impl App for ConfigApp {
                 if ui.button("Seleziona...").clicked() {
                     if let Some(path) = open_directory_dialog() {
                         self.input_path = path.to_string_lossy().to_string();
-                        println!("input: {}", self.input_path)
                     }
                 }
             });
 
-            // Seleziona la cartella di uscita
             ui.horizontal(|ui| {
                 ui.label("Percorso di uscita:");
                 ui.text_edit_singleline(&mut self.output_path);
@@ -62,26 +57,26 @@ impl App for ConfigApp {
                 if ui.button("Seleziona...").clicked() {
                     if let Some(path) = open_directory_dialog() {
                         self.output_path = path.to_string_lossy().to_string();
-                        println!("output: {}", self.output_path)
                     }
                 }
             });
-            // Pulsante per applicare la configurazione e salvarla
+
             if ui.button("Salva configurazione").clicked() {
                 if !self.input_path.is_empty() && !self.output_path.is_empty() {
-                    match write_config(self.use_full_folder, &self.selected_extension, &self.input_path, &self.output_path) {
+                    match write_config(
+                        self.use_full_folder,
+                        &self.selected_extension,
+                        &self.input_path,
+                        &self.output_path,
+                    ) {
                         Ok(_) => {
                             println!("Configurazione aggiornata con successo.");
-                        },
+                            frame.close();
+                        }
                         Err(e) => println!("Errore nell'aggiornamento della configurazione: {}", e),
                     }
-                    println!(
-                        "Modifiche applicate: Cartella completa = {}, Estensione = {}, Percorso Ingresso = {}, Percorso Uscita = {}",
-                        self.use_full_folder, self.selected_extension, self.input_path, self.output_path
-                    );
-                    ctx.send_viewport_cmd(ViewportCommand::Close);
                 } else {
-                    println!("Per favore, seleziona entrambi i percorsi di ingresso e uscita.");
+                    println!("Seleziona entrambi i percorsi di ingresso e uscita.");
                 }
             }
         });
@@ -109,24 +104,57 @@ fn write_config(use_full_folder: bool, extension: &str, input_path: &str, output
             extension, input_path, output_path
         )
     };
+
     let proj_dir = get_project_directory()?;
     let config_path = proj_dir.join("config.toml");
-    //fs::write(config_path, config_content)?;
-    println!("Config Path calcolato da write: {:?}", config_path);
-    println!("Config Content: {}", config_content);
-    fs::write(config_path, config_content).map_err(|e| {
-        println!("Errore nella scrittura del file config.toml: {}", e);
-        e
-    })?;
+
+    fs::write(config_path, config_content)?;
     Ok(())
 }
 
-
-// Funzione per aprire il dialogo di selezione delle directory
 fn open_directory_dialog() -> Option<PathBuf> {
     FileDialog::new()
-        .set_location("C:/")
+        .set_location(&env::current_dir().unwrap_or_else(|_| PathBuf::from("/")))
         .show_open_single_dir()
         .ok()
         .flatten()
+}
+
+pub fn get_project_directory() -> Result<PathBuf, Box<dyn std::error::Error>> {
+    let exe_path = env::current_exe()?;
+    let mut project_dir = exe_path
+        .parent()
+        .ok_or("Impossibile ottenere la directory del progetto.")?
+        .to_path_buf();
+
+    if project_dir.ends_with("MacOS") {
+        project_dir = project_dir
+            .parent()
+            .and_then(|p| p.parent())
+            .ok_or("Directory non trovata per macOS.")?
+            .to_path_buf();
+    }
+
+    while !project_dir.ends_with("group29_backup") {
+        project_dir = project_dir
+            .parent()
+            .ok_or("Directory group29_backup non trovata.")?
+            .to_path_buf();
+    }
+
+    Ok(project_dir)
+}
+
+pub fn run_gui() {
+    let options = eframe::NativeOptions::default();
+    eframe::run_native(
+        "Backup Configurator",
+        options,
+        Box::new(|_cc| Box::new(ConfigApp::default())),
+    )
+    .expect("Errore nell'avvio della GUI");
+}
+
+fn main() {
+    run_gui();
 }

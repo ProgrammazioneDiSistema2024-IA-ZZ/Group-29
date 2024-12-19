@@ -90,19 +90,6 @@ pub fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-pub fn run_gui() {
-
-    
-    let options = eframe::NativeOptions::default();
-    eframe::run_native(
-        "Backup Configurator",
-        options,
-        Box::new(|_cc| {
-            Box::new(ConfigApp::default()) as Box<dyn eframe::App>
-        }),
-    ).expect("Errore nell'avvio della GUI");
-}
-
 pub fn load_config(path: &PathBuf) -> Result<(String, Option<String>, String, String), Box<dyn std::error::Error>> {
 
     let config_str = std::fs::read_to_string(&path)?;

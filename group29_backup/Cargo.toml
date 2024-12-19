@@ -19,6 +19,11 @@ path = "src/main.rs"
 # Specifica il tipo di subsystem come "windows" (nasconde la finestra del terminale)
 windows_subsystem = "windows"
 
+# Configura la GUI come binario separato
+[[bin]]
+name = "gui_backup"
+path = "src/gui_backup.rs"  # Percorso del file contenente `main`
+
 [dependencies]
 rdev = "0.5.3"        # Libreria per la gestione dei dispositivi di input
 winit = "0.27"              # Libreria per ottenere le dimensioni dello schermo
@@ -29,7 +34,7 @@ native-dialog = "0.7.0"
 sysinfo = "0.32.0"
 rayon = "1.10.0"
 egui = "0.29.1"
-eframe = "0.24"
+eframe = "0.22"
 auto-launch = "0.2.0"
 cpal = "0.14"
 dirs = "5.0.1"
