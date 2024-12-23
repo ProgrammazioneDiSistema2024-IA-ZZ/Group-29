@@ -23,9 +23,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Configura l'avvio automatico su Windows
     configure_autorun()?;
 
+    #[cfg(target_os = "windows")]
+    const GUI_PATH: &str = "gui_backup.exe";
+
+    #[cfg(any(target_os = "linux", target_os = "macos"))]
+    const GUI_PATH: &str = "./target/release/gui_backup";
     // Avvia la GUI come processo separato
     println!("Avvio della GUI come processo separato...");
-    if let Err(e) = Command::new("gui_backup")
+    if let Err(e) = Command::new(GUI_PATH)
         .spawn() // Avvia la GUI senza bloccare il thread principale
     {
         eprintln!("Errore nell'avvio della GUI: {}", e);

@@ -1,1 +1,1 @@
-C:\Users\sagli\Desktop\uni\PROGRAMMAZIONE\ DI\ SISTEMA\SECONDA\ PARTE\Progetto\Group-29\group29_backup\target\release\gui_backup.exe: C:\Users\sagli\Desktop\uni\PROGRAMMAZIONE\ DI\ SISTEMA\SECONDA\ PARTE\Progetto\Group-29\group29_backup\src\gui_backup.rs
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università\ Polito/Lezioni/Magistrale/2°Anno/Project\ Rust/Group-29/group29_backup/target/release/gui_backup: /mnt/c/Users/frank/OneDrive/Desktop/Uni/Università\ Polito/Lezioni/Magistrale/2°Anno/Project\ Rust/Group-29/group29_backup/src/gui_backup.rs
