@@ -96,8 +96,6 @@ impl MinusSignTracker {
 /// Verifica se il mouse è in un angolo dello schermo
 fn detect_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corner {
     let tolerance = 50.0;
-
-
     println!("Verifica angolo: x = {}, y = {}", x, y);
     if x.abs() < tolerance && y.abs() < tolerance {
         println!("Angolo rilevato: TopLeft");

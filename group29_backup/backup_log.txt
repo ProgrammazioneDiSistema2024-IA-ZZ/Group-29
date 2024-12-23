@@ -28,3 +28,15 @@ Tempo impiegato per il backup: 3.6567431s
 Backup completato:
 Dimensione totale dei file: 0 bytes
 Tempo impiegato per il backup: 3.7270268s
+Backup completato:
+Dimensione totale dei file: 119440 bytes
+Tempo impiegato per il backup: 23.962012ms
+Backup completato:
+Dimensione totale dei file: 119440 bytes
+Tempo impiegato per il backup: 19.110234ms
+Backup completato:
+Dimensione totale dei file: 119440 bytes
+Tempo impiegato per il backup: 22.310813ms
+Backup completato:
+Dimensione totale dei file: 119440 bytes
+Tempo impiegato per il backup: 19.643173ms

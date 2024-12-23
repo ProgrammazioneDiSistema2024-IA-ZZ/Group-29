@@ -8,6 +8,7 @@ use std::io::Write;
 use std::io;
 use rayon::prelude::*;
 use crate::dir_functions::get_project_directory;
+use std::process::Command;
 
 // Funzione per calcolare la dimensione totale dei file in un percorso
 fn calculate_total_size(path: &PathBuf) -> u64 {
@@ -85,18 +86,33 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
         _ => return Err("Tipo di backup non valido".into()),
     }
 
-    play_sound_backup_ok()?;
 
     let duration = start.elapsed();
 
     log_backup_info(total_size, duration)?;
 
+
     // Usa native-dialog per la finestra di dialogo
+    #[cfg(not(target_os="linux"))]
+    {
     native_dialog::MessageDialog::new()
         .set_title("Backup Completato")
         .set_text("Backup completato con successo!")    
         .show_alert()?;
+    }
 
+    #[cfg(target_os="linux")]
+    {
+        // Usa zenity per mostrare una finestra di dialogo su Linux
+        let output = Command::new("zenity")
+            .arg("--info")
+            .arg("--text=Backup completato con successo!")
+            .output()?;
+
+        if !output.status.success() {
+            eprintln!("Errore durante l'esecuzione di zenity");
+        }
+    }
     Ok(())
 }
 
