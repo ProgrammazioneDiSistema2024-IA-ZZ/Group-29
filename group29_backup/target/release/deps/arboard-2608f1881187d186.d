@@ -1,0 +1,10 @@
+C:\Users\sagli\Desktop\uni\PROGRAMMAZIONE DI SISTEMA\SECONDA PARTE\Progetto\Group-29\group29_backup\target\release\deps\libarboard-2608f1881187d186.rmeta: C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src/lib.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\common.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\platform\mod.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\platform\windows.rs
+
+C:\Users\sagli\Desktop\uni\PROGRAMMAZIONE DI SISTEMA\SECONDA PARTE\Progetto\Group-29\group29_backup\target\release\deps\libarboard-2608f1881187d186.rlib: C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src/lib.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\common.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\platform\mod.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\platform\windows.rs
+
+C:\Users\sagli\Desktop\uni\PROGRAMMAZIONE DI SISTEMA\SECONDA PARTE\Progetto\Group-29\group29_backup\target\release\deps\arboard-2608f1881187d186.d: C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src/lib.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\common.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\platform\mod.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\platform\windows.rs
+
+C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src/lib.rs:
+C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\common.rs:
+C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\platform\mod.rs:
+C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\arboard-3.4.1\src\platform\windows.rs:

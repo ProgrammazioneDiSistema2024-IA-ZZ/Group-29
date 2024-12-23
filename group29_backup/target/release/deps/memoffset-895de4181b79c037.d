@@ -1,0 +1,10 @@
+C:\Users\sagli\Desktop\uni\PROGRAMMAZIONE DI SISTEMA\SECONDA PARTE\Progetto\Group-29\group29_backup\target\release\deps\libmemoffset-895de4181b79c037.rmeta: C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs
+
+C:\Users\sagli\Desktop\uni\PROGRAMMAZIONE DI SISTEMA\SECONDA PARTE\Progetto\Group-29\group29_backup\target\release\deps\libmemoffset-895de4181b79c037.rlib: C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs
+
+C:\Users\sagli\Desktop\uni\PROGRAMMAZIONE DI SISTEMA\SECONDA PARTE\Progetto\Group-29\group29_backup\target\release\deps\memoffset-895de4181b79c037.d: C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs
+
+C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs:
+C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs:
+C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs:
+C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs:
