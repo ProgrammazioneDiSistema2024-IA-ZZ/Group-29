@@ -1,5 +1,5 @@
 
             backup_type = "FullFolder"
-            input_path = "/mnt/c/Users/frank/OneDrive/Desktop/App-GemHunter/gemhunter/client/src/icons"
-            output_path = "/mnt/c/Users/frank/OneDrive/Desktop"
+            input_path = "C:\\Users\\frank\\OneDrive\\Desktop\\App-GemHunter\\gemhunter\\client\\src\\icons"
+            output_path = "C:\\Users\\frank\\OneDrive\\Desktop"
             

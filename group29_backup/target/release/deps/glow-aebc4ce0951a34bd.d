@@ -1,0 +1,10 @@
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/libglow-aebc4ce0951a34bd.rmeta: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/version.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/native.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/gl46.rs
+
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/libglow-aebc4ce0951a34bd.rlib: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/version.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/native.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/gl46.rs
+
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/glow-aebc4ce0951a34bd.d: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/version.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/native.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/gl46.rs
+
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/lib.rs:
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/version.rs:
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/native.rs:
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/glow-0.12.3/src/gl46.rs:

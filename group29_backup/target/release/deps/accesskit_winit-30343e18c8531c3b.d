@@ -1,0 +1,9 @@
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/libaccesskit_winit-30343e18c8531c3b.rmeta: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/platform_impl/mod.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/platform_impl/unix.rs
+
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/libaccesskit_winit-30343e18c8531c3b.rlib: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/platform_impl/mod.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/platform_impl/unix.rs
+
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/accesskit_winit-30343e18c8531c3b.d: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/platform_impl/mod.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/platform_impl/unix.rs
+
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/lib.rs:
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/platform_impl/mod.rs:
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/accesskit_winit-0.14.4/src/platform_impl/unix.rs:

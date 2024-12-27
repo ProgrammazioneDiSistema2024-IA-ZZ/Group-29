@@ -1,0 +1,10 @@
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/liblog-3c4a5d63e16123eb.rmeta: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/macros.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/serde.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/__private_api.rs
+
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/liblog-3c4a5d63e16123eb.rlib: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/macros.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/serde.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/__private_api.rs
+
+/mnt/c/Users/frank/OneDrive/Desktop/Uni/Università Polito/Lezioni/Magistrale/2°Anno/Project Rust/Group-29/group29_backup/target/release/deps/log-3c4a5d63e16123eb.d: /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/lib.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/macros.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/serde.rs /home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/__private_api.rs
+
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/lib.rs:
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/macros.rs:
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/serde.rs:
+/home/francesco/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.22/src/__private_api.rs:
