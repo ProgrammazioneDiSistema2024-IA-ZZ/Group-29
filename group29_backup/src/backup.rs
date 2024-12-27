@@ -91,6 +91,7 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
 
     log_backup_info(total_size, duration)?;
 
+    play_sound_backup_ok()?;
 
     // Usa native-dialog per la finestra di dialogo
     #[cfg(not(target_os="linux"))]

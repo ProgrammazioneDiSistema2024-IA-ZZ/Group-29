@@ -24,16 +24,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     configure_autorun()?;
 
     #[cfg(target_os = "windows")]
-    const GUI_PATH: &str = "./target/release/gui_backup.exe";
+    const GUI_PATH: &str = "gui_backup.exe";
 
     #[cfg(any(target_os = "linux", target_os = "macos"))]
     const GUI_PATH: &str = "./target/release/gui_backup";
     // Avvia la GUI come processo separato
     println!("Avvio della GUI come processo separato...");
-    if let Err(e) = Command::new(GUI_PATH)
-        .spawn() // Avvia la GUI senza bloccare il thread principale
-    {
-        eprintln!("Errore nell'avvio della GUI: {}", e);
+    match Command::new(GUI_PATH).spawn() {
+        Ok(mut child) => {
+            // Aspetta il completamento del processo GUI
+            if let Err(e) = child.wait() {
+                eprintln!("Errore durante l'esecuzione della GUI: {}", e);
+            }
+        }
+        Err(e) => {
+            eprintln!("Errore nell'avvio della GUI: {}", e);
+        }
     }
 
     // Configurazione e verifica dei percorsi

@@ -7,7 +7,6 @@ pub fn play_sound_backup_ok() -> Result<(), Box<dyn std::error::Error>> {
     let project_dir = get_project_directory()?;
     println!("Project Directory suoni: {:?}", project_dir);
     let file_path = project_dir.join("successoBackup.wav");
-    println!("Path suono successoooooooo: {:?}", file_path);
     // Inizializza il flusso di output
     let (_stream, stream_handle) = OutputStream::try_default()?;
 
@@ -30,7 +29,6 @@ pub fn play_sound_backup_error() -> Result<(), Box<dyn std::error::Error>> {
     let project_dir = get_project_directory()?;
     println!("Project Directory suoni: {:?}", project_dir);
     let file_path = project_dir.join("erroreBackup.wav");
-    println!("Path suono successoooooooo: {:?}", file_path);
     // Inizializza il flusso di output
     let (_stream, stream_handle) = OutputStream::try_default()?;
 
