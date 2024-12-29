@@ -1,6 +1,6 @@
 use std::{fs};
 use std::path::{PathBuf};
-use native_dialog; // Usa native-dialog
+use native_dialog;
 use crate::suoni::{play_sound_backup_ok, play_sound_backup_error};
 use std::time::{Duration, Instant};
 use std::fs::OpenOptions;
@@ -8,9 +8,8 @@ use std::io::Write;
 use std::io;
 use rayon::prelude::*;
 use crate::dir_functions::get_project_directory;
-use std::process::Command;
 
-// Funzione per calcolare la dimensione totale dei file in un percorso
+
 fn calculate_total_size(path: &PathBuf) -> u64 {
     let mut total_size = 0;
     if path.is_dir() {
@@ -40,7 +39,6 @@ fn log_backup_info(total_size: u64, duration: Duration) -> Result<(), Box<dyn st
     Ok(())
 }
 
-// Funzione per eseguire il backup
 pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &PathBuf, dest_path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
 
     if !src_path.exists() {
@@ -93,7 +91,7 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
 
     play_sound_backup_ok()?;
 
-    // Usa native-dialog per la finestra di dialogo
+
     #[cfg(not(target_os="linux"))]
     {
     native_dialog::MessageDialog::new()
@@ -104,7 +102,7 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
 
     #[cfg(target_os="linux")]
     {
-        // Usa zenity per mostrare una finestra di dialogo su Linux
+        // mostro una finestra di dialogo su Linux
         let output = Command::new("zenity")
             .arg("--info")
             .arg("--text=Backup completato con successo!")
@@ -117,14 +115,12 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
     Ok(())
 }
 
-// Funzione ricorsiva per copiare una directory in modo parallelo con controllo del numero di thread
+
 fn copy_directory_parallel(src: &PathBuf, dst: &PathBuf) -> io::Result<()> {
-    // Crea la directory di destinazione se non esiste
     if !dst.exists() {
         fs::create_dir_all(dst)?;
     }
 
-    // Leggi tutte le voci nella directory sorgente
     let entries: Vec<_> = fs::read_dir(src)?
         .map(|entry| entry.unwrap())
         .collect();
@@ -134,14 +130,12 @@ fn copy_directory_parallel(src: &PathBuf, dst: &PathBuf) -> io::Result<()> {
         let dst_path = dst.join(entry.file_name());
 
         if src_path.is_dir() {
-            // Se l'elemento è una directory, copia ricorsivamente
             copy_directory_parallel(&src_path, &dst_path).unwrap();
+
         } else {
-            // Se l'elemento è un file, controlla se esiste già nella destinazione
             if dst_path.exists() {
                 println!("Il file esiste già: {:?}, ignorato.", dst_path);
             } else {
-                // Se non esiste, copia il file
                 fs::copy(&src_path, &dst_path).unwrap();
                 println!("Copia del file: {:?} in {:?}", src_path, dst_path);
             }

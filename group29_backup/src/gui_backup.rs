@@ -1,14 +1,14 @@
-use eframe::{egui, App}; // Assicurati di avere le importazioni corrette
+use eframe::{egui, App};
 use std::fs;
 use std::path::PathBuf;
-use native_dialog::FileDialog; // Per il dialogo di selezione della cartella
+use native_dialog::FileDialog;
 use std::env;
 
 pub struct ConfigApp {
-    pub use_full_folder: bool,     // Checkbox per "Cartella completa del progetto"
-    pub selected_extension: String, // Estensione selezionata
-    pub input_path: String,        // Percorso di ingresso
-    pub output_path: String,       // Percorso di uscita
+    pub use_full_folder: bool,
+    pub selected_extension: String,
+    pub input_path: String,
+    pub output_path: String,
 }
 
 impl Default for ConfigApp {

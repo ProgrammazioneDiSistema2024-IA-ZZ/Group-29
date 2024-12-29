@@ -1,7 +1,7 @@
 use std::time::Duration;
 use rdev::{Event, EventType};
 
-// Costante per il debounce degli eventi
+// debounce degli eventi
 pub const DEBOUNCE_INTERVAL: Duration = Duration::from_millis(100);
 
 /// Rappresenta i possibili bordi dello schermo
@@ -14,7 +14,7 @@ enum Border {
     Left,
 }
 
-/// Rappresenta i possibili angoli dello schermo
+
 #[derive(PartialEq, Debug)]
 enum Corner {
     None,
@@ -24,7 +24,7 @@ enum Corner {
     BottomRight,
 }
 
-/// Direzione del movimento
+
 #[derive(PartialEq, Debug)]
 enum Direction {
     Unknown,
@@ -32,7 +32,7 @@ enum Direction {
     CounterClockwise,
 }
 
-/// Gestisce lo stato di tracciamento del rettangolo
+
 #[derive(Debug)]
 pub struct RectangleTracker {
     is_rectangle: bool,
@@ -68,7 +68,7 @@ impl RectangleTracker {
     }
 }
 
-/// Gestisce lo stato di tracciamento del segno meno
+
 #[derive(Debug)]
 pub struct MinusSignTracker {
     is_tracking: bool,
@@ -90,10 +90,7 @@ impl MinusSignTracker {
     }
 }
 
-///RECTANGLE TRACKER
 
-
-/// Verifica se il mouse è in un angolo dello schermo
 fn detect_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corner {
     let tolerance = 50.0;
     println!("Verifica angolo: x = {}, y = {}", x, y);
@@ -111,7 +108,6 @@ fn detect_corner(x: f64, y: f64, screen_width: f64, screen_height: f64) -> Corne
     }
 }
 
-/// Traccia il movimento del mouse per verificare un rettangolo
 pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen_height: f64, event: Event) -> bool {
     let tolerance = 50.0; // Tolleranza di 5 pixel
     if let EventType::MouseMove { x, y } = event.event_type {
@@ -131,7 +127,7 @@ pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen
             tracker.count_corners +=1;
             println!("Mouse rilevato nell'angolo: {:?}", tracker.initial_corner);
         } else if tracker.is_rectangle && tracker.direction == Direction::Unknown && corner == Corner::None {
-            // Determina la direzione (ClockWise/Counterclockwise) e il bordo corrente basandosi sull'angolo iniziale
+
             match tracker.initial_corner {
                 Corner::TopLeft => {
                     println!("X:{}, Y:{}", x, y);
@@ -175,8 +171,8 @@ pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen
             tracker.prev_x = x;
             tracker.prev_y = y;
         } else if tracker.is_rectangle && tracker.direction != Direction::Unknown && corner == Corner::None {
-            // Traccia il movimento lungo i bordi in base alla direzione e al bordo corrente
-            tracker.flag_fine = true; // Solo completando il rettangolo può chiudere
+
+            tracker.flag_fine = true;
             match tracker.current_border {
                 Border::Top => handle_top_border(tracker, x, y, tolerance, screen_width),
                 Border::Right => handle_right_border(tracker, x, y, tolerance, screen_width, screen_height),
@@ -185,7 +181,7 @@ pub fn track_rectangle(tracker: &mut RectangleTracker, screen_width: f64, screen
                 Border::None => println!("Non su un bordo valido"),
             }
         } else {
-            // Gestisce il passaggio di bordo nell'intorno di un angolo -> Corner!=None
+
             println!(
                 "Mouse in {:?} neighbourhood ({}, {}), is_rectangle: {}, direction: {:?}",
                 corner, x, y, tracker.is_rectangle, tracker.direction
@@ -318,7 +314,7 @@ fn switch_border(tracker: &mut RectangleTracker, corner: Corner) {
                     Corner::BottomRight => Border::Bottom,
                     Corner::None => Border::None,
                 };
-                tracker.count_corners += 1; // Incrementa il contatore
+                tracker.count_corners += 1;
             }
             Direction::CounterClockwise => {
                 tracker.current_border = match corner {
@@ -329,20 +325,16 @@ fn switch_border(tracker: &mut RectangleTracker, corner: Corner) {
                     Corner::None => Border::None,
                 };
 
-                tracker.count_corners += 1; // Incrementa il contatore
+                tracker.count_corners += 1;
             }
             Direction::Unknown => println!("Direzione sconosciuta"),
         }
         
-        tracker.last_corner = corner; //Aggiorna l'ultimo angolo
+        tracker.last_corner = corner;
     }
 }
 
 
-
-//MINUS SIGN TRACKER
-
-/// Rileva un segno meno tramite il movimento del mouse
 pub fn detect_minus_sign(tracker: &mut MinusSignTracker, screen_width: f64, screen_height: f64, event: Event) -> bool {
     let tolerance = 50.0;
     let min_length = screen_width * 0.2;

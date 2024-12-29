@@ -6,15 +6,11 @@ use std::fs::File;
 #[cfg(not(target_os="windows"))]
 use std::io::Write;
 use std::path::PathBuf;
-use gui_backup::ConfigApp;
 use serde::Deserialize;
 #[cfg(target_os="windows")]
 use winreg::enums::*;
-
 #[cfg(target_os="windows")]
 use winreg::RegKey;
-
-use crate::gui_backup;
 
 #[derive(Debug, Deserialize)]
 struct ConfigData {
@@ -25,12 +21,11 @@ struct ConfigData {
 }
 
 pub fn configure_autorun() -> Result<(), Box<dyn std::error::Error>> {
-    let exe_path_buf = env::current_exe()?; // Ottieni il percorso dell'eseguibile
+    let exe_path_buf = env::current_exe()?;
     let exe_path = exe_path_buf
         .to_str()
         .ok_or("Failed to convert executable path to string")?;
-    let exe_path_with_quotes = format!("\"{}\"", exe_path); // Aggiungi virgolette
-
+    let exe_path_with_quotes = format!("\"{}\"", exe_path);
     #[cfg(target_os = "windows")]
     {
         let hkcu = RegKey::predef(HKEY_CURRENT_USER);

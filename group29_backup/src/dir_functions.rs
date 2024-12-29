@@ -2,17 +2,17 @@ use std::env;
 use std::path::PathBuf;
 
 pub fn get_project_directory() -> Result<PathBuf, Box<dyn std::error::Error>> {
-    let exe_path = env::current_exe()?; // Ottieni il percorso dell'eseguibile
+    let exe_path = env::current_exe()?;
     let mut project_dir = exe_path
-        .parent() // Ottieni la directory dell'eseguibile
+        .parent()
         .ok_or("Impossibile ottenere la directory del progetto.")?
         .to_path_buf();
 
     //controllo per MACOS:
     if project_dir.ends_with("MacOS") {
         project_dir = project_dir
-            .parent() // Risali a "Contents"
-            .and_then(|p| p.parent()) // Risali alla directory principale del bundle
+            .parent()
+            .and_then(|p| p.parent())
             .ok_or("Non è stato possibile risalire alla directory del progetto dal bundle macOS.")?
             .to_path_buf();
     }
@@ -20,7 +20,7 @@ pub fn get_project_directory() -> Result<PathBuf, Box<dyn std::error::Error>> {
     // Controlla se il percorso termina con "group29_backup"
     while !project_dir.ends_with("group29_backup") {
         project_dir = project_dir
-            .parent() // Risali alla directory superiore
+            .parent()
             .ok_or("Non è stato possibile trovare la directory group29_backup.")?
             .to_path_buf();
     }
@@ -31,16 +31,16 @@ pub fn get_project_directory() -> Result<PathBuf, Box<dyn std::error::Error>> {
 }
 
 pub fn get_project_directory_sound() -> Result<PathBuf, Box<dyn std::error::Error>> {
-    let exe_path = env::current_exe()?; // Ottieni il percorso dell'eseguibile
+    let exe_path = env::current_exe()?;
     let mut project_dir = exe_path
-        .parent() // Ottieni la directory dell'eseguibile
+        .parent()
         .ok_or("Impossibile ottenere la directory del progetto.")?
         .to_path_buf();
 
-    // Controlla se il percorso termina con "group29_backup"
+
     while !project_dir.ends_with("group29_backup") {
         project_dir = project_dir
-            .parent() // Risali alla directory superiore
+            .parent()
             .ok_or("Non è stato possibile trovare la directory group29_backup.")?
             .to_path_buf();
     }
