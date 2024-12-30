@@ -1,0 +1,10 @@
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Rust_project\Group-29\group29_backup\target\release\deps\libmemoffset-fcef4ec88ebe582c.rmeta: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Rust_project\Group-29\group29_backup\target\release\deps\libmemoffset-fcef4ec88ebe582c.rlib: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Rust_project\Group-29\group29_backup\target\release\deps\memoffset-fcef4ec88ebe582c.d: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs
+
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs:

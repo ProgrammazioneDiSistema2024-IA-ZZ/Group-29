@@ -1,9 +1,0 @@
-C:\Users\sagli\Desktop\uni\PROGRAMMAZIONE DI SISTEMA\SECONDA PARTE\Progetto\Group-29\group29_backup\target\release\deps\libaccesskit_winit-ac59e3ebd8be4745.rmeta: C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\lib.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\platform_impl\mod.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\platform_impl\windows.rs
-
-C:\Users\sagli\Desktop\uni\PROGRAMMAZIONE DI SISTEMA\SECONDA PARTE\Progetto\Group-29\group29_backup\target\release\deps\libaccesskit_winit-ac59e3ebd8be4745.rlib: C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\lib.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\platform_impl\mod.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\platform_impl\windows.rs
-
-C:\Users\sagli\Desktop\uni\PROGRAMMAZIONE DI SISTEMA\SECONDA PARTE\Progetto\Group-29\group29_backup\target\release\deps\accesskit_winit-ac59e3ebd8be4745.d: C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\lib.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\platform_impl\mod.rs C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\platform_impl\windows.rs
-
-C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\lib.rs:
-C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\platform_impl\mod.rs:
-C:\Users\sagli\.cargo\registry\src\index.crates.io-6f17d22bba15001f\accesskit_winit-0.14.4\src\platform_impl\windows.rs:

@@ -1,0 +1,10 @@
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Rust_project\Group-29\group29_backup\target\release\deps\libidna-fb0b38304efdfeee.rmeta: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src/lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\deprecated.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\punycode.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\uts46.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Rust_project\Group-29\group29_backup\target\release\deps\libidna-fb0b38304efdfeee.rlib: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src/lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\deprecated.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\punycode.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\uts46.rs
+
+C:\Users\frank\OneDrive\Desktop\Uni\Università Polito\Lezioni\Magistrale\2°Anno\Rust_project\Group-29\group29_backup\target\release\deps\idna-fb0b38304efdfeee.d: C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src/lib.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\deprecated.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\punycode.rs C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\uts46.rs
+
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src/lib.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\deprecated.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\punycode.rs:
+C:\Users\frank\.cargo\registry\src\index.crates.io-6f17d22bba15001f\idna-1.0.3\src\uts46.rs:
