@@ -23,10 +23,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     configure_autorun()?;
 
     #[cfg(target_os = "windows")]
-    const GUI_PATH: &str = "./release/gui_backup.exe";
+    const GUI_PATH: &str = "./release/release_windows/gui_backup.exe";
 
     #[cfg(any(target_os = "linux", target_os = "macos"))]
-    const GUI_PATH: &str = "./release/gui_backup";
+    const GUI_PATH: &str = "./release/release_linux/gui_backup";
     // Avvia la GUI come processo separato
     println!("Avvio della GUI come processo separato...");
     match Command::new(GUI_PATH).spawn() {

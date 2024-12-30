@@ -11,6 +11,8 @@ use serde::Deserialize;
 use winreg::enums::*;
 #[cfg(target_os="windows")]
 use winreg::RegKey;
+#[cfg(target_os="linux")]
+use dirs;
 
 #[derive(Debug, Deserialize)]
 struct ConfigData {

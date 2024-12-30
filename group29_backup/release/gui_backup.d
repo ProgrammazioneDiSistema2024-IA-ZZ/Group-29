@@ -1,1 +1,0 @@
-C:\Users\frank\OneDrive\Desktop\Uni\Università\ Polito\Lezioni\Magistrale\2°Anno\Rust_project\Group-29\group29_backup\target\release\gui_backup.exe: C:\Users\frank\OneDrive\Desktop\Uni\Università\ Polito\Lezioni\Magistrale\2°Anno\Rust_project\Group-29\group29_backup\src\gui_backup.rs

@@ -8,6 +8,7 @@ use std::io::Write;
 use std::io;
 use rayon::prelude::*;
 use crate::dir_functions::get_project_directory;
+use crate::Command;
 
 
 fn calculate_total_size(path: &PathBuf) -> u64 {

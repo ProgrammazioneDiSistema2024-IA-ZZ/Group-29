@@ -1714,6 +1714,7 @@ version = "0.1.0"
 dependencies = [
  "auto-launch",
  "cpal 0.14.2",
+ "dirs",
  "eframe",
  "egui 0.29.1",
  "native-dialog",
