@@ -25,7 +25,7 @@ impl Default for ConfigApp {
 impl App for ConfigApp {
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.heading("Configurazione Applicativo");
+            ui.heading("Configurazione del Backup");
 
             ui.checkbox(&mut self.use_full_folder, "Cartella completa");
 
