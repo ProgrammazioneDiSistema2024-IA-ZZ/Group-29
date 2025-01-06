@@ -23,7 +23,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     configure_autorun()?;
 
     #[cfg(target_os = "windows")]
-    const GUI_PATH: &str = "./target/debug/gui_backup.exe";
+    const GUI_PATH: &str = "gui_backup.exe";
 
     #[cfg(any(target_os = "linux", target_os = "macos"))]
     const GUI_PATH: &str = "gui_backup";
