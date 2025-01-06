@@ -23,9 +23,9 @@ fn calculate_total_size(path: &PathBuf) -> u64 {
     total_size
 }
 
-fn log_backup_info(total_size: u64, duration: Duration) -> Result<(), Box<dyn std::error::Error>> {
-    let proj_dir = get_project_directory()?;
-    let file_path = proj_dir.join("backup_log.txt");
+fn log_backup_info(total_size: u64, duration: Duration, dest_path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+
+    let file_path = dest_path.join("backup_log.txt");
     let mut file = OpenOptions::new()
         .append(true)
         .create(true)
@@ -88,7 +88,7 @@ pub fn perform_backup(backup_type: &str, extension: Option<&str>, src_path: &Pat
 
     let duration = start.elapsed();
 
-    log_backup_info(total_size, duration)?;
+    log_backup_info(total_size, duration, &dest_path)?;
 
     play_sound_backup_ok()?;
 
