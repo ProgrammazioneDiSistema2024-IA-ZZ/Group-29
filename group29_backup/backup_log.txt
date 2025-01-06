@@ -1,9 +1,0 @@
-Backup completato:
-Dimensione totale dei file: 119440 bytes
-Tempo impiegato per il backup: 20.481ms
-Backup completato:
-Dimensione totale dei file: 119440 bytes
-Tempo impiegato per il backup: 12.7836ms
-Backup completato:
-Dimensione totale dei file: 119440 bytes
-Tempo impiegato per il backup: 2.158ms
