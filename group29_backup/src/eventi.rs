@@ -1,3 +1,5 @@
+#[cfg(target_os="linux")]
+use std::process::Command;
 use std::sync::{Arc, mpsc, Mutex};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::{Duration, Instant};

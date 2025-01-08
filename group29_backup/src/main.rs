@@ -1,4 +1,4 @@
-//#![windows_subsystem = "windows"]
+#![windows_subsystem = "windows"]
 mod backup;
 mod gui_backup;
 mod mouse_controller;
