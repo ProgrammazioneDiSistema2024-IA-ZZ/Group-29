@@ -26,7 +26,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     const GUI_PATH: &str = "gui_backup.exe";
 
     #[cfg(any(target_os = "linux", target_os = "macos"))]
-    const GUI_PATH: &str = "gui_backup";
+    const GUI_PATH: &str = "./gui_backup";
 
     println!("Current directory: {:?}", std::env::current_dir()?);
 

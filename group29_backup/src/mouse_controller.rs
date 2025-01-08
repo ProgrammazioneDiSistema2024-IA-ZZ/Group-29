@@ -72,9 +72,8 @@ fn get_screen_size() -> Option<(u32, u32)> {
     }
 
 
-    
     #[cfg(target_os="linux")]
-    unsafe {
+    unsafe{
 
         let display = XOpenDisplay(std::ptr::null());
         if display.is_null() {
