@@ -1713,6 +1713,7 @@ name = "group29_backup"
 version = "0.1.0"
 dependencies = [
  "auto-launch",
+ "core-graphics 0.19.2",
  "cpal 0.14.2",
  "dirs",
  "eframe",
