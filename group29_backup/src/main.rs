@@ -9,7 +9,7 @@ mod tracker;
 mod eventi;
 mod config_autorun;
 
-use std::thread;
+use std::{path::PathBuf, thread};
 use std::process::Command;
 use dir_functions::get_project_directory;
 use crate::config_autorun::{configure_autorun, verify_paths, load_config};
@@ -28,8 +28,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     #[cfg(any(target_os = "linux"))]
     const GUI_PATH: &str = "./gui_backup";
 
+    let proj_dir_maco = get_project_directory()?;
+    let config_path_maco = proj_dir_maco.join("./release/macos/gui_backup");
     #[cfg(any(target_os = "macos"))]
-    const GUI_PATH: &str = "./release/macos/gui_backup";
+    let  GUI_PATH: &str = config_path_maco.to_str().unwrap();
 
     println!("Current directory: {:?}", std::env::current_dir()?);
 
